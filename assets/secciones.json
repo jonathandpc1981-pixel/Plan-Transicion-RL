@@ -1,4 +1,13 @@
 [
+ {
+  "id": "fm-3-07-san-remo",
+  "titulo": "FM 3-07 + ROE (San Remo)",
+  "descripcion": "Marco doctrinal para estabilización y transición: arquitectura de estabilidad + límites legales auditables.",
+  "icono": "fa-solid fa-scale-balanced",
+  "ruta": "secciones/fm-3-07-san-remo.html",
+  "planCompleto": "docs/FM-3-07-y-ROE-(San Remo).pdf",
+  "tags": ["Doctrina", "Estabilización", "ROE", "Legitimidad"]
+}
   {
     "id": "plan-transicion",
     "titulo": "Plan de Transición y Estabilización Fases I y II",
