@@ -14,7 +14,7 @@
     "descripcion": "Documento estratégico base (ruptura, primeras 72 horas, decretos, estabilización).",
     "icono": "fa-solid fa-flag",
     "ruta": "secciones/SeccionI-y-II-72hrs.html",
-    "planCompleto": "docs/Seccion-I-y-II-72hrs.pdf",
+    "planCompleto": "docs/Seccion-i-y-ii-72hrs.pdf",
     "tags": ["Estrategia", "Transición"]
   }
 ]
