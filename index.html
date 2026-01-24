@@ -1,594 +1,428 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tablero de Comando: Plan de Transición y Reconstrucción Nacional</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6; /* Light gray background */
-            color: #1f2937;
-        }
+import React, { useState, useEffect } from 'react';
+import { 
+  Shield, 
+  Zap, 
+  BarChart3, 
+  Globe, 
+  Lock, 
+  Users, 
+  ChevronRight, 
+  AlertTriangle, 
+  Database, 
+  Cpu, 
+  Briefcase, 
+  Eye,
+  Scale,
+  DollarSign
+} from 'lucide-react';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler
+} from 'chart.js';
+import { Line, Doughnut, Bar } from 'react-chartjs-2';
 
-        /* Chart Container Styling - MANDATORY */
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px;
-            max-height: 400px;
-        }
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler
+);
 
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 350px;
-            }
-        }
+const App = () => {
+  const [activeTab, setActiveTab] = useState('dashboard');
+  const [loading, setLoading] = useState(true);
 
-        .active-tab {
-            background-color: #1e3a8a; /* Deep Blue */
-            color: white;
-            border-bottom: 4px solid #fbbf24; /* Amber Gold */
-        }
+  useEffect(() => {
+    // Simulación de carga de datos estratégicos
+    const timer = setTimeout(() => setLoading(false), 800);
+    return () => clearTimeout(timer);
+  }, []);
 
-        .inactive-tab {
-            background-color: white;
-            color: #4b5563;
-        }
-        
-        .card-shadow {
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
+  // --- CONFIGURACIÓN DE GRÁFICOS (Corregido y Expandido) ---
+  const lineData = {
+    labels: ['Día 1', 'Semana 1', 'Mes 1', 'Mes 6', 'Año 1'],
+    datasets: [
+      {
+        label: 'Control Territorial (%)',
+        data: [12, 45, 68, 85, 98],
+        borderColor: '#fbbf24',
+        backgroundColor: 'rgba(251, 191, 36, 0.1)',
+        fill: true,
+        tension: 0.4,
+      },
+    ],
+  };
 
-        /* Custom scrollbar for content areas */
-        .custom-scroll::-webkit-scrollbar {
-            width: 8px;
-        }
-        .custom-scroll::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        .custom-scroll::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 4px;
-        }
-        .custom-scroll::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-    </style>
-    <!-- Chosen Palette: Institutional Authority (Navy Blue #1e3a8a, White, Gray) with Prosperity Accents (Amber/Gold #fbbf24) to reflect Order and Wealth -->
-    <!-- Application Structure Plan: Dashboard Layout. 
-         Top: Mission & Real-time Status. 
-         Left: Navigation based on Timeframes (72h, 30d, 6m, 1y) and Strategic Pillars (Security, Economy, Threats). 
-         Center: Dynamic Content Area showing the specific tactical bullets requested. 
-         Right: Data Visualization column for quick metrics (Risk, Stability, Economic flow). 
-         Bottom: Risk Analysis Matrix.
-         Rationale: Allows the user to visualize the timeline of operations ("Hoja de Ruta") while simultaneously monitoring risks and key metrics. Prioritizes the "Order -> Liberty" flow. -->
-    <!-- Visualization & Content Choices: 
-         1. Timeline: Interactive tabs to switch phases. Goal: Show progression. 
-         2. Risk Radar (Chart.js): Visualizing threats (Chavismo, Resistance). Goal: Compare threat levels.
-         3. Economic Shock Bar Chart (Chart.js): Projecting impact of "Free Import" vs "Control". Goal: Show benefit of shock measures.
-         4. Text Cards: Bullet points for quick reading (Logistics, Vetting, Infra). Goal: Information density without clutter.
-         5. Confirmation: NO SVG, NO Mermaid. All CSS/Canvas. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-</head>
-<body class="h-screen flex flex-col overflow-hidden">
+  const doughnutData = {
+    labels: ['Seguridad/Defensa', 'Logística/Alimentos', 'Energía/Infra', 'Justicia/Vetting'],
+    datasets: [
+      {
+        data: [40, 25, 20, 15],
+        backgroundColor: ['#1e40af', '#10b981', '#f59e0b', '#ef4444'],
+        borderWidth: 0,
+      },
+    ],
+  };
 
-    <!-- Header Section -->
-    <header class="bg-slate-900 text-white p-4 shadow-lg z-10 shrink-0">
-        <div class="container mx-auto flex justify-between items-center">
-            <div class="flex flex-col">
-                <h1 class="text-2xl font-bold tracking-wider text-amber-400">PLAN DE GOBIERNO DE TRANSICIÓN</h1>
-                <p class="text-xs text-slate-400 uppercase tracking-widest">Rumbo Libertad | Orden • Propiedad • Familia • Fe</p>
+  const barData = {
+    labels: ['Oil & Gas', 'Tech/Gov', 'Agro', 'Telecom'],
+    datasets: [
+      {
+        label: 'Inversión Proyectada (Billones $)',
+        data: [4.5, 1.2, 0.8, 2.1],
+        backgroundColor: '#3b82f6',
+      },
+    ],
+  };
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'dashboard':
+        return (
+          <div className="space-y-6 animate-in fade-in duration-500">
+            {/* Métricas Críticas */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <MetricCard title="Fuerza Efectiva" value="45%" status="Saturación" icon={<Shield className="text-blue-500" />} />
+              <MetricCard title="Riesgo Sabotaje" value="CRÍTICO" status="Alerta Roja" icon={<AlertTriangle className="text-red-500" />} color="text-red-500" />
+              <MetricCard title="Legitimidad Funcional" value="82%" status="Reconocimiento" icon={<Globe className="text-emerald-500" />} />
+              <MetricCard title="Caja Recuperada" value="$420M" status="Fase 1" icon={<DollarSign className="text-amber-500" />} />
             </div>
-            <div class="flex gap-4 text-sm font-semibold">
-                <div class="flex items-center gap-2">
-                    <span class="h-3 w-3 rounded-full bg-green-500 animate-pulse"></span>
-                    <span>ESTADO: OPERATIVO</span>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
+                <h3 className="text-slate-200 font-bold mb-4 flex items-center gap-2 uppercase tracking-tighter">
+                  <BarChart3 size={18} className="text-amber-400" /> Proyección de Estabilización
+                </h3>
+                <div className="h-64">
+                  <Line data={lineData} options={{ maintainAspectRatio: false, scales: { y: { grid: { color: '#1e293b' }, ticks: { color: '#64748b' } }, x: { grid: { display: false }, ticks: { color: '#64748b' } } }, plugins: { legend: { display: false } } }} />
                 </div>
-                <div class="bg-amber-600 px-3 py-1 rounded text-xs text-white uppercase">Nivel de Alerta: Máximo</div>
-            </div>
-        </div>
-    </header>
+              </div>
 
-    <!-- Main Layout -->
-    <div class="flex flex-1 overflow-hidden">
-        
-        <!-- Sidebar Navigation -->
-        <nav class="w-64 bg-white border-r border-gray-200 flex flex-col shrink-0 overflow-y-auto hidden md:flex">
-            <div class="p-4 bg-gray-50 border-b border-gray-200">
-                <h3 class="text-xs font-bold text-gray-500 uppercase">Fases Operativas</h3>
-            </div>
-            <ul class="flex-col">
-                <li><button onclick="loadPhase('phase1')" id="btn-phase1" class="w-full text-left px-6 py-4 hover:bg-gray-100 transition-colors border-l-4 border-transparent active-tab font-semibold">Fase I: Ruptura (0 - 72 Horas)</button></li>
-                <li><button onclick="loadPhase('phase2')" id="btn-phase2" class="w-full text-left px-6 py-4 hover:bg-gray-100 transition-colors border-l-4 border-transparent inactive-tab font-semibold">Fase II: Consolidación (30 Días)</button></li>
-                <li><button onclick="loadPhase('phase3')" id="btn-phase3" class="w-full text-left px-6 py-4 hover:bg-gray-100 transition-colors border-l-4 border-transparent inactive-tab font-semibold">Fase III: Estabilización (6 Meses)</button></li>
-                <li><button onclick="loadPhase('phase4')" id="btn-phase4" class="w-full text-left px-6 py-4 hover:bg-gray-100 transition-colors border-l-4 border-transparent inactive-tab font-semibold">Fase IV: Proyección (1 Año)</button></li>
-            </ul>
-
-            <div class="p-4 bg-gray-50 border-b border-gray-200 mt-4">
-                <h3 class="text-xs font-bold text-gray-500 uppercase">Inteligencia Estratégica</h3>
-            </div>
-            <ul class="flex-col">
-                <li><button onclick="loadPhase('risks')" id="btn-risks" class="w-full text-left px-6 py-3 hover:bg-red-50 transition-colors border-l-4 border-transparent inactive-tab text-red-700">⚔️ Amenazas y Resistencia</button></li>
-                <li><button onclick="loadPhase('alliances')" id="btn-alliances" class="w-full text-left px-6 py-3 hover:bg-blue-50 transition-colors border-l-4 border-transparent inactive-tab text-blue-700">🌍 Alianzas (Davos/Israel)</button></li>
-            </ul>
-        </nav>
-
-        <!-- Mobile Nav Toggle (Visible only on small screens) -->
-        <div class="md:hidden fixed bottom-4 right-4 z-50">
-            <button onclick="toggleMobileMenu()" class="bg-blue-900 text-white p-4 rounded-full shadow-lg text-2xl">☰</button>
-        </div>
-
-        <!-- Content Area -->
-        <main class="flex-1 overflow-y-auto p-4 md:p-8 bg-gray-100 custom-scroll relative">
-            
-            <!-- Mobile Menu Overlay -->
-            <div id="mobile-menu" class="hidden absolute inset-0 bg-white z-40 p-4 overflow-y-auto">
-                <h2 class="text-xl font-bold mb-4 text-blue-900">Menú de Navegación</h2>
-                <div class="space-y-2">
-                    <button onclick="loadPhase('phase1'); toggleMobileMenu()" class="block w-full text-left p-3 bg-gray-100 rounded">Fase I: Ruptura (72h)</button>
-                    <button onclick="loadPhase('phase2'); toggleMobileMenu()" class="block w-full text-left p-3 bg-gray-100 rounded">Fase II: Consolidación (30d)</button>
-                    <button onclick="loadPhase('phase3'); toggleMobileMenu()" class="block w-full text-left p-3 bg-gray-100 rounded">Fase III: Estabilización (6m)</button>
-                    <button onclick="loadPhase('phase4'); toggleMobileMenu()" class="block w-full text-left p-3 bg-gray-100 rounded">Fase IV: Proyección (1a)</button>
-                    <button onclick="loadPhase('risks'); toggleMobileMenu()" class="block w-full text-left p-3 bg-red-100 text-red-800 rounded">Amenazas</button>
-                    <button onclick="loadPhase('alliances'); toggleMobileMenu()" class="block w-full text-left p-3 bg-blue-100 text-blue-800 rounded">Alianzas</button>
+              <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
+                <h3 className="text-slate-200 font-bold mb-4 flex items-center gap-2 uppercase tracking-tighter">
+                  <Zap size={18} className="text-emerald-400" /> Prioridades de Gasto H-0
+                </h3>
+                <div className="h-64 flex justify-center">
+                  <Doughnut data={doughnutData} options={{ maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', padding: 20 } } } }} />
                 </div>
-                <button onclick="toggleMobileMenu()" class="mt-8 w-full bg-slate-800 text-white p-3 rounded">Cerrar Menú</button>
+              </div>
             </div>
 
-            <!-- Dynamic Header for Section -->
-            <div class="mb-6">
-                <h2 id="section-title" class="text-3xl font-bold text-slate-800">Fase I: Ruptura y Control Inmediato</h2>
-                <p id="section-subtitle" class="text-slate-600 mt-2 text-lg">Objetivo: Descabezamiento técnico, control territorial y shock de confianza en las primeras 72 horas.</p>
+            {/* Fases del Plan Maestro */}
+            <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
+              <h3 className="text-slate-200 font-bold mb-6 uppercase tracking-widest flex items-center gap-2">
+                <ChevronRight className="text-amber-500" /> Resumen Ejecución "Ruptura Hegemónica"
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <TaskItem 
+                  title="Operación Ola Verde (72h)" 
+                  desc="Apertura total de fronteras. Libre importación sin aranceles. Escoltas militares para convoyes privados de alimentos." 
+                  status="Prioridad 1"
+                />
+                <TaskItem 
+                  title="Billetera Libre" 
+                  desc="Transferencia directa de $50-$100 USD en stablecoins para neutralizar saqueos por hambre ('No saques, compra')." 
+                  status="Prioridad 1"
+                />
+                <TaskItem 
+                  title="Vetting ANP" 
+                  desc="Lustración y depuración de fuerzas policiales usando polígrafo y auditoría de vida. Disolución del SEBIN/DGCIM." 
+                  status="En Curso"
+                />
+              </div>
             </div>
+          </div>
+        );
 
-            <!-- Dashboard Grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                
-                <!-- Main Content Column (Left - 2 cols) -->
-                <div class="lg:col-span-2 space-y-6">
-                    <!-- Intro Context Box -->
-                    <div class="bg-white p-6 rounded-lg card-shadow border-l-4 border-blue-600">
-                        <h3 class="font-bold text-lg mb-2 text-blue-900">Contexto Estratégico</h3>
-                        <p id="context-text" class="text-gray-700 leading-relaxed">
-                            Esta fase crítica determina la viabilidad de la transición. Se prioriza el orden sobre la política. La doctrina de "Shock de Confianza" busca saturar los mercados para evitar estallidos sociales y neutralizar la capacidad de movilización de las estructuras criminales mediante la fuerza y la logística.
-                        </p>
-                    </div>
-
-                    <!-- Action Cards Container -->
-                    <div id="action-cards" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- Cards injected via JS -->
-                    </div>
+      case 'security':
+        return (
+          <div className="space-y-6 animate-in slide-in-from-bottom-4 duration-500">
+            <div className="bg-slate-900 border border-slate-800 p-8 rounded-xl">
+              <h2 className="text-2xl font-black text-white mb-6 italic uppercase tracking-tighter border-b border-slate-800 pb-4">
+                SSR: Reforma del Sector Seguridad e Inteligencia
+              </h2>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div className="space-y-4">
+                  <h3 className="text-amber-400 font-bold uppercase text-sm">Alianza Estratégica con Israel</h3>
+                  <div className="bg-slate-800/50 p-4 rounded border-l-4 border-blue-500">
+                    <p className="text-slate-300 text-sm font-bold mb-2">Unidad NBCTF (Counter Terror Financing):</p>
+                    <p className="text-slate-400 text-xs leading-relaxed">Implementación de rastreo de activos financieros de Hezbollah e Irán. Identificación de lavado de dinero del Cártel de los Soles.</p>
+                  </div>
+                  <div className="bg-slate-800/50 p-4 rounded border-l-4 border-blue-500">
+                    <p className="text-slate-300 text-sm font-bold mb-2">Integridad Documental (SAIME Audit):</p>
+                    <p className="text-slate-400 text-xs leading-relaxed">Invalidación masiva de visas y pasaportes otorgados a células terroristas extranjeras.</p>
+                  </div>
                 </div>
-
-                <!-- Metrics & Visuals Column (Right - 1 col) -->
-                <div class="space-y-6">
-                    
-                    <!-- Chart 1: Resource/Focus Allocation -->
-                    <div class="bg-white p-4 rounded-lg card-shadow">
-                        <h4 class="font-bold text-gray-700 mb-4 text-sm uppercase text-center">Prioridad Operacional</h4>
-                        <div class="chart-container">
-                            <canvas id="focusChart"></canvas>
-                        </div>
-                        <p id="chart-desc-1" class="text-xs text-center text-gray-500 mt-2">Distribución de recursos en seguridad vs. administración.</p>
-                    </div>
-
-                    <!-- Chart 2: Stability Index -->
-                    <div class="bg-white p-4 rounded-lg card-shadow">
-                        <h4 class="font-bold text-gray-700 mb-4 text-sm uppercase text-center">Proyección de Estabilidad</h4>
-                        <div class="chart-container">
-                            <canvas id="stabilityChart"></canvas>
-                        </div>
-                        <p id="chart-desc-2" class="text-xs text-center text-gray-500 mt-2">Evolución estimada del control territorial.</p>
-                    </div>
-
-                    <!-- Key Metrics Widgets -->
-                    <div class="grid grid-cols-2 gap-2">
-                        <div class="bg-slate-800 p-3 rounded text-center text-white">
-                            <div class="text-xs uppercase opacity-70">Fuerza Efectiva</div>
-                            <div id="metric-1" class="text-xl font-bold text-amber-400">45%</div>
-                        </div>
-                        <div class="bg-slate-800 p-3 rounded text-center text-white">
-                            <div class="text-xs uppercase opacity-70">Riesgo Social</div>
-                            <div id="metric-2" class="text-xl font-bold text-red-400">ALTO</div>
-                        </div>
-                    </div>
-
+                <div className="space-y-4">
+                  <h3 className="text-red-500 font-bold uppercase text-sm">Reglas de Enfrentamiento (ROE)</h3>
+                  <div className="bg-red-950/20 p-4 rounded border border-red-500/30">
+                    <p className="text-red-200 text-sm font-bold mb-1">Doctrina FM 3-07:</p>
+                    <p className="text-slate-400 text-xs">Los colectivos armados y grupos paraestatales son clasificados como 'Enemigos Combatientes'. Uso de fuerza letal autorizado ante sabotaje de infraestructura crítica.</p>
+                  </div>
+                  <div className="bg-slate-800/50 p-4 rounded border-l-4 border-slate-400">
+                    <p className="text-slate-300 text-sm font-bold mb-1">Monopolio de la Fuerza:</p>
+                    <p className="text-slate-400 text-xs">Desarme urbano obligatorio. Prohibición total de porte de armas a civiles no registrados.</p>
+                  </div>
                 </div>
-
+              </div>
             </div>
+          </div>
+        );
 
+      case 'economy':
+        return (
+          <div className="space-y-6 animate-in slide-in-from-bottom-4">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="lg:col-span-2 bg-slate-900 border border-slate-800 p-8 rounded-xl">
+                <h2 className="text-2xl font-black text-white mb-6 uppercase italic tracking-tighter">Shock de Estabilización y Propiedad</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="p-4 bg-emerald-950/10 border border-emerald-900/30 rounded">
+                    <h4 className="text-emerald-400 font-bold text-sm mb-2">Agencia de Hidrocarburos</h4>
+                    <p className="text-slate-400 text-xs">PDVSA deja de ser operador. Se convierte en regulador. Concesiones directas a 20 años con arbitraje internacional.</p>
+                  </div>
+                  <div className="p-4 bg-blue-950/10 border border-blue-900/30 rounded">
+                    <h4 className="text-blue-400 font-bold text-sm mb-2">Dolarización y Banca</h4>
+                    <p className="text-slate-400 text-xs">Adopción del USD. Clearing local en divisas. Entrada de banca internacional (USA/Israel/EU) inmediata.</p>
+                  </div>
+                  <div className="p-4 bg-amber-950/10 border border-amber-900/30 rounded">
+                    <h4 className="text-amber-400 font-bold text-sm mb-2">Fondo Patrimonial</h4>
+                    <p className="text-slate-400 text-xs">Regalías al ciudadano. El Estado no administra el ingreso: el ciudadano recibe su dividendo.</p>
+                  </div>
+                  <div className="p-4 bg-slate-800/30 border border-slate-700/30 rounded">
+                    <h4 className="text-slate-300 font-bold text-sm mb-2">Devolución de Tierras</h4>
+                    <p className="text-slate-400 text-xs">Restitución inmediata de propiedades confiscadas. Títulos inmutables registrados en Blockchain.</p>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
+                <h3 className="text-slate-200 font-bold mb-4 uppercase text-xs">Pitch Davos: ROI Proyectado</h3>
+                <div className="h-48">
+                  <Bar data={barData} options={{ maintainAspectRatio: false, plugins: { legend: { display: false } } }} />
+                </div>
+                <div className="mt-4 p-4 bg-slate-800 rounded text-[10px] text-slate-400 leading-relaxed italic">
+                  "No pedimos fe, ofrecemos estructura fiduciaria blindada y arbitraje internacional desde el día 1."
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'tech':
+        return (
+          <div className="space-y-6 animate-in slide-in-from-bottom-4">
+            <div className="bg-slate-900 border border-slate-800 p-8 rounded-xl">
+              <h2 className="text-2xl font-black text-white mb-6 uppercase tracking-tighter">Plan Maestro de Reestructuración Tecnológica</h2>
+              <div className="relative border-l-2 border-slate-700 ml-4 space-y-8">
+                <TimelineStep 
+                  step="Fase 1: Legal" 
+                  desc="Reestructuración de leyes para garantizar respeto absoluto a la inversión privada tecnológica." 
+                />
+                <TimelineStep 
+                  step="Fase 2 & 3: Factibilidad" 
+                  desc="Levantamiento de infraestructura TV/Datos. Diseño del 'Nuevo Guri Digital'. Plan de conectividad satelital LEO." 
+                />
+                <TimelineStep 
+                  step="Fase 4: RFI (Request for Information)" 
+                  desc="Llamado a fabricantes globales (Cisco, Starlink, Huawei [vetado], etc.) para presentar soluciones y costos." 
+                />
+                <TimelineStep 
+                  step="Fase 5: RFP (Licitación)" 
+                  desc="Competencia abierta por presupuesto. Implementación de 'Open Treasury' para transparencia fiduciaria." 
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl flex items-center gap-4">
+                <Database className="text-blue-500" size={32} />
+                <div>
+                  <h4 className="text-white font-bold text-sm">Open Treasury Blockchain</h4>
+                  <p className="text-slate-500 text-xs">Gasto público rastreable en tiempo real.</p>
+                </div>
+              </div>
+              <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl flex items-center gap-4">
+                <Cpu className="text-emerald-500" size={32} />
+                <div>
+                  <h4 className="text-white font-bold text-sm">Identidad Digital Soberana</h4>
+                  <p className="text-slate-500 text-xs">Biometría para depuración electoral y ciudadana.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'lustration':
+        return (
+          <div className="space-y-6 animate-in slide-in-from-bottom-4">
+            <div className="bg-slate-900 border border-slate-800 p-8 rounded-xl">
+              <div className="flex items-center gap-4 mb-8">
+                <Scale className="text-red-500" size={40} />
+                <h2 className="text-2xl font-black text-white uppercase italic tracking-tighter">Ley de Lustración y Poder Civil</h2>
+              </div>
+              <p className="text-slate-400 mb-8 text-sm italic border-b border-slate-800 pb-4">
+                "La democracia sin justicia es un suicidio. Rumbo Libertad no recicla élites, las remueve."
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="p-6 bg-slate-950 rounded-lg border border-red-900/20">
+                  <h4 className="text-red-500 font-bold mb-4 uppercase text-xs tracking-widest">Depuración Política</h4>
+                  <ul className="space-y-3 text-xs text-slate-400">
+                    <li className="flex items-start gap-2">• Inhabilitación perpetua para la cúpula del PSUV y Cártel de los Soles.</li>
+                    <li className="flex items-start gap-2">• Inhabilitación por 10 años para la "falsa oposición" colaboracionista.</li>
+                    <li className="flex items-start gap-2">• Juicios de extinción de dominio para recuperar bienes malversados.</li>
+                  </ul>
+                </div>
+                <div className="p-6 bg-slate-950 rounded-lg border border-emerald-900/20">
+                  <h4 className="text-emerald-500 font-bold mb-4 uppercase text-xs tracking-widest">Moratoria Electoral</h4>
+                  <ul className="space-y-3 text-xs text-slate-400">
+                    <li className="flex items-start gap-2">• Periodo de Estabilización (24-36 meses) sin elecciones generales.</li>
+                    <li className="flex items-start gap-2">• La legitimidad inicial es FUNCIONAL, basada en el Orden y el Rescate.</li>
+                    <li className="flex items-start gap-2">• Nuevo Censo Biométrico como condición para el voto futuro.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-amber-500 selection:text-black">
+      {/* Barra de Navegación Lateral */}
+      <div className="flex h-screen overflow-hidden">
+        <aside className="w-64 bg-slate-900 border-r border-slate-800 flex flex-col shrink-0 hidden md:flex">
+          <div className="p-6 flex flex-col items-center border-b border-slate-800">
+            <div className="w-16 h-16 bg-slate-800 rounded-full flex items-center justify-center mb-4 border border-slate-700">
+              <Shield className="text-amber-500" size={32} />
+            </div>
+            <h1 className="text-lg font-black tracking-tighter text-white uppercase italic">Rumbo Libertad</h1>
+            <p className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.2em] mt-1">Transición • Orden</p>
+          </div>
+          
+          <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+            <NavButton active={activeTab === 'dashboard'} onClick={() => setActiveTab('dashboard')} icon={<BarChart3 size={18} />} label="Centro de Control" />
+            <NavButton active={activeTab === 'security'} onClick={() => setActiveTab('security')} icon={<Lock size={18} />} label="Seguridad / Israel" />
+            <NavButton active={activeTab === 'economy'} onClick={() => setActiveTab('economy')} icon={<Briefcase size={18} />} label="Economía / Davos" />
+            <NavButton active={activeTab === 'tech'} onClick={() => setActiveTab('tech')} icon={<Cpu size={18} />} label="Plan Tecnológico" />
+            <NavButton active={activeTab === 'lustration'} onClick={() => setActiveTab('lustration')} icon={<Scale size={18} />} label="Lustración" />
+          </nav>
+
+          <div className="p-6 border-t border-slate-800">
+            <div className="flex items-center gap-3 p-3 bg-red-900/10 border border-red-900/30 rounded-lg text-red-500">
+              <Users size={20} />
+              <div className="text-[10px] font-bold uppercase leading-none">
+                <p>Usuario: E. Bittar</p>
+                <p className="text-red-700 mt-1 italic">Nivel: Administrador</p>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        {/* Contenido Principal */}
+        <main className="flex-1 overflow-y-auto bg-slate-950 p-4 md:p-8 custom-scrollbar">
+          {loading ? (
+            <div className="h-full flex flex-col items-center justify-center space-y-4">
+              <div className="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin"></div>
+              <p className="text-xs font-bold uppercase tracking-widest text-slate-500">Sincronizando Inteligencia...</p>
+            </div>
+          ) : (
+            <div className="max-w-6xl mx-auto">
+              <header className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-900 pb-6">
+                <div>
+                  <div className="flex items-center gap-2 text-[10px] font-bold text-amber-500 uppercase tracking-widest mb-2">
+                    <span className="h-2 w-2 bg-amber-500 rounded-full animate-pulse"></span>
+                    Terminal Estratégica Transición
+                  </div>
+                  <h1 className="text-4xl font-black text-white uppercase italic tracking-tighter">Plan Maestro</h1>
+                </div>
+                <div className="flex gap-2">
+                  <button className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-xs font-bold uppercase rounded border border-slate-700 transition-all">Exportar PDF</button>
+                  <button className="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-slate-950 text-xs font-bold uppercase rounded transition-all">Ejecutar Comando</button>
+                </div>
+              </header>
+
+              {renderContent()}
+            </div>
+          )}
         </main>
+      </div>
+
+      <style jsx>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: #020617;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: #1e293b;
+          border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: #334155;
+        }
+      `}</style>
     </div>
+  );
+};
 
-    <!-- JavaScript Logic -->
-    <script>
-        // --- DATA STORE ---
-        const appData = {
-            phase1: {
-                title: "Fase I: Ruptura (0 - 72 Horas)",
-                subtitle: "Operación 'Shock de Confianza' y Control Territorial Inmediato.",
-                context: "En las primeras 72 horas, la prioridad absoluta es evitar el vacío de poder y el caos social. No se negocia; se ocupa. La estrategia se centra en saturar los mercados de alimentos para desactivar saqueos y en desplegar fuerzas leales para proteger infraestructura crítica (Guri, PDVSA).",
-                metrics: { force: "60%", risk: "CRÍTICO" },
-                chartFocus: [70, 20, 10], // Seguridad, Logística, Política
-                chartStability: [10, 30, 45, 60, 80],
-                cards: [
-                    {
-                        title: "🛡️ Seguridad y Orden Público",
-                        content: [
-                            "Despliegue inmediato de unidades vetadas para protección de Guri y refinerías.",
-                            "Cambio de ROE (Reglas de Enfrentamiento): Uso de fuerza letal autorizado ante sabotaje de infraestructura o saqueos armados.",
-                            "Escoltas Militares: GN deja de reprimir y pasa a escoltar caravanas de alimentos privados desde fronteras."
-                        ],
-                        color: "border-red-500"
-                    },
-                    {
-                        title: "📦 Logística: 'Ola Verde'",
-                        content: [
-                            "Decreto de Libre Importación Inmediata: Apertura total de fronteras (Brasil/Colombia).",
-                            "Eliminación de aranceles y permisos sanitarios temporales para alimentos.",
-                            "Objetivo: Saturar mercados municipales para que el ciudadano vea comida y no necesite saquear."
-                        ],
-                        color: "border-green-500"
-                    },
-                    {
-                        title: "💰 Economía: 'Billetera Libre'",
-                        content: [
-                            "Transferencia directa ($50-$100 USD) en stablecoins/digital a beneficiarios de ayudas.",
-                            "Mensaje: 'No saques, compra'. Reactivación inmediata del comercio privado con divisas reales.",
-                            "Monetización del apoyo popular sin intermediarios políticos."
-                        ],
-                        color: "border-amber-500"
-                    },
-                    {
-                        title: "⚖️ Jurídico: Descabezamiento",
-                        content: [
-                            "Captura o neutralización de la cúpula del Cartel de los Soles bajo indictments de EE. UU.",
-                            "Designación de Gobierno de Transición con reconocimiento internacional inmediato.",
-                            "Suspensión de garantías constitucionales específicas en zonas de conflicto."
-                        ],
-                        color: "border-slate-500"
-                    }
-                ]
-            },
-            phase2: {
-                title: "Fase II: Consolidación (Primeros 30 Días)",
-                subtitle: "Depuración Institucional y Justicia Transicional.",
-                context: "Estabilizado el caos inicial, se procede a la limpieza profunda (Vetting) de las fuerzas armadas y la administración pública, utilizando tecnología blockchain y biometría para evitar la infiltración de agentes dobles.",
-                metrics: { force: "75%", risk: "ALTO" },
-                chartFocus: [40, 30, 30], // Seguridad, Justicia, Economía
-                chartStability: [60, 65, 70, 75, 78],
-                cards: [
-                    {
-                        title: "🔍 Vetting y Depuración (Lustración)",
-                        content: [
-                            "Aplicación de pruebas de confianza (polígrafo, análisis financiero) a toda la oficialidad media y alta.",
-                            "Uso de registros inmutables (Blockchain) para certificar personal apto.",
-                            "Integración de militares en el exilio leales a la Constitución."
-                        ],
-                        color: "border-blue-500"
-                    },
-                    {
-                        title: "⚡ Infraestructura Crítica",
-                        content: [
-                            "Fase 2 del Plan Tecnológico: Levantamiento de información de infraestructura existente.",
-                            "Intervención de CORPOELEC y CANTV con personal técnico cualificado.",
-                            "Auditoría de seguridad cibernética para evitar apagones provocados (sabotaje lógico)."
-                        ],
-                        color: "border-yellow-500"
-                    },
-                    {
-                        title: "💵 Estabilización Financiera",
-                        content: [
-                            "Inicio de conversaciones formales con FMI y Banco Mundial.",
-                            "Auditoría forense de reservas y activos en el exterior (Recuperación de Activos).",
-                            "Implementación de arquitectura AML/CFT (Anti-Money Laundering) con estándares israelíes."
-                        ],
-                        color: "border-emerald-500"
-                    },
-                    {
-                        title: "⚖️ Justicia: Tribunales Híbridos",
-                        content: [
-                            "Instalación de tribunales especiales con veeduría internacional.",
-                            "Procesamiento rápido de crímenes de lesa humanidad y corrupción mayor.",
-                            "Diferenciación: Amnistía para rangos bajos que colaboren vs. Castigo ejemplar para la cúpula."
-                        ],
-                        color: "border-gray-500"
-                    }
-                ]
-            },
-            phase3: {
-                title: "Fase III: Estabilización (6 Meses)",
-                subtitle: "Reconstrucción Económica y Proyectos Estructurales.",
-                context: "Con el monopolio de la fuerza recuperado, el foco gira hacia la reactivación económica masiva y la reconstrucción de servicios básicos mediante licitaciones transparentes.",
-                metrics: { force: "90%", risk: "MEDIO" },
-                chartFocus: [20, 50, 30], // Seguridad, Infraestructura, Institucional
-                chartStability: [78, 82, 85, 88, 90],
-                cards: [
-                    {
-                        title: "🏗️ Proyectos Nacionales (RFI/RFP)",
-                        content: [
-                            "Fase 3 y 4 Tecnológica: Request for Information (RFI) a fabricantes globales.",
-                            "Licitaciones para modernización de red de fibra óptica, 5G y transmisión eléctrica.",
-                            "Modelo de contratación transparente para evitar la 'cartelización' de obras."
-                        ],
-                        color: "border-orange-500"
-                    },
-                    {
-                        title: "🛢️ Sector Energético (Oil & Gas)",
-                        content: [
-                            "Apertura a capital privado en campos maduros de PDVSA.",
-                            "Garantías jurídicas para inversiones extranjeras (Protección de Propiedad).",
-                            "Objetivo: Aumentar producción a 1.5M barriles/día en 12 meses."
-                        ],
-                        color: "border-black"
-                    },
-                    {
-                        title: "🌾 Seguridad Alimentaria",
-                        content: [
-                            "Créditos blandos a productores agrícolas con títulos de propiedad garantizados.",
-                            "Eliminación definitiva de controles de precios y guías de movilización (SADA).",
-                            "Devolución de tierras expropiadas a sus dueños legítimos o compensación."
-                        ],
-                        color: "border-green-600"
-                    }
-                ]
-            },
-            phase4: {
-                title: "Fase IV: Proyección (1 Año)",
-                subtitle: "Refundación Republicana y Normalización.",
-                context: "El país opera bajo un Estado de Derecho funcional. La economía de mercado sustituye al rentismo. Se prepara el terreno para elecciones libres en un entorno seguro, no bajo coacción criminal.",
-                metrics: { force: "100%", risk: "BAJO" },
-                chartFocus: [10, 40, 50], // Seguridad, Economía, Institucional
-                chartStability: [90, 92, 95, 98, 100],
-                cards: [
-                    {
-                        title: "🗳️ Institucionalidad Civil",
-                        content: [
-                            "Subordinación total del poder militar al poder civil consolidado.",
-                            "Convocatoria a elecciones generales con nuevo registro electoral depurado.",
-                            "Promulgación de leyes de protección a la vida, propiedad y familia."
-                        ],
-                        color: "border-indigo-500"
-                    },
-                    {
-                        title: "🚀 Economía de Mercado",
-                        content: [
-                            "Privatización de empresas estatales no estratégicas.",
-                            "Consolidación de un sistema bancario internacionalizado.",
-                            "Venezuela como 'Hub Energético y Tecnológico' seguro para Occidente."
-                        ],
-                        color: "border-blue-600"
-                    },
-                    {
-                        title: "🌐 Posicionamiento Global",
-                        content: [
-                            "Ingreso pleno a tratados de libre comercio.",
-                            "Alianza estratégica de seguridad con EE. UU. e Israel consolidada.",
-                            "Exportación de gas y energía a aliados democráticos."
-                        ],
-                        color: "border-cyan-500"
-                    }
-                ]
-            },
-            risks: {
-                title: "Matriz de Amenazas y Resistencia",
-                subtitle: "Análisis de Actores Hostiles y Estrategias de Neutralización.",
-                context: "La transición enfrentará dos frentes: la violencia armada del chavismo radical y el sabotaje político de la 'falsa oposición' socialista que busca la cohabitación para mantener privilegios.",
-                metrics: { force: "N/A", risk: "VARIABLE" },
-                chartFocus: [50, 50, 0], // Interno, Externo, N/A
-                chartStability: [40, 35, 50, 40, 60], // Fluctuación por conflictos
-                cards: [
-                    {
-                        title: "🔴 Chavismo Radical / Cártel",
-                        content: [
-                            "Amenaza: Guerra asimétrica, terrorismo urbano, sabotaje eléctrico.",
-                            "Respuesta: Operaciones quirúrgicas de fuerzas especiales, inteligencia financiera (bloqueo de fondos), aislamiento internacional total."
-                        ],
-                        color: "border-red-600"
-                    },
-                    {
-                        title: "🟠 Colectivos y Bandas",
-                        content: [
-                            "Amenaza: Control territorial en barrios, extorsión, secuestro.",
-                            "Respuesta: Desarme forzoso, recompensas por entrega de armas, intervención policial militarizada en 'zonas de paz'."
-                        ],
-                        color: "border-orange-600"
-                    },
-                    {
-                        title: "🟡 Oposición Colaboracionista",
-                        content: [
-                            "Amenaza: Cabildeo internacional para 'diálogo', deslegitimación del uso de la fuerza, infiltración en el gobierno de transición.",
-                            "Respuesta: Exposición pública de vínculos pasados, exclusión de cargos de seguridad, narrativa de 'Cero Impunidad'."
-                        ],
-                        color: "border-yellow-600"
-                    },
-                    {
-                        title: "🦠 Insurgencia Extranjera (ELN/FARC/Hezbollah)",
-                        content: [
-                            "Amenaza: Ataques en frontera, defensa de rutas de narcotráfico.",
-                            "Respuesta: Cooperación militar con Colombia/Brasil/EE.UU., declaración de zonas de exclusión aérea, bombardeos tácticos a campamentos."
-                        ],
-                        color: "border-slate-800"
-                    }
-                ]
-            },
-            alliances: {
-                title: "Alianzas Estratégicas y Diplomacia",
-                subtitle: "Davos y Cooperación Internacional (Israel/USA).",
-                context: "No pedimos caridad, ofrecemos oportunidades de inversión seguras y orden. La narrativa en Davos y ante aliados debe ser de ingeniería de riesgo-retorno, no política sentimental.",
-                metrics: { force: "100%", risk: "BAJO" },
-                chartFocus: [20, 40, 40], // Diplomacia, Economía, Seguridad
-                chartStability: [80, 85, 90, 95, 100],
-                cards: [
-                    {
-                        title: "🇮🇱 Cooperación con Israel",
-                        content: [
-                            "Objetivo: Desmantelar redes de Hezbollah e Irán en Venezuela.",
-                            "Herramientas: Inteligencia financiera (NBCTF), tecnología de ciberseguridad, entrenamiento en protección de fronteras.",
-                            "Intercambio: Información sobre células terroristas a cambio de soporte técnico."
-                        ],
-                        color: "border-blue-400"
-                    },
-                    {
-                        title: "👔 Estrategia Davos",
-                        content: [
-                            "Mensaje: 'Venezuela no es una crisis, es una oportunidad de inversión distressed con alto retorno si hay orden'.",
-                            "Oferta: Energía, Infraestructura, GovTech.",
-                            "Garantía: Marcos legales blindados, arbitraje internacional, trazabilidad de fondos."
-                        ],
-                        color: "border-slate-600"
-                    },
-                    {
-                        title: "🇺🇸 Respaldo de EE. UU.",
-                        content: [
-                            "Rol: Habilitador de estabilidad (no intervención directa, sino apoyo logístico/inteligencia).",
-                            "Beneficio Mutuo: Freno a la migración descontrolada y al narcotráfico.",
-                            "Legitimidad: Reconocimiento diplomático pleno al gobierno de transición."
-                        ],
-                        color: "border-red-700"
-                    }
-                ]
-            }
-        };
+// Componentes Auxiliares
+const NavButton = ({ active, onClick, icon, label }) => (
+  <button 
+    onClick={onClick}
+    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-bold transition-all ${
+      active ? 'bg-amber-500 text-black shadow-lg shadow-amber-500/10' : 'text-slate-500 hover:bg-slate-800 hover:text-slate-300'
+    }`}
+  >
+    {icon}
+    <span>{label}</span>
+  </button>
+);
 
-        // --- CHART INSTANCES ---
-        let focusChartInstance = null;
-        let stabilityChartInstance = null;
+const MetricCard = ({ title, value, status, icon, color = "text-white" }) => (
+  <div className="bg-slate-900 border border-slate-800 p-5 rounded-xl">
+    <div className="flex items-center justify-between mb-2">
+      <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">{title}</span>
+      {icon}
+    </div>
+    <div className={`text-2xl font-black ${color} tracking-tight`}>{value}</div>
+    <div className="text-[10px] text-slate-600 font-bold uppercase mt-1 italic">{status}</div>
+  </div>
+);
 
-        // --- INIT FUNCTION ---
-        document.addEventListener('DOMContentLoaded', () => {
-            loadPhase('phase1'); // Default load
-        });
+const TaskItem = ({ title, desc, status }) => (
+  <div className="p-4 bg-slate-800/40 border border-slate-800 rounded-lg hover:border-slate-600 transition-all group">
+    <div className="flex justify-between items-start mb-2">
+      <h4 className="text-sm font-bold text-white group-hover:text-amber-400 transition-colors">{title}</h4>
+      <span className="text-[9px] px-2 py-0.5 bg-slate-700 text-slate-300 rounded uppercase font-bold">{status}</span>
+    </div>
+    <p className="text-xs text-slate-500 leading-relaxed">{desc}</p>
+  </div>
+);
 
-        // --- CORE LOGIC ---
-        function loadPhase(phaseKey) {
-            const data = appData[phaseKey];
-            
-            // 1. Update Text
-            document.getElementById('section-title').textContent = data.title;
-            document.getElementById('section-subtitle').textContent = data.subtitle;
-            document.getElementById('context-text').textContent = data.context;
-            
-            // 2. Update Metrics Widgets
-            document.getElementById('metric-1').textContent = data.metrics.force;
-            document.getElementById('metric-2').textContent = data.metrics.risk;
-            
-            // Update Metric Colors dynamically
-            const riskEl = document.getElementById('metric-2');
-            if (data.metrics.risk === "CRÍTICO") riskEl.className = "text-xl font-bold text-red-600 blink";
-            else if (data.metrics.risk === "ALTO") riskEl.className = "text-xl font-bold text-orange-500";
-            else if (data.metrics.risk === "MEDIO") riskEl.className = "text-xl font-bold text-yellow-500";
-            else riskEl.className = "text-xl font-bold text-green-500";
+const TimelineStep = ({ step, desc }) => (
+  <div className="relative pl-8">
+    <div className="absolute left-[-9px] top-1.5 w-4 h-4 rounded-full bg-slate-900 border-2 border-amber-500"></div>
+    <h4 className="text-sm font-bold text-white uppercase tracking-tighter mb-1">{step}</h4>
+    <p className="text-xs text-slate-500 max-w-xl">{desc}</p>
+  </div>
+);
 
-            // 3. Render Cards
-            const cardsContainer = document.getElementById('action-cards');
-            cardsContainer.innerHTML = '';
-            data.cards.forEach(card => {
-                const cardHTML = `
-                    <div class="bg-white p-5 rounded-lg card-shadow border-t-4 ${card.color} hover:bg-gray-50 transition-all">
-                        <h4 class="font-bold text-gray-800 mb-3 flex items-center gap-2">${card.title}</h4>
-                        <ul class="space-y-2">
-                            ${card.content.map(item => `<li class="text-sm text-gray-600 flex items-start gap-2"><span class="mt-1 text-xs">🔹</span><span>${item}</span></li>`).join('')}
-                        </ul>
-                    </div>
-                `;
-                cardsContainer.innerHTML += cardHTML;
-            });
-
-            // 4. Update Navigation State
-            document.querySelectorAll('nav button').forEach(btn => {
-                btn.classList.remove('active-tab');
-                btn.classList.add('inactive-tab');
-            });
-            const activeBtn = document.getElementById('btn-' + phaseKey);
-            if(activeBtn) {
-                activeBtn.classList.remove('inactive-tab');
-                activeBtn.classList.add('active-tab');
-            }
-
-            // 5. Update Charts
-            updateCharts(phaseKey, data);
-        }
-
-        function updateCharts(phaseKey, data) {
-            // --- FOCUS CHART (Doughnut) ---
-            const ctxFocus = document.getElementById('focusChart').getContext('2d');
-            
-            let focusLabels = ['Seguridad/Orden', 'Logística/Economía', 'Política/Institucional'];
-            let focusColors = ['#dc2626', '#d97706', '#2563eb']; // Red, Amber, Blue
-            
-            if (phaseKey === 'risks') {
-                focusLabels = ['Amenaza Interna', 'Amenaza Externa', 'Neutral'];
-                focusColors = ['#991b1b', '#000000', '#e5e7eb'];
-            }
-
-            if (focusChartInstance) focusChartInstance.destroy();
-
-            focusChartInstance = new Chart(ctxFocus, {
-                type: 'doughnut',
-                data: {
-                    labels: focusLabels,
-                    datasets: [{
-                        data: data.chartFocus,
-                        backgroundColor: focusColors,
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } }
-                    }
-                }
-            });
-
-            // --- STABILITY CHART (Line) ---
-            const ctxStability = document.getElementById('stabilityChart').getContext('2d');
-            
-            if (stabilityChartInstance) stabilityChartInstance.destroy();
-
-            stabilityChartInstance = new Chart(ctxStability, {
-                type: 'line',
-                data: {
-                    labels: ['Inicio', 'Semana 1', 'Mes 1', 'Mes 6', 'Año 1'],
-                    datasets: [{
-                        label: 'Índice de Control Territorial',
-                        data: data.chartStability,
-                        borderColor: '#1e3a8a',
-                        backgroundColor: 'rgba(30, 58, 138, 0.1)',
-                        fill: true,
-                        tension: 0.3,
-                        pointBackgroundColor: '#fbbf24'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: { beginAtZero: true, max: 100, ticks: { font: { size: 10 } } },
-                        x: { ticks: { font: { size: 10 } } }
-                    },
-                    plugins: {
-                        legend: { display: false }
-                    }
-                }
-            });
-        }
-
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        }
-    </script>
-</body>
-</html>
+export default App;
