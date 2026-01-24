@@ -3,342 +3,347 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VENTIC - Plan Estratégico de Transición</title>
+    <title>Plan Maestro de Transición - Venezuela</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <style>
-        /* Estilos personalizados */
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f3f4f6; }
-        .sidebar-active { background-color: #2563eb; color: white; border-right: 4px solid #60a5fa; }
-        .content-section { display: none; animation: fadeIn 0.3s ease-in-out; }
-        .content-section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .card-hover:hover { transform: translateY(-2px); transition: all 0.2s; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC;
+            color: #1E293B;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+
+        .section-fade {
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+        }
+
+        .nav-link.active {
+            border-bottom: 2px solid #2563EB;
+            color: #2563EB;
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
     </style>
 </head>
-<body class="flex h-screen overflow-hidden">
+<body class="antialiased">
 
-    <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col h-full shadow-xl z-20">
-        <div class="p-6 border-b border-slate-700 flex items-center gap-3">
-            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">V</div>
-            <h1 class="text-xl font-bold text-white tracking-wider">VENTIC</h1>
-        </div>
-
-        <nav class="flex-1 overflow-y-auto py-4">
-            <p class="px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Estratégico</p>
-            <a href="#" onclick="showSection('resumen')" id="nav-resumen" class="flex items-center px-6 py-3 hover:bg-slate-800 transition-colors sidebar-active">
-                <i class="fas fa-home w-6"></i> <span class="font-medium">Visión General</span>
-            </a>
-            <a href="#" onclick="showSection('diagnostico')" id="nav-diagnostico" class="flex items-center px-6 py-3 hover:bg-slate-800 transition-colors">
-                <i class="fas fa-microscope w-6"></i> <span class="font-medium">I. Diagnóstico y Doctrina</span>
-            </a>
-
-            <p class="px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 mt-4">Operativo</p>
-            <a href="#" onclick="showSection('ruptura')" id="nav-ruptura" class="flex items-center px-6 py-3 hover:bg-slate-800 transition-colors">
-                <i class="fas fa-heart-crack w-6"></i> <span class="font-medium">II. Fase de Ruptura</span>
-            </a>
-            <a href="#" onclick="showSection('decretos')" id="nav-decretos" class="flex items-center px-6 py-3 hover:bg-slate-800 transition-colors">
-                <i class="fas fa-gavel w-6"></i> <span class="font-medium">Decretos y Momentos</span>
-            </a>
-        </nav>
-
-        <div class="p-4 border-t border-slate-700 bg-slate-900">
-            <div class="flex items-center gap-3">
-                <div class="bg-green-500 w-2 h-2 rounded-full animate-pulse"></div>
-                <span class="text-xs text-slate-400">Estado: Planificación Activa</span>
+    <header class="sticky top-0 z-50 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl">🇻🇪</span>
+                    <h1 class="font-bold text-xl tracking-tight text-slate-900 uppercase">Plan Libertad</h1>
+                </div>
+                <nav class="hidden md:flex space-x-8 text-sm font-medium text-slate-500">
+                    <button onclick="showSection('doctrina')" class="nav-link active py-5">Doctrina</button>
+                    <button onclick="showSection('hoja-ruta')" class="nav-link py-5">Hoja de Ruta</button>
+                    <button onclick="showSection('seguridad')" class="nav-link py-5">Seguridad</button>
+                    <button onclick="showSection('economia')" class="nav-link py-5">Economía</button>
+                </nav>
             </div>
-            <p class="text-xs text-slate-500 mt-1">Ver. 1.0 | 04-12-2025</p>
         </div>
-    </aside>
+    </header>
 
-    <main class="flex-1 flex flex-col h-full overflow-hidden bg-gray-100">
-        
-        <header class="bg-white shadow-sm h-16 flex items-center justify-between px-8 z-10">
-            <h2 class="text-xl font-bold text-slate-800" id="header-title">Tablero de Control Estratégico</h2>
-            <div class="flex items-center gap-4">
-                <button class="bg-red-50 text-red-600 px-4 py-1.5 rounded-full text-sm font-bold border border-red-200">
-                    <i class="fas fa-siren-on mr-2"></i>Nivel de Amenaza: Crítico
-                </button>
-                <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-600">
-                    <i class="fas fa-user"></i>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <section id="doctrina" class="section-fade space-y-8">
+            <div class="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-r-lg">
+                <h2 class="text-2xl font-bold text-blue-900">Naturaleza de la Amenaza y Marco Doctrinal</h2>
+                <p class="mt-2 text-blue-800 leading-relaxed">
+                    [cite_start]Venezuela no enfrenta una crisis política convencional, sino un <strong>Estado Criminalizado</strong> capturado por una estructura híbrida con capacidad transnacional[cite: 6, 23]. Esta sección define el fundamento ideológico y técnico de la ruptura necesaria, basada en los principios de Dios, Familia y Propiedad Privada.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-xl card-shadow border border-slate-100">
+                    <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+                        <span class="bg-blue-100 p-2 rounded text-blue-600">⚖️</span> Pilares de la Refundación
+                    </h3>
+                    <ul class="space-y-4">
+                        <li class="p-3 bg-slate-50 rounded-lg">
+                            [cite_start]<strong class="text-blue-700">Republicanismo:</strong> La Ley se impone sobre la voluntad de las masas o los tiranos[cite: 13]. [cite_start]Ciudadanos propietarios, no masas dependientes[cite: 14].
+                        </li>
+                        <li class="p-3 bg-slate-50 rounded-lg">
+                            [cite_start]<strong class="text-blue-700">Libertarismo:</strong> Estado reducido a sus funciones naturales: Seguridad, Justicia y Obras Públicas[cite: 15].
+                        </li>
+                        <li class="p-3 bg-slate-50 rounded-lg">
+                            [cite_start]<strong class="text-blue-700">Doctrina FM 3-07:</strong> El orden precede a la democracia electoral en estados colapsados[cite: 1264].
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl card-shadow border border-slate-100">
+                    <h3 class="text-lg font-bold mb-4">Análisis Comparado de Transiciones</h3>
+                    <div class="chart-container">
+                        <canvas id="transicionChart"></canvas>
+                    </div>
                 </div>
             </div>
-        </header>
+        </section>
 
-        <div class="flex-1 overflow-y-auto p-8" id="main-container">
+        <section id="hoja-ruta" class="section-fade hidden space-y-8">
+            <div class="bg-slate-800 text-white p-6 rounded-xl">
+                <h2 class="text-2xl font-bold">Fase de Ruptura: Las Primeras 72 Horas</h2>
+                <p class="mt-2 text-slate-300">
+                    [cite_start]El "Día 1" es una operación de rescate institucional para detener la hemorragia de activos y prevenir el vacío de poder[cite: 76]. [cite_start]Se rige por un Estatuto de Transición con rango supra-constitucional temporal[cite: 77].
+                </p>
+            </div>
 
-            <section id="resumen" class="content-section active">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-blue-600 card-hover">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <p class="text-sm text-slate-500 font-bold uppercase">Objetivo Nacional</p>
-                                <h3 class="text-2xl font-bold text-slate-800 mt-1">Nueva República</h3>
-                            </div>
-                            <div class="p-2 bg-blue-100 rounded text-blue-600"><i class="fas fa-flag"></i></div>
-                        </div>
-                        <p class="text-sm text-slate-600 mt-4">Restauración del monopolio de la fuerza y economía libre.</p>
-                    </div>
-
-                    <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-red-500 card-hover">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <p class="text-sm text-slate-500 font-bold uppercase">Diagnóstico</p>
-                                <h3 class="text-2xl font-bold text-slate-800 mt-1">Estado Criminal</h3>
-                            </div>
-                            <div class="p-2 bg-red-100 rounded text-red-600"><i class="fas fa-skull-crossbones"></i></div>
-                        </div>
-                        <p class="text-sm text-slate-600 mt-4">Fase terminal de captura estatal por estructura híbrida.</p>
-                    </div>
-
-                    <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-emerald-500 card-hover">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <p class="text-sm text-slate-500 font-bold uppercase">Marco Operativo</p>
-                                <h3 class="text-2xl font-bold text-slate-800 mt-1">FM 3-07</h3>
-                            </div>
-                            <div class="p-2 bg-emerald-100 rounded text-emerald-600"><i class="fas fa-book-medical"></i></div>
-                        </div>
-                        <p class="text-sm text-slate-600 mt-4">Operaciones de Estabilidad y Protocolos de San Remo.</p>
-                    </div>
-                </div>
-
-                <div class="bg-slate-800 rounded-xl p-8 text-white text-center shadow-lg mb-8">
-                    <i class="fas fa-quote-left text-slate-600 text-3xl mb-4"></i>
-                    <h2 class="text-2xl md:text-3xl font-bold mb-2">"No se reforma un Estado criminal: se lo desmantela y se lo reemplaza."</h2>
-                    <p class="text-slate-400 mt-2">Principio Rector Único de la Transición</p>
-                </div>
-            </section>
-
-            <section id="diagnostico" class="content-section">
-                <h3 class="text-xl font-bold text-slate-700 mb-6 flex items-center"><i class="fas fa-file-medical-alt mr-2"></i> Informe Ejecutivo: Naturaleza de la Amenaza</h3>
-                
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <div class="space-y-6">
-                        <div class="bg-white rounded-lg shadow p-6">
-                            <h4 class="text-red-600 font-bold border-b pb-2 mb-4">La Estructura de la Amenaza</h4>
-                            <ul class="space-y-3">
-                                <li class="flex items-start"><i class="fas fa-check-circle text-red-500 mt-1 mr-3"></i> <span class="text-sm text-slate-600"><strong>Captura Estatal Terminal:</strong> No es una dictadura convencional, es una estructura criminal híbrida.</span></li>
-                                <li class="flex items-start"><i class="fas fa-check-circle text-red-500 mt-1 mr-3"></i> <span class="text-sm text-slate-600"><strong>Componentes:</strong> Aparato formal (FANB/Justicia) + Redes Transnacionales (Narco) + Irregulares (Guerrilla/Colectivos).</span></li>
-                                <li class="flex items-start"><i class="fas fa-check-circle text-red-500 mt-1 mr-3"></i> <span class="text-sm text-slate-600"><strong>Fachada Política:</strong> Diseñada solo para ganar tiempo y legitimidad.</span></li>
-                            </ul>
-                        </div>
-
-                        <div class="bg-white rounded-lg shadow p-6 border-t-4 border-yellow-400">
-                            <h4 class="text-yellow-600 font-bold border-b pb-2 mb-4">Riesgos Existenciales</h4>
-                            <div class="flex gap-4 mb-4">
-                                <div class="w-1/2 bg-yellow-50 p-3 rounded">
-                                    <p class="font-bold text-sm text-slate-800">1. Mutación Criminal</p>
-                                    <p class="text-xs text-slate-600 mt-1">Repliegue a economías ilícitas y fragmentación territorial ("Somalización").</p>
-                                </div>
-                                <div class="w-1/2 bg-yellow-50 p-3 rounded">
-                                    <p class="font-bold text-sm text-slate-800">2. Trampa de Cohabitación</p>
-                                    <p class="text-xs text-slate-600 mt-1">Gobiernos "mixtos" que preservan cadenas de mando corruptas e impunidad.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="space-y-6">
-                        <div class="bg-white rounded-lg shadow p-6 h-full">
-                            <h4 class="text-blue-600 font-bold border-b pb-2 mb-4">El Estado Final Deseado (End State)</h4>
-                            <p class="text-sm text-slate-600 mb-4">El objetivo no es solo cambiar autoridades, sino fundar una República funcional sustentada en:</p>
-                            
-                            <div class="grid gap-4">
-                                <div class="flex items-center p-3 bg-blue-50 rounded-lg">
-                                    <div class="bg-blue-600 text-white w-10 h-10 rounded flex items-center justify-center mr-4"><i class="fas fa-balance-scale"></i></div>
-                                    <div>
-                                        <p class="font-bold text-slate-800">Ley y Orden Institucional</p>
-                                        <p class="text-xs text-slate-600">Poder subordinado al orden civil.</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center p-3 bg-blue-50 rounded-lg">
-                                    <div class="bg-blue-600 text-white w-10 h-10 rounded flex items-center justify-center mr-4"><i class="fas fa-users"></i></div>
-                                    <div>
-                                        <p class="font-bold text-slate-800">Centralidad de la Familia</p>
-                                        <p class="text-xs text-slate-600">La sociedad precede al Estado.</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center p-3 bg-blue-50 rounded-lg">
-                                    <div class="bg-blue-600 text-white w-10 h-10 rounded flex items-center justify-center mr-4"><i class="fas fa-industry"></i></div>
-                                    <div>
-                                        <p class="font-bold text-slate-800">Libertad Económica</p>
-                                        <p class="text-xs text-slate-600">Prosperidad por trabajo, no por dependencia política.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="ruptura" class="content-section">
-                <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-xl font-bold text-slate-700 flex items-center"><i class="fas fa-stopwatch mr-2"></i> Plan Operativo: Primeras 72 Horas</h3>
-                    <span class="bg-slate-800 text-white px-3 py-1 rounded text-xs">Doctrina: FM 3-07 + San Remo</span>
-                </div>
-
-                <div class="bg-white p-8 rounded-xl shadow-sm mb-8">
-                    <h4 class="text-center font-bold text-slate-600 mb-6">5 Objetivos Estratégicos Simultáneos</h4>
-                    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-                        <div class="text-center p-2 hover:bg-slate-50 rounded transition">
-                            <div class="w-12 h-12 mx-auto bg-red-100 text-red-600 rounded-full flex items-center justify-center mb-2"><i class="fas fa-sitemap"></i></div>
-                            <p class="text-xs font-bold">Neutralizar Cadena de Mando</p>
-                        </div>
-                        <div class="text-center p-2 hover:bg-slate-50 rounded transition">
-                            <div class="w-12 h-12 mx-auto bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-2"><i class="fas fa-shield-alt"></i></div>
-                            <p class="text-xs font-bold">Monopolio de la Fuerza</p>
-                        </div>
-                        <div class="text-center p-2 hover:bg-slate-50 rounded transition">
-                            <div class="w-12 h-12 mx-auto bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center mb-2"><i class="fas fa-bolt"></i></div>
-                            <p class="text-xs font-bold">Proteger Infraestructura</p>
-                        </div>
-                        <div class="text-center p-2 hover:bg-slate-50 rounded transition">
-                            <div class="w-12 h-12 mx-auto bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mb-2"><i class="fas fa-users-slash"></i></div>
-                            <p class="text-xs font-bold">Prevenir Caos Social</p>
-                        </div>
-                        <div class="text-center p-2 hover:bg-slate-50 rounded transition">
-                            <div class="w-12 h-12 mx-auto bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-2"><i class="fas fa-globe"></i></div>
-                            <p class="text-xs font-bold">Legitimidad Operativa</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-slate-600">
-                        <h4 class="font-bold text-slate-800 mb-2">Naturaleza Jurídica</h4>
-                        <p class="text-sm text-slate-600 mb-4">Activación de un <strong>Estatuto de Emergencia y Salvación Nacional</strong>.</p>
-                        <p class="text-xs text-slate-500 bg-slate-100 p-2 rounded">"La legalidad de transición precede a la normalidad constitucional cuando el Estado ha sido usurpado."</p>
-                    </div>
-                    
-                    <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-red-600">
-                        <h4 class="font-bold text-slate-800 mb-2">Reglas de Enfrentamiento (ROE)</h4>
-                        <ul class="text-sm text-slate-600 space-y-2">
-                            <li><i class="fas fa-crosshairs text-red-400 mr-2"></i><strong>Enemigos Combatientes:</strong> Quien porte armas, ejerza control territorial o desafíe autoridad.</li>
-                            <li><i class="fas fa-shield-virus text-red-400 mr-2"></i><strong>Uso de Fuerza:</strong> Proporcional, necesaria y escalonada, pero decisiva.</li>
-                            <li><i class="fas fa-user-shield text-green-500 mr-2"></i><strong>Población:</strong> Distinción clara y protección absoluta a civiles.</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section id="decretos" class="content-section">
-                
-                <div class="mb-8">
-                    <h3 class="text-xl font-bold text-slate-700 mb-4">Secuencia Funcional</h3>
-                    <div class="flex flex-col md:flex-row gap-4">
-                        <div class="flex-1 bg-blue-600 text-white p-4 rounded-lg shadow-lg relative overflow-hidden">
-                            <div class="absolute right-0 top-0 opacity-10 text-6xl font-bold p-2">1</div>
-                            <h4 class="font-bold text-lg">Momento I</h4>
-                            <p class="text-sm opacity-90">Declaración y Corte de Legitimidad</p>
-                            <span class="text-xs mt-2 block bg-blue-700 w-max px-2 py-1 rounded">Decretos 1-5</span>
-                        </div>
-                        <div class="flex-1 bg-white p-4 rounded-lg shadow border border-slate-200 opacity-70">
-                            <h4 class="font-bold text-lg text-slate-700">Momento II</h4>
-                            <p class="text-sm text-slate-500">Control Institucional y Continuidad Técnica</p>
-                        </div>
-                        <div class="flex-1 bg-white p-4 rounded-lg shadow border border-slate-200 opacity-70">
-                            <h4 class="font-bold text-lg text-slate-700">Momento III</h4>
-                            <p class="text-sm text-slate-500">Estabilización Inicial y Contención</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-8">
-                    <div class="p-6 border-b border-slate-100 bg-slate-50">
-                        <h4 class="font-bold text-slate-700">Detalle de Decretos de Emergencia (Momento I)</h4>
-                    </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 bg-white p-6 rounded-xl border border-slate-200">
+                    <h3 class="font-bold mb-4">Decretos Ejecutivos de Emergencia</h3>
                     <div class="overflow-x-auto">
-                        <table class="w-full text-left text-sm text-slate-600">
-                            <thead class="bg-slate-50 text-slate-500 font-bold uppercase text-xs">
+                        <table class="w-full text-sm text-left">
+                            <thead class="bg-slate-50 text-slate-600 uppercase text-xs">
                                 <tr>
-                                    <th class="p-4">Decreto</th>
-                                    <th class="p-4">Acción Estratégica</th>
-                                    <th class="p-4">Impacto Inmediato</th>
+                                    <th class="px-4 py-3">Decreto</th>
+                                    <th class="px-4 py-3">Acción Inmediata</th>
+                                    <th class="px-4 py-3">Objetivo Estratégico</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-100">
-                                <tr class="hover:bg-slate-50">
-                                    <td class="p-4 font-bold text-slate-800">1. Soberanía</td>
-                                    <td class="p-4">Cese de usurpación y destitución TSJ/CNE/Fiscalía.</td>
-                                    <td class="p-4"><span class="bg-red-100 text-red-700 px-2 py-1 rounded text-xs font-bold">Eliminar Mando</span></td>
+                                <tr>
+                                    <td class="px-4 py-3 font-semibold">N° 1: Soberanía</td>
+                                    [cite_start]<td class="px-4 py-3 text-slate-600 text-xs">Nulidad de actos desde el 2000 y destitución de cúpulas TSJ/CNE[cite: 82, 83].</td>
+                                    <td class="px-4 py-3 text-blue-600">Cese de la Usurpación</td>
                                 </tr>
-                                <tr class="hover:bg-slate-50">
-                                    <td class="p-4 font-bold text-slate-800">2. Seguridad</td>
-                                    <td class="p-4">Acuartelamiento de tropa y disolución de paramilitares.</td>
-                                    <td class="p-4"><span class="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs font-bold">Control Fuerza</span></td>
+                                <tr>
+                                    <td class="px-4 py-3 font-semibold">N° 2: Defensa</td>
+                                    [cite_start]<td class="px-4 py-3 text-slate-600 text-xs">Acuartelamiento de FANB y clasificación de "Colectivos" como fuerza hostil[cite: 100, 102].</td>
+                                    <td class="px-4 py-3 text-blue-600">Monopolio de Fuerza</td>
                                 </tr>
-                                <tr class="hover:bg-slate-50">
-                                    <td class="p-4 font-bold text-slate-800">3. Finanzas</td>
-                                    <td class="p-4">Feriado bancario 72h y bloqueo de transferencias.</td>
-                                    <td class="p-4"><span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-bold">Asfixia Económica</span></td>
-                                </tr>
-                                <tr class="hover:bg-slate-50">
-                                    <td class="p-4 font-bold text-slate-800">4. Técnica</td>
-                                    <td class="p-4">Protección de personal operativo (salud, luz, agua).</td>
-                                    <td class="p-4"><span class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded text-xs font-bold">Evitar Colapso</span></td>
-                                </tr>
-                                <tr class="hover:bg-slate-50">
-                                    <td class="p-4 font-bold text-slate-800">5. Humanitario</td>
-                                    <td class="p-4">Corredores humanitarios y jurisdicción internacional.</td>
-                                    <td class="p-4"><span class="bg-purple-100 text-purple-700 px-2 py-1 rounded text-xs font-bold">Justicia/Ayuda</span></td>
+                                <tr>
+                                    <td class="px-4 py-3 font-semibold">N° 3: Financiero</td>
+                                    [cite_start]<td class="px-4 py-3 text-slate-600 text-xs">Feriado bancario (72h) e intervención de PDVSA/BCV[cite: 107, 108].</td>
+                                    <td class="px-4 py-3 text-blue-600">Protección de Activos</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-white p-6 rounded-lg shadow-sm">
-                        <h4 class="font-bold text-slate-800 border-b pb-2 mb-3">Momento II: Control Institucional</h4>
-                        <ul class="space-y-2 text-sm text-slate-600">
-                            <li>• Aseguramiento de nodos estratégicos.</li>
-                            <li>• Diferenciación entre cúpula criminal y funcionario técnico.</li>
-                            <li>• Garantía de continuidad de servicios.</li>
-                        </ul>
+                <div class="bg-white p-6 rounded-xl border border-slate-200">
+                    <h3 class="font-bold mb-4">Nuevo Ejecutivo (RENACER-II)</h3>
+                    [cite_start]<p class="text-xs text-slate-500 mb-4">Reducción drástica del tamaño del Estado para eliminar feudos de corrupción[cite: 426].</p>
+                    <div class="chart-container h-64">
+                        <canvas id="ministeriosChart"></canvas>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-sm">
-                        <h4 class="font-bold text-slate-800 border-b pb-2 mb-3">Momento III: Estabilización</h4>
-                        <ul class="space-y-2 text-sm text-slate-600">
-                            <li>• Comunicación: "Control, no promesas".</li>
-                            <li>• Prevención activa de saqueos y venganzas.</li>
-                            <li>• Condición de cierre: Infraestructura bajo control funcional.</li>
-                        </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="seguridad" class="section-fade hidden space-y-8">
+            <div class="bg-red-50 border-l-4 border-red-600 p-6 rounded-r-lg">
+                <h2 class="text-2xl font-bold text-red-900">Seguridad y Control Territorial</h2>
+                <p class="mt-2 text-red-800 leading-relaxed">
+                    [cite_start]Operaciones de Estabilización y Pacificación para recuperar el control sobre megabandas, guerrilla y pranes[cite: 127, 130]. [cite_start]No se trata de policiamiento, sino de restaurar la soberanía efectiva[cite: 160].
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-xl card-shadow border border-slate-100">
+                        <h3 class="font-bold text-slate-800 mb-2">Protocolo A: Insurgencia Urbana</h3>
+                        [cite_start]<p class="text-sm text-slate-600 mb-4">Operación <strong>"Yunque y Martillo"</strong> para desarticular Colectivos y células del Tren de Aragua[cite: 605].</p>
+                        <div class="flex items-center gap-4">
+                            <div class="h-16 w-1 bg-red-600"></div>
+                            <ul class="text-xs space-y-1">
+                                <li><strong>I. [cite_start]Aislamiento:</strong> Corte de internet y servicios en zona roja[cite: 608].</li>
+                                <li><strong>II. [cite_start]Incursión:</strong> Fuerzas Especiales con drones tácticos[cite: 614, 617].</li>
+                                <li><strong>III. [cite_start]Decapitación:</strong> Captura de líderes (HVTs)[cite: 618].</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl card-shadow border border-slate-100">
+                        <h3 class="font-bold text-slate-800 mb-2">Agencia Nacional de Policía (ANP)</h3>
+                        [cite_start]<p class="text-sm text-slate-600 mb-2 text-xs">Sustitución de Guardia Nacional por fuerza civil profesionalizada[cite: 132].</p>
+                        <div class="grid grid-cols-2 gap-2 text-[10px]">
+                            [cite_start]<div class="p-2 border rounded border-slate-200">PTJV: Investigación Forense [cite: 139]</div>
+                            [cite_start]<div class="p-2 border rounded border-slate-200">GEA: Grupo Antidrogas [cite: 146]</div>
+                            [cite_start]<div class="p-2 border rounded border-slate-200">PNV: Patrullaje Preventivo [cite: 143]</div>
+                            [cite_start]<div class="p-2 border rounded border-slate-200">PMT: Mar y Tierra [cite: 149]</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-xl card-shadow border border-slate-100">
+                    <h3 class="text-lg font-bold mb-4">Distribución Técnica de Amenazas</h3>
+                    <div class="chart-container">
+                        <canvas id="riesgoRadarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="economia" class="section-fade hidden space-y-8">
+            <div class="bg-amber-50 border-l-4 border-amber-600 p-6 rounded-r-lg">
+                <h2 class="text-2xl font-bold text-amber-900">Estabilización Económica de Choque</h2>
+                <p class="mt-2 text-amber-800 leading-relaxed">
+                    [cite_start]Credibilidad instantánea a través de la renuncia a la discrecionalidad[cite: 200]. [cite_start]El objetivo es detener la hiperinflación y restaurar el derecho de propiedad privada como motor de riqueza[cite: 15, 254].
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-xl card-shadow border border-slate-100">
+                    <h3 class="text-lg font-bold mb-6">La "Revolución de los Propietarios"</h3>
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <span class="text-2xl">🔗</span>
+                            <div>
+                                <h4 class="font-bold text-amber-800">Titulación Masiva Blockchain</h4>
+                                [cite_start]<p class="text-sm text-slate-600">Legalización inmutable de propiedad para familias que hoy dependen del control político del Estado[cite: 511].</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="text-2xl">💵</span>
+                            <div>
+                                <h4 class="font-bold text-amber-800">Dolarización Formal</h4>
+                                <p class="text-sm text-slate-600">Legalización del USD como moneda de curso legal para salarios e impuestos. [cite_start]Eliminación definitiva del Bolívar y Petro[cite: 205, 207].</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="text-2xl">🏢</span>
+                            <div>
+                                <h4 class="font-bold text-amber-800">Privatización y Concesiones</h4>
+                                <p class="text-sm text-slate-600">PDVSA pasa de operador a Agencia Administradora. [cite_start]Capital privado asume riesgo e inversión de campos petroleros[cite: 271].</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-            </section>
+                <div class="grid grid-cols-1 gap-6">
+                    <div class="bg-white p-6 rounded-xl border border-slate-200">
+                        <h3 class="font-bold mb-4">El Escudo Social: "Billetera Libre"</h3>
+                        [cite_start]<p class="text-xs text-slate-500 mb-4">Sustitución de cajas CLAP por transferencias directas en USD digitales vía Blockchain[cite: 228, 700].</p>
+                        <div class="p-4 bg-slate-50 rounded-lg border-dashed border-2 border-slate-300 flex justify-center items-center h-32">
+                            <div class="text-center">
+                                <span class="text-3xl">📱</span>
+                                <p class="text-xs font-bold text-slate-500">TRUST THROUGH CODE</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border border-slate-200">
+                        <h3 class="font-bold mb-2">Infraestructura Tecnológica</h3>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs">
+                                <span>Starlink (Soberanía de Datos)</span>
+                                <span class="text-green-600 font-bold">DÍA 1</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-2 rounded">
+                                <div class="bg-blue-600 h-2 rounded w-full"></div>
+                            </div>
+                            <div class="flex justify-between text-xs mt-2">
+                                <span>Registro Propiedad Inmutable</span>
+                                <span class="text-amber-600 font-bold">Fase 1</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-2 rounded">
+                                <div class="bg-amber-500 h-2 rounded w-3/4"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        </div>
     </main>
 
+    <footer class="bg-white border-t border-slate-200 py-12 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-slate-400 text-sm">PLAN MAESTRO PARA LA LIBERACIÓN Y REFUNDACIÓN DE VENEZUELA</p>
+            <p class="text-slate-300 text-[10px] mt-2">Nivel: Máxima Clasificación Estratégica</p>
+        </div>
+    </footer>
+
     <script>
-        // Lógica simple para navegación tipo SPA
-        function showSection(sectionId) {
-            // Ocultar todas las secciones
-            document.querySelectorAll('.content-section').forEach(el => {
-                el.classList.remove('active');
-            });
-            // Mostrar la seleccionada
-            document.getElementById(sectionId).classList.add('active');
-
-            // Actualizar Sidebar Active State
-            document.querySelectorAll('aside nav a').forEach(el => {
-                el.classList.remove('sidebar-active');
-            });
-            document.getElementById('nav-' + sectionId).classList.add('sidebar-active');
-
-            // Actualizar Titulo Header
-            const titles = {
-                'resumen': 'Tablero de Control Estratégico',
-                'diagnostico': 'Diagnóstico y Doctrina',
-                'ruptura': 'Fase de Ruptura (72h)',
-                'decretos': 'Decretos y Momentos'
-            };
-            document.getElementById('header-title').innerText = titles[sectionId];
+        // Lógica de Navegación
+        function showSection(id) {
+            document.querySelectorAll('.section-fade').forEach(s => s.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+            
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            event.target.classList.add('active');
+            window.scrollTo(0, 0);
         }
+
+        // Gráficos
+        const ctx1 = document.getElementById('transicionChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: ['Panamá (1989)', 'Rumanía (1989)', 'Irak (2003)', 'Venezuela (Propuesto)'],
+                datasets: [{
+                    label: 'Grado de Ruptura Institucional',
+                    data: [90, 85, 95, 100],
+                    backgroundColor: ['#94A3B8', '#94A3B8', '#F87171', '#2563EB'],
+                    borderRadius: 5
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true, max: 100 } }
+            }
+        });
+
+        const ctx2 = document.getElementById('ministeriosChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                labels: ['Actual (32+)', 'Propuesto (12)'],
+                datasets: [{
+                    data: [72, 28],
+                    backgroundColor: ['#E2E8F0', '#1E293B'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                cutout: '70%',
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(item) {
+                                return item.label + ': Reducción masiva de gasto político';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const ctx3 = document.getElementById('riesgoRadarChart').getContext('2d');
+        new Chart(ctx3, {
+            type: 'radar',
+            data: {
+                labels: ['Urbano (Petare)', 'Periférico (Vías)', 'Frontera (ELN)', 'Energético (Guri)', 'Financiero (BCV)'],
+                datasets: [{
+                    label: 'Nivel de Gravedad Operativa',
+                    data: [95, 80, 90, 100, 85],
+                    fill: true,
+                    backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                    borderColor: '#EF4444',
+                    pointBackgroundColor: '#EF4444'
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    r: { beginAtZero: true, max: 100, ticks: { display: false } }
+                }
+            }
+        });
     </script>
 </body>
 </html>
