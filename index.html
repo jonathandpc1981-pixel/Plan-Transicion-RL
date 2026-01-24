@@ -1,428 +1,344 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Shield, 
-  Zap, 
-  BarChart3, 
-  Globe, 
-  Lock, 
-  Users, 
-  ChevronRight, 
-  AlertTriangle, 
-  Database, 
-  Cpu, 
-  Briefcase, 
-  Eye,
-  Scale,
-  DollarSign
-} from 'lucide-react';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Legend,
-  Filler
-} from 'chart.js';
-import { Line, Doughnut, Bar } from 'react-chartjs-2';
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VENTIC - Plan Estratégico de Transición</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Legend,
-  Filler
-);
+    <style>
+        /* Estilos personalizados */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f3f4f6; }
+        .sidebar-active { background-color: #2563eb; color: white; border-right: 4px solid #60a5fa; }
+        .content-section { display: none; animation: fadeIn 0.3s ease-in-out; }
+        .content-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .card-hover:hover { transform: translateY(-2px); transition: all 0.2s; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden">
 
-const App = () => {
-  const [activeTab, setActiveTab] = useState('dashboard');
-  const [loading, setLoading] = useState(true);
+    <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col h-full shadow-xl z-20">
+        <div class="p-6 border-b border-slate-700 flex items-center gap-3">
+            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">V</div>
+            <h1 class="text-xl font-bold text-white tracking-wider">VENTIC</h1>
+        </div>
 
-  useEffect(() => {
-    // Simulación de carga de datos estratégicos
-    const timer = setTimeout(() => setLoading(false), 800);
-    return () => clearTimeout(timer);
-  }, []);
+        <nav class="flex-1 overflow-y-auto py-4">
+            <p class="px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Estratégico</p>
+            <a href="#" onclick="showSection('resumen')" id="nav-resumen" class="flex items-center px-6 py-3 hover:bg-slate-800 transition-colors sidebar-active">
+                <i class="fas fa-home w-6"></i> <span class="font-medium">Visión General</span>
+            </a>
+            <a href="#" onclick="showSection('diagnostico')" id="nav-diagnostico" class="flex items-center px-6 py-3 hover:bg-slate-800 transition-colors">
+                <i class="fas fa-microscope w-6"></i> <span class="font-medium">I. Diagnóstico y Doctrina</span>
+            </a>
 
-  // --- CONFIGURACIÓN DE GRÁFICOS (Corregido y Expandido) ---
-  const lineData = {
-    labels: ['Día 1', 'Semana 1', 'Mes 1', 'Mes 6', 'Año 1'],
-    datasets: [
-      {
-        label: 'Control Territorial (%)',
-        data: [12, 45, 68, 85, 98],
-        borderColor: '#fbbf24',
-        backgroundColor: 'rgba(251, 191, 36, 0.1)',
-        fill: true,
-        tension: 0.4,
-      },
-    ],
-  };
+            <p class="px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 mt-4">Operativo</p>
+            <a href="#" onclick="showSection('ruptura')" id="nav-ruptura" class="flex items-center px-6 py-3 hover:bg-slate-800 transition-colors">
+                <i class="fas fa-heart-crack w-6"></i> <span class="font-medium">II. Fase de Ruptura</span>
+            </a>
+            <a href="#" onclick="showSection('decretos')" id="nav-decretos" class="flex items-center px-6 py-3 hover:bg-slate-800 transition-colors">
+                <i class="fas fa-gavel w-6"></i> <span class="font-medium">Decretos y Momentos</span>
+            </a>
+        </nav>
 
-  const doughnutData = {
-    labels: ['Seguridad/Defensa', 'Logística/Alimentos', 'Energía/Infra', 'Justicia/Vetting'],
-    datasets: [
-      {
-        data: [40, 25, 20, 15],
-        backgroundColor: ['#1e40af', '#10b981', '#f59e0b', '#ef4444'],
-        borderWidth: 0,
-      },
-    ],
-  };
-
-  const barData = {
-    labels: ['Oil & Gas', 'Tech/Gov', 'Agro', 'Telecom'],
-    datasets: [
-      {
-        label: 'Inversión Proyectada (Billones $)',
-        data: [4.5, 1.2, 0.8, 2.1],
-        backgroundColor: '#3b82f6',
-      },
-    ],
-  };
-
-  const renderContent = () => {
-    switch (activeTab) {
-      case 'dashboard':
-        return (
-          <div className="space-y-6 animate-in fade-in duration-500">
-            {/* Métricas Críticas */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <MetricCard title="Fuerza Efectiva" value="45%" status="Saturación" icon={<Shield className="text-blue-500" />} />
-              <MetricCard title="Riesgo Sabotaje" value="CRÍTICO" status="Alerta Roja" icon={<AlertTriangle className="text-red-500" />} color="text-red-500" />
-              <MetricCard title="Legitimidad Funcional" value="82%" status="Reconocimiento" icon={<Globe className="text-emerald-500" />} />
-              <MetricCard title="Caja Recuperada" value="$420M" status="Fase 1" icon={<DollarSign className="text-amber-500" />} />
+        <div class="p-4 border-t border-slate-700 bg-slate-900">
+            <div class="flex items-center gap-3">
+                <div class="bg-green-500 w-2 h-2 rounded-full animate-pulse"></div>
+                <span class="text-xs text-slate-400">Estado: Planificación Activa</span>
             </div>
+            <p class="text-xs text-slate-500 mt-1">Ver. 1.0 | 04-12-2025</p>
+        </div>
+    </aside>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
-                <h3 className="text-slate-200 font-bold mb-4 flex items-center gap-2 uppercase tracking-tighter">
-                  <BarChart3 size={18} className="text-amber-400" /> Proyección de Estabilización
-                </h3>
-                <div className="h-64">
-                  <Line data={lineData} options={{ maintainAspectRatio: false, scales: { y: { grid: { color: '#1e293b' }, ticks: { color: '#64748b' } }, x: { grid: { display: false }, ticks: { color: '#64748b' } } }, plugins: { legend: { display: false } } }} />
+    <main class="flex-1 flex flex-col h-full overflow-hidden bg-gray-100">
+        
+        <header class="bg-white shadow-sm h-16 flex items-center justify-between px-8 z-10">
+            <h2 class="text-xl font-bold text-slate-800" id="header-title">Tablero de Control Estratégico</h2>
+            <div class="flex items-center gap-4">
+                <button class="bg-red-50 text-red-600 px-4 py-1.5 rounded-full text-sm font-bold border border-red-200">
+                    <i class="fas fa-siren-on mr-2"></i>Nivel de Amenaza: Crítico
+                </button>
+                <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-600">
+                    <i class="fas fa-user"></i>
                 </div>
-              </div>
-
-              <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
-                <h3 className="text-slate-200 font-bold mb-4 flex items-center gap-2 uppercase tracking-tighter">
-                  <Zap size={18} className="text-emerald-400" /> Prioridades de Gasto H-0
-                </h3>
-                <div className="h-64 flex justify-center">
-                  <Doughnut data={doughnutData} options={{ maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', padding: 20 } } } }} />
-                </div>
-              </div>
             </div>
+        </header>
 
-            {/* Fases del Plan Maestro */}
-            <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
-              <h3 className="text-slate-200 font-bold mb-6 uppercase tracking-widest flex items-center gap-2">
-                <ChevronRight className="text-amber-500" /> Resumen Ejecución "Ruptura Hegemónica"
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <TaskItem 
-                  title="Operación Ola Verde (72h)" 
-                  desc="Apertura total de fronteras. Libre importación sin aranceles. Escoltas militares para convoyes privados de alimentos." 
-                  status="Prioridad 1"
-                />
-                <TaskItem 
-                  title="Billetera Libre" 
-                  desc="Transferencia directa de $50-$100 USD en stablecoins para neutralizar saqueos por hambre ('No saques, compra')." 
-                  status="Prioridad 1"
-                />
-                <TaskItem 
-                  title="Vetting ANP" 
-                  desc="Lustración y depuración de fuerzas policiales usando polígrafo y auditoría de vida. Disolución del SEBIN/DGCIM." 
-                  status="En Curso"
-                />
-              </div>
-            </div>
-          </div>
-        );
+        <div class="flex-1 overflow-y-auto p-8" id="main-container">
 
-      case 'security':
-        return (
-          <div className="space-y-6 animate-in slide-in-from-bottom-4 duration-500">
-            <div className="bg-slate-900 border border-slate-800 p-8 rounded-xl">
-              <h2 className="text-2xl font-black text-white mb-6 italic uppercase tracking-tighter border-b border-slate-800 pb-4">
-                SSR: Reforma del Sector Seguridad e Inteligencia
-              </h2>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div className="space-y-4">
-                  <h3 className="text-amber-400 font-bold uppercase text-sm">Alianza Estratégica con Israel</h3>
-                  <div className="bg-slate-800/50 p-4 rounded border-l-4 border-blue-500">
-                    <p className="text-slate-300 text-sm font-bold mb-2">Unidad NBCTF (Counter Terror Financing):</p>
-                    <p className="text-slate-400 text-xs leading-relaxed">Implementación de rastreo de activos financieros de Hezbollah e Irán. Identificación de lavado de dinero del Cártel de los Soles.</p>
-                  </div>
-                  <div className="bg-slate-800/50 p-4 rounded border-l-4 border-blue-500">
-                    <p className="text-slate-300 text-sm font-bold mb-2">Integridad Documental (SAIME Audit):</p>
-                    <p className="text-slate-400 text-xs leading-relaxed">Invalidación masiva de visas y pasaportes otorgados a células terroristas extranjeras.</p>
-                  </div>
-                </div>
-                <div className="space-y-4">
-                  <h3 className="text-red-500 font-bold uppercase text-sm">Reglas de Enfrentamiento (ROE)</h3>
-                  <div className="bg-red-950/20 p-4 rounded border border-red-500/30">
-                    <p className="text-red-200 text-sm font-bold mb-1">Doctrina FM 3-07:</p>
-                    <p className="text-slate-400 text-xs">Los colectivos armados y grupos paraestatales son clasificados como 'Enemigos Combatientes'. Uso de fuerza letal autorizado ante sabotaje de infraestructura crítica.</p>
-                  </div>
-                  <div className="bg-slate-800/50 p-4 rounded border-l-4 border-slate-400">
-                    <p className="text-slate-300 text-sm font-bold mb-1">Monopolio de la Fuerza:</p>
-                    <p className="text-slate-400 text-xs">Desarme urbano obligatorio. Prohibición total de porte de armas a civiles no registrados.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
+            <section id="resumen" class="content-section active">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-blue-600 card-hover">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-sm text-slate-500 font-bold uppercase">Objetivo Nacional</p>
+                                <h3 class="text-2xl font-bold text-slate-800 mt-1">Nueva República</h3>
+                            </div>
+                            <div class="p-2 bg-blue-100 rounded text-blue-600"><i class="fas fa-flag"></i></div>
+                        </div>
+                        <p class="text-sm text-slate-600 mt-4">Restauración del monopolio de la fuerza y economía libre.</p>
+                    </div>
 
-      case 'economy':
-        return (
-          <div className="space-y-6 animate-in slide-in-from-bottom-4">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <div className="lg:col-span-2 bg-slate-900 border border-slate-800 p-8 rounded-xl">
-                <h2 className="text-2xl font-black text-white mb-6 uppercase italic tracking-tighter">Shock de Estabilización y Propiedad</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="p-4 bg-emerald-950/10 border border-emerald-900/30 rounded">
-                    <h4 className="text-emerald-400 font-bold text-sm mb-2">Agencia de Hidrocarburos</h4>
-                    <p className="text-slate-400 text-xs">PDVSA deja de ser operador. Se convierte en regulador. Concesiones directas a 20 años con arbitraje internacional.</p>
-                  </div>
-                  <div className="p-4 bg-blue-950/10 border border-blue-900/30 rounded">
-                    <h4 className="text-blue-400 font-bold text-sm mb-2">Dolarización y Banca</h4>
-                    <p className="text-slate-400 text-xs">Adopción del USD. Clearing local en divisas. Entrada de banca internacional (USA/Israel/EU) inmediata.</p>
-                  </div>
-                  <div className="p-4 bg-amber-950/10 border border-amber-900/30 rounded">
-                    <h4 className="text-amber-400 font-bold text-sm mb-2">Fondo Patrimonial</h4>
-                    <p className="text-slate-400 text-xs">Regalías al ciudadano. El Estado no administra el ingreso: el ciudadano recibe su dividendo.</p>
-                  </div>
-                  <div className="p-4 bg-slate-800/30 border border-slate-700/30 rounded">
-                    <h4 className="text-slate-300 font-bold text-sm mb-2">Devolución de Tierras</h4>
-                    <p className="text-slate-400 text-xs">Restitución inmediata de propiedades confiscadas. Títulos inmutables registrados en Blockchain.</p>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
-                <h3 className="text-slate-200 font-bold mb-4 uppercase text-xs">Pitch Davos: ROI Proyectado</h3>
-                <div className="h-48">
-                  <Bar data={barData} options={{ maintainAspectRatio: false, plugins: { legend: { display: false } } }} />
-                </div>
-                <div className="mt-4 p-4 bg-slate-800 rounded text-[10px] text-slate-400 leading-relaxed italic">
-                  "No pedimos fe, ofrecemos estructura fiduciaria blindada y arbitraje internacional desde el día 1."
-                </div>
-              </div>
-            </div>
-          </div>
-        );
+                    <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-red-500 card-hover">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-sm text-slate-500 font-bold uppercase">Diagnóstico</p>
+                                <h3 class="text-2xl font-bold text-slate-800 mt-1">Estado Criminal</h3>
+                            </div>
+                            <div class="p-2 bg-red-100 rounded text-red-600"><i class="fas fa-skull-crossbones"></i></div>
+                        </div>
+                        <p class="text-sm text-slate-600 mt-4">Fase terminal de captura estatal por estructura híbrida.</p>
+                    </div>
 
-      case 'tech':
-        return (
-          <div className="space-y-6 animate-in slide-in-from-bottom-4">
-            <div className="bg-slate-900 border border-slate-800 p-8 rounded-xl">
-              <h2 className="text-2xl font-black text-white mb-6 uppercase tracking-tighter">Plan Maestro de Reestructuración Tecnológica</h2>
-              <div className="relative border-l-2 border-slate-700 ml-4 space-y-8">
-                <TimelineStep 
-                  step="Fase 1: Legal" 
-                  desc="Reestructuración de leyes para garantizar respeto absoluto a la inversión privada tecnológica." 
-                />
-                <TimelineStep 
-                  step="Fase 2 & 3: Factibilidad" 
-                  desc="Levantamiento de infraestructura TV/Datos. Diseño del 'Nuevo Guri Digital'. Plan de conectividad satelital LEO." 
-                />
-                <TimelineStep 
-                  step="Fase 4: RFI (Request for Information)" 
-                  desc="Llamado a fabricantes globales (Cisco, Starlink, Huawei [vetado], etc.) para presentar soluciones y costos." 
-                />
-                <TimelineStep 
-                  step="Fase 5: RFP (Licitación)" 
-                  desc="Competencia abierta por presupuesto. Implementación de 'Open Treasury' para transparencia fiduciaria." 
-                />
-              </div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl flex items-center gap-4">
-                <Database className="text-blue-500" size={32} />
-                <div>
-                  <h4 className="text-white font-bold text-sm">Open Treasury Blockchain</h4>
-                  <p className="text-slate-500 text-xs">Gasto público rastreable en tiempo real.</p>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-emerald-500 card-hover">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-sm text-slate-500 font-bold uppercase">Marco Operativo</p>
+                                <h3 class="text-2xl font-bold text-slate-800 mt-1">FM 3-07</h3>
+                            </div>
+                            <div class="p-2 bg-emerald-100 rounded text-emerald-600"><i class="fas fa-book-medical"></i></div>
+                        </div>
+                        <p class="text-sm text-slate-600 mt-4">Operaciones de Estabilidad y Protocolos de San Remo.</p>
+                    </div>
                 </div>
-              </div>
-              <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl flex items-center gap-4">
-                <Cpu className="text-emerald-500" size={32} />
-                <div>
-                  <h4 className="text-white font-bold text-sm">Identidad Digital Soberana</h4>
-                  <p className="text-slate-500 text-xs">Biometría para depuración electoral y ciudadana.</p>
+
+                <div class="bg-slate-800 rounded-xl p-8 text-white text-center shadow-lg mb-8">
+                    <i class="fas fa-quote-left text-slate-600 text-3xl mb-4"></i>
+                    <h2 class="text-2xl md:text-3xl font-bold mb-2">"No se reforma un Estado criminal: se lo desmantela y se lo reemplaza."</h2>
+                    <p class="text-slate-400 mt-2">Principio Rector Único de la Transición</p>
                 </div>
-              </div>
-            </div>
-          </div>
-        );
+            </section>
 
-      case 'lustration':
-        return (
-          <div className="space-y-6 animate-in slide-in-from-bottom-4">
-            <div className="bg-slate-900 border border-slate-800 p-8 rounded-xl">
-              <div className="flex items-center gap-4 mb-8">
-                <Scale className="text-red-500" size={40} />
-                <h2 className="text-2xl font-black text-white uppercase italic tracking-tighter">Ley de Lustración y Poder Civil</h2>
-              </div>
-              <p className="text-slate-400 mb-8 text-sm italic border-b border-slate-800 pb-4">
-                "La democracia sin justicia es un suicidio. Rumbo Libertad no recicla élites, las remueve."
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="p-6 bg-slate-950 rounded-lg border border-red-900/20">
-                  <h4 className="text-red-500 font-bold mb-4 uppercase text-xs tracking-widest">Depuración Política</h4>
-                  <ul className="space-y-3 text-xs text-slate-400">
-                    <li className="flex items-start gap-2">• Inhabilitación perpetua para la cúpula del PSUV y Cártel de los Soles.</li>
-                    <li className="flex items-start gap-2">• Inhabilitación por 10 años para la "falsa oposición" colaboracionista.</li>
-                    <li className="flex items-start gap-2">• Juicios de extinción de dominio para recuperar bienes malversados.</li>
-                  </ul>
+            <section id="diagnostico" class="content-section">
+                <h3 class="text-xl font-bold text-slate-700 mb-6 flex items-center"><i class="fas fa-file-medical-alt mr-2"></i> Informe Ejecutivo: Naturaleza de la Amenaza</h3>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h4 class="text-red-600 font-bold border-b pb-2 mb-4">La Estructura de la Amenaza</h4>
+                            <ul class="space-y-3">
+                                <li class="flex items-start"><i class="fas fa-check-circle text-red-500 mt-1 mr-3"></i> <span class="text-sm text-slate-600"><strong>Captura Estatal Terminal:</strong> No es una dictadura convencional, es una estructura criminal híbrida.</span></li>
+                                <li class="flex items-start"><i class="fas fa-check-circle text-red-500 mt-1 mr-3"></i> <span class="text-sm text-slate-600"><strong>Componentes:</strong> Aparato formal (FANB/Justicia) + Redes Transnacionales (Narco) + Irregulares (Guerrilla/Colectivos).</span></li>
+                                <li class="flex items-start"><i class="fas fa-check-circle text-red-500 mt-1 mr-3"></i> <span class="text-sm text-slate-600"><strong>Fachada Política:</strong> Diseñada solo para ganar tiempo y legitimidad.</span></li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white rounded-lg shadow p-6 border-t-4 border-yellow-400">
+                            <h4 class="text-yellow-600 font-bold border-b pb-2 mb-4">Riesgos Existenciales</h4>
+                            <div class="flex gap-4 mb-4">
+                                <div class="w-1/2 bg-yellow-50 p-3 rounded">
+                                    <p class="font-bold text-sm text-slate-800">1. Mutación Criminal</p>
+                                    <p class="text-xs text-slate-600 mt-1">Repliegue a economías ilícitas y fragmentación territorial ("Somalización").</p>
+                                </div>
+                                <div class="w-1/2 bg-yellow-50 p-3 rounded">
+                                    <p class="font-bold text-sm text-slate-800">2. Trampa de Cohabitación</p>
+                                    <p class="text-xs text-slate-600 mt-1">Gobiernos "mixtos" que preservan cadenas de mando corruptas e impunidad.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="bg-white rounded-lg shadow p-6 h-full">
+                            <h4 class="text-blue-600 font-bold border-b pb-2 mb-4">El Estado Final Deseado (End State)</h4>
+                            <p class="text-sm text-slate-600 mb-4">El objetivo no es solo cambiar autoridades, sino fundar una República funcional sustentada en:</p>
+                            
+                            <div class="grid gap-4">
+                                <div class="flex items-center p-3 bg-blue-50 rounded-lg">
+                                    <div class="bg-blue-600 text-white w-10 h-10 rounded flex items-center justify-center mr-4"><i class="fas fa-balance-scale"></i></div>
+                                    <div>
+                                        <p class="font-bold text-slate-800">Ley y Orden Institucional</p>
+                                        <p class="text-xs text-slate-600">Poder subordinado al orden civil.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center p-3 bg-blue-50 rounded-lg">
+                                    <div class="bg-blue-600 text-white w-10 h-10 rounded flex items-center justify-center mr-4"><i class="fas fa-users"></i></div>
+                                    <div>
+                                        <p class="font-bold text-slate-800">Centralidad de la Familia</p>
+                                        <p class="text-xs text-slate-600">La sociedad precede al Estado.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center p-3 bg-blue-50 rounded-lg">
+                                    <div class="bg-blue-600 text-white w-10 h-10 rounded flex items-center justify-center mr-4"><i class="fas fa-industry"></i></div>
+                                    <div>
+                                        <p class="font-bold text-slate-800">Libertad Económica</p>
+                                        <p class="text-xs text-slate-600">Prosperidad por trabajo, no por dependencia política.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className="p-6 bg-slate-950 rounded-lg border border-emerald-900/20">
-                  <h4 className="text-emerald-500 font-bold mb-4 uppercase text-xs tracking-widest">Moratoria Electoral</h4>
-                  <ul className="space-y-3 text-xs text-slate-400">
-                    <li className="flex items-start gap-2">• Periodo de Estabilización (24-36 meses) sin elecciones generales.</li>
-                    <li className="flex items-start gap-2">• La legitimidad inicial es FUNCIONAL, basada en el Orden y el Rescate.</li>
-                    <li className="flex items-start gap-2">• Nuevo Censo Biométrico como condición para el voto futuro.</li>
-                  </ul>
+            </section>
+
+            <section id="ruptura" class="content-section">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-bold text-slate-700 flex items-center"><i class="fas fa-stopwatch mr-2"></i> Plan Operativo: Primeras 72 Horas</h3>
+                    <span class="bg-slate-800 text-white px-3 py-1 rounded text-xs">Doctrina: FM 3-07 + San Remo</span>
                 </div>
-              </div>
-            </div>
-          </div>
-        );
 
-      default:
-        return null;
-    }
-  };
-
-  return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-amber-500 selection:text-black">
-      {/* Barra de Navegación Lateral */}
-      <div className="flex h-screen overflow-hidden">
-        <aside className="w-64 bg-slate-900 border-r border-slate-800 flex flex-col shrink-0 hidden md:flex">
-          <div className="p-6 flex flex-col items-center border-b border-slate-800">
-            <div className="w-16 h-16 bg-slate-800 rounded-full flex items-center justify-center mb-4 border border-slate-700">
-              <Shield className="text-amber-500" size={32} />
-            </div>
-            <h1 className="text-lg font-black tracking-tighter text-white uppercase italic">Rumbo Libertad</h1>
-            <p className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.2em] mt-1">Transición • Orden</p>
-          </div>
-          
-          <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
-            <NavButton active={activeTab === 'dashboard'} onClick={() => setActiveTab('dashboard')} icon={<BarChart3 size={18} />} label="Centro de Control" />
-            <NavButton active={activeTab === 'security'} onClick={() => setActiveTab('security')} icon={<Lock size={18} />} label="Seguridad / Israel" />
-            <NavButton active={activeTab === 'economy'} onClick={() => setActiveTab('economy')} icon={<Briefcase size={18} />} label="Economía / Davos" />
-            <NavButton active={activeTab === 'tech'} onClick={() => setActiveTab('tech')} icon={<Cpu size={18} />} label="Plan Tecnológico" />
-            <NavButton active={activeTab === 'lustration'} onClick={() => setActiveTab('lustration')} icon={<Scale size={18} />} label="Lustración" />
-          </nav>
-
-          <div className="p-6 border-t border-slate-800">
-            <div className="flex items-center gap-3 p-3 bg-red-900/10 border border-red-900/30 rounded-lg text-red-500">
-              <Users size={20} />
-              <div className="text-[10px] font-bold uppercase leading-none">
-                <p>Usuario: E. Bittar</p>
-                <p className="text-red-700 mt-1 italic">Nivel: Administrador</p>
-              </div>
-            </div>
-          </div>
-        </aside>
-
-        {/* Contenido Principal */}
-        <main className="flex-1 overflow-y-auto bg-slate-950 p-4 md:p-8 custom-scrollbar">
-          {loading ? (
-            <div className="h-full flex flex-col items-center justify-center space-y-4">
-              <div className="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin"></div>
-              <p className="text-xs font-bold uppercase tracking-widest text-slate-500">Sincronizando Inteligencia...</p>
-            </div>
-          ) : (
-            <div className="max-w-6xl mx-auto">
-              <header className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-900 pb-6">
-                <div>
-                  <div className="flex items-center gap-2 text-[10px] font-bold text-amber-500 uppercase tracking-widest mb-2">
-                    <span className="h-2 w-2 bg-amber-500 rounded-full animate-pulse"></span>
-                    Terminal Estratégica Transición
-                  </div>
-                  <h1 className="text-4xl font-black text-white uppercase italic tracking-tighter">Plan Maestro</h1>
+                <div class="bg-white p-8 rounded-xl shadow-sm mb-8">
+                    <h4 class="text-center font-bold text-slate-600 mb-6">5 Objetivos Estratégicos Simultáneos</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                        <div class="text-center p-2 hover:bg-slate-50 rounded transition">
+                            <div class="w-12 h-12 mx-auto bg-red-100 text-red-600 rounded-full flex items-center justify-center mb-2"><i class="fas fa-sitemap"></i></div>
+                            <p class="text-xs font-bold">Neutralizar Cadena de Mando</p>
+                        </div>
+                        <div class="text-center p-2 hover:bg-slate-50 rounded transition">
+                            <div class="w-12 h-12 mx-auto bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-2"><i class="fas fa-shield-alt"></i></div>
+                            <p class="text-xs font-bold">Monopolio de la Fuerza</p>
+                        </div>
+                        <div class="text-center p-2 hover:bg-slate-50 rounded transition">
+                            <div class="w-12 h-12 mx-auto bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center mb-2"><i class="fas fa-bolt"></i></div>
+                            <p class="text-xs font-bold">Proteger Infraestructura</p>
+                        </div>
+                        <div class="text-center p-2 hover:bg-slate-50 rounded transition">
+                            <div class="w-12 h-12 mx-auto bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mb-2"><i class="fas fa-users-slash"></i></div>
+                            <p class="text-xs font-bold">Prevenir Caos Social</p>
+                        </div>
+                        <div class="text-center p-2 hover:bg-slate-50 rounded transition">
+                            <div class="w-12 h-12 mx-auto bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-2"><i class="fas fa-globe"></i></div>
+                            <p class="text-xs font-bold">Legitimidad Operativa</p>
+                        </div>
+                    </div>
                 </div>
-                <div className="flex gap-2">
-                  <button className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-xs font-bold uppercase rounded border border-slate-700 transition-all">Exportar PDF</button>
-                  <button className="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-slate-950 text-xs font-bold uppercase rounded transition-all">Ejecutar Comando</button>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-slate-600">
+                        <h4 class="font-bold text-slate-800 mb-2">Naturaleza Jurídica</h4>
+                        <p class="text-sm text-slate-600 mb-4">Activación de un <strong>Estatuto de Emergencia y Salvación Nacional</strong>.</p>
+                        <p class="text-xs text-slate-500 bg-slate-100 p-2 rounded">"La legalidad de transición precede a la normalidad constitucional cuando el Estado ha sido usurpado."</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-red-600">
+                        <h4 class="font-bold text-slate-800 mb-2">Reglas de Enfrentamiento (ROE)</h4>
+                        <ul class="text-sm text-slate-600 space-y-2">
+                            <li><i class="fas fa-crosshairs text-red-400 mr-2"></i><strong>Enemigos Combatientes:</strong> Quien porte armas, ejerza control territorial o desafíe autoridad.</li>
+                            <li><i class="fas fa-shield-virus text-red-400 mr-2"></i><strong>Uso de Fuerza:</strong> Proporcional, necesaria y escalonada, pero decisiva.</li>
+                            <li><i class="fas fa-user-shield text-green-500 mr-2"></i><strong>Población:</strong> Distinción clara y protección absoluta a civiles.</li>
+                        </ul>
+                    </div>
                 </div>
-              </header>
+            </section>
 
-              {renderContent()}
-            </div>
-          )}
-        </main>
-      </div>
+            <section id="decretos" class="content-section">
+                
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold text-slate-700 mb-4">Secuencia Funcional</h3>
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <div class="flex-1 bg-blue-600 text-white p-4 rounded-lg shadow-lg relative overflow-hidden">
+                            <div class="absolute right-0 top-0 opacity-10 text-6xl font-bold p-2">1</div>
+                            <h4 class="font-bold text-lg">Momento I</h4>
+                            <p class="text-sm opacity-90">Declaración y Corte de Legitimidad</p>
+                            <span class="text-xs mt-2 block bg-blue-700 w-max px-2 py-1 rounded">Decretos 1-5</span>
+                        </div>
+                        <div class="flex-1 bg-white p-4 rounded-lg shadow border border-slate-200 opacity-70">
+                            <h4 class="font-bold text-lg text-slate-700">Momento II</h4>
+                            <p class="text-sm text-slate-500">Control Institucional y Continuidad Técnica</p>
+                        </div>
+                        <div class="flex-1 bg-white p-4 rounded-lg shadow border border-slate-200 opacity-70">
+                            <h4 class="font-bold text-lg text-slate-700">Momento III</h4>
+                            <p class="text-sm text-slate-500">Estabilización Inicial y Contención</p>
+                        </div>
+                    </div>
+                </div>
 
-      <style jsx>{`
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 6px;
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-8">
+                    <div class="p-6 border-b border-slate-100 bg-slate-50">
+                        <h4 class="font-bold text-slate-700">Detalle de Decretos de Emergencia (Momento I)</h4>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-slate-600">
+                            <thead class="bg-slate-50 text-slate-500 font-bold uppercase text-xs">
+                                <tr>
+                                    <th class="p-4">Decreto</th>
+                                    <th class="p-4">Acción Estratégica</th>
+                                    <th class="p-4">Impacto Inmediato</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 font-bold text-slate-800">1. Soberanía</td>
+                                    <td class="p-4">Cese de usurpación y destitución TSJ/CNE/Fiscalía.</td>
+                                    <td class="p-4"><span class="bg-red-100 text-red-700 px-2 py-1 rounded text-xs font-bold">Eliminar Mando</span></td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 font-bold text-slate-800">2. Seguridad</td>
+                                    <td class="p-4">Acuartelamiento de tropa y disolución de paramilitares.</td>
+                                    <td class="p-4"><span class="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs font-bold">Control Fuerza</span></td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 font-bold text-slate-800">3. Finanzas</td>
+                                    <td class="p-4">Feriado bancario 72h y bloqueo de transferencias.</td>
+                                    <td class="p-4"><span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-bold">Asfixia Económica</span></td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 font-bold text-slate-800">4. Técnica</td>
+                                    <td class="p-4">Protección de personal operativo (salud, luz, agua).</td>
+                                    <td class="p-4"><span class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded text-xs font-bold">Evitar Colapso</span></td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 font-bold text-slate-800">5. Humanitario</td>
+                                    <td class="p-4">Corredores humanitarios y jurisdicción internacional.</td>
+                                    <td class="p-4"><span class="bg-purple-100 text-purple-700 px-2 py-1 rounded text-xs font-bold">Justicia/Ayuda</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h4 class="font-bold text-slate-800 border-b pb-2 mb-3">Momento II: Control Institucional</h4>
+                        <ul class="space-y-2 text-sm text-slate-600">
+                            <li>• Aseguramiento de nodos estratégicos.</li>
+                            <li>• Diferenciación entre cúpula criminal y funcionario técnico.</li>
+                            <li>• Garantía de continuidad de servicios.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h4 class="font-bold text-slate-800 border-b pb-2 mb-3">Momento III: Estabilización</h4>
+                        <ul class="space-y-2 text-sm text-slate-600">
+                            <li>• Comunicación: "Control, no promesas".</li>
+                            <li>• Prevención activa de saqueos y venganzas.</li>
+                            <li>• Condición de cierre: Infraestructura bajo control funcional.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+    </main>
+
+    <script>
+        // Lógica simple para navegación tipo SPA
+        function showSection(sectionId) {
+            // Ocultar todas las secciones
+            document.querySelectorAll('.content-section').forEach(el => {
+                el.classList.remove('active');
+            });
+            // Mostrar la seleccionada
+            document.getElementById(sectionId).classList.add('active');
+
+            // Actualizar Sidebar Active State
+            document.querySelectorAll('aside nav a').forEach(el => {
+                el.classList.remove('sidebar-active');
+            });
+            document.getElementById('nav-' + sectionId).classList.add('sidebar-active');
+
+            // Actualizar Titulo Header
+            const titles = {
+                'resumen': 'Tablero de Control Estratégico',
+                'diagnostico': 'Diagnóstico y Doctrina',
+                'ruptura': 'Fase de Ruptura (72h)',
+                'decretos': 'Decretos y Momentos'
+            };
+            document.getElementById('header-title').innerText = titles[sectionId];
         }
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: #020617;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #1e293b;
-          border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #334155;
-        }
-      `}</style>
-    </div>
-  );
-};
-
-// Componentes Auxiliares
-const NavButton = ({ active, onClick, icon, label }) => (
-  <button 
-    onClick={onClick}
-    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-bold transition-all ${
-      active ? 'bg-amber-500 text-black shadow-lg shadow-amber-500/10' : 'text-slate-500 hover:bg-slate-800 hover:text-slate-300'
-    }`}
-  >
-    {icon}
-    <span>{label}</span>
-  </button>
-);
-
-const MetricCard = ({ title, value, status, icon, color = "text-white" }) => (
-  <div className="bg-slate-900 border border-slate-800 p-5 rounded-xl">
-    <div className="flex items-center justify-between mb-2">
-      <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">{title}</span>
-      {icon}
-    </div>
-    <div className={`text-2xl font-black ${color} tracking-tight`}>{value}</div>
-    <div className="text-[10px] text-slate-600 font-bold uppercase mt-1 italic">{status}</div>
-  </div>
-);
-
-const TaskItem = ({ title, desc, status }) => (
-  <div className="p-4 bg-slate-800/40 border border-slate-800 rounded-lg hover:border-slate-600 transition-all group">
-    <div className="flex justify-between items-start mb-2">
-      <h4 className="text-sm font-bold text-white group-hover:text-amber-400 transition-colors">{title}</h4>
-      <span className="text-[9px] px-2 py-0.5 bg-slate-700 text-slate-300 rounded uppercase font-bold">{status}</span>
-    </div>
-    <p className="text-xs text-slate-500 leading-relaxed">{desc}</p>
-  </div>
-);
-
-const TimelineStep = ({ step, desc }) => (
-  <div className="relative pl-8">
-    <div className="absolute left-[-9px] top-1.5 w-4 h-4 rounded-full bg-slate-900 border-2 border-amber-500"></div>
-    <h4 className="text-sm font-bold text-white uppercase tracking-tighter mb-1">{step}</h4>
-    <p className="text-xs text-slate-500 max-w-xl">{desc}</p>
-  </div>
-);
-
-export default App;
+    </script>
+</body>
+</html>
