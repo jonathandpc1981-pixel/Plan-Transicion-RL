@@ -7,14 +7,14 @@
   "ruta": "secciones/fm-3-07-san-remo.html",
   "planCompleto": "docs/FM-3-07-y-ROE-(San Remo).pdf",
   "tags": ["Doctrina", "Estabilización", "ROE", "Legitimidad"]
-}
+} ,
   {
     "id": "plan-transicion",
     "titulo": "Plan de Transición y Estabilización Fases I y II",
     "descripcion": "Documento estratégico base (ruptura, primeras 72 horas, decretos, estabilización).",
     "icono": "fa-solid fa-flag",
     "ruta": "secciones/SeccionI-y-II-72hrs.html",
-    "planCompleto": "docs/Seccion I y II - 72 hrs.pdf",
+    "planCompleto": "docs/Seccion-I-y-II-72hrs.pdf",
     "tags": ["Estrategia", "Transición"]
   }
 ]
