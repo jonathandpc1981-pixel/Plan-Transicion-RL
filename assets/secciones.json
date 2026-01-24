@@ -4,7 +4,7 @@
     "titulo": "Plan de Transición y Estabilización",
     "descripcion": "Documento estratégico base (ruptura, 72 horas, decretos, estabilización).",
     "icono": "fa-solid fa-flag",
-    "ruta": "secciones/plan-transicion.html",
+    "ruta": "secciones/SeccionI-y-II-72hrs.html",
     "tags": ["Estrategia", "Transición"]
   }
 ]
