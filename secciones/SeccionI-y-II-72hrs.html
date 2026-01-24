@@ -12,6 +12,11 @@
         .gradient-bg { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
         .section-card { transition: all 0.3s ease; border-left: 4px solid transparent; }
         .section-card:hover { border-left-color: #3b82f6; transform: translateX(5px); }
+        .hero { background: radial-gradient(1200px circle at 10% 10%, rgba(15,23,42,.08), transparent 55%),
+                     radial-gradient(900px circle at 90% 20%, rgba(2,132,199,.08), transparent 55%); }
+.chip { border: 1px solid rgba(148,163,184,.6); }
+.shadow-soft { box-shadow: 0 10px 30px rgba(2,6,23,.08); }
+
     </style>
 </head>
 
@@ -47,21 +52,67 @@
 })();
 </script>
     
-< class="bg-gray-50 text-gray-900">
+<body class="bg-slate-50 text-slate-900">
 
-    <header class="gradient-bg text-white py-16 px-6">
-        <div class="max-w-5xl mx-auto">
-            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Plan de Transición y Estabilización</h1>
-            <p class="text-xl text-blue-300 font-light mb-8 italic">"No se reforma un Estado criminal: se lo desmantela y se lo reemplaza."</p>
-            <div class="flex flex-wrap gap-4 text-sm">
-                <span class="bg-blue-900/50 border border-blue-500 px-3 py-1 rounded">Marco: FM 3-07</span>
-                <span class="bg-blue-900/50 border border-blue-500 px-3 py-1 rounded">Protocolos de San Remo</span>
-                <span class="bg-red-900/50 border border-red-500 px-3 py-1 rounded">Emergencia Nacional</span>
-            </div>
+<!-- Header / Hero (look & feel estándar) -->
+<header class="hero">
+  <div class="max-w-6xl mx-auto px-6 pt-10 pb-8">
+    <div class="flex flex-col gap-6">
+
+      <!-- chips -->
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="chip text-xs px-3 py-1 rounded-full bg-white">Plan de transición</span>
+        <span class="chip text-xs px-3 py-1 rounded-full bg-white">Fase I & II</span>
+        <span class="chip text-xs px-3 py-1 rounded-full bg-white">72 horas</span>
+        <span class="chip text-xs px-3 py-1 rounded-full bg-white">Estabilización</span>
+      </div>
+
+      <!-- título + bajada -->
+      <div class="flex flex-col gap-3">
+        <h1 class="text-3xl md:text-5xl font-extrabold leading-tight">
+          Plan de Transición y Estabilización
+        </h1>
+        <p class="text-slate-700 text-base md:text-lg max-w-3xl">
+          Resumen ejecutivo de la <span class="font-semibold">Fase I y II</span>:
+          diagnóstico de amenaza y fase de ruptura (primeras 72 horas) para asegurar orden,
+          continuidad y control institucional.
+        </p>
+      </div>
+
+      <!-- acciones (PDF + ancla) -->
+      <div class="flex flex-col sm:flex-row gap-3">
+        <a href="../docs/Seccion I y II - 72 hrs.pdf" download
+           class="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-900 text-white font-semibold shadow-soft">
+          ⬇️ Descargar plan completo (PDF)
+        </a>
+        <a href="../docs/Seccion I y II - 72 hrs.pdf" target="_blank" rel="noopener"
+           class="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white border border-slate-200 text-slate-900 font-semibold shadow-soft">
+          👁️ Ver PDF en el navegador
+        </a>
+        <a href="#contenido" class="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-sky-50 border border-sky-200 text-sky-900 font-semibold">
+          Ir al contenido ↓
+        </a>
+      </div>
+
+      <!-- mensaje clave -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft">
+        <div class="text-xs uppercase tracking-widest text-slate-500">Mensaje clave</div>
+        <div class="mt-2 text-lg md:text-xl font-bold">
+          Las primeras 72 horas definen el <span class="text-slate-900">control real</span> y la
+          <span class="text-slate-900">legitimidad</span> de toda la transición.
         </div>
-    </header>
+        <p class="mt-2 text-slate-700">
+          El objetivo es cortar capacidad de mando/financiamiento criminal, garantizar continuidad técnica
+          y establecer orden operativo con comunicación estratégica constante.
+        </p>
+      </div>
 
-    <main class="max-w-5xl mx-auto px-6 py-12">
+    </div>
+  </div>
+</header>
+
+
+    <main id="contenido" class="max-w-5xl mx-auto px-6 py-12">
         
         <section class="mb-16">
             <h2 class="text-2xl font-bold border-b-2 border-blue-600 pb-2 mb-8 uppercase tracking-wider text-blue-900">
