@@ -16,5 +16,14 @@
     "ruta": "secciones/SeccionI-y-II-72hrs.html",
     "planCompleto": "docs/Seccion-i-y-ii-72hrs.pdf",
     "tags": ["Estrategia", "Transición"]
-  }
+  },
+ {
+  "id": "principios-doctrinales",
+  "titulo": "Principios Doctrinales",
+  "descripcion": "Marco ideológico no negociable: republicanismo, libertad, Estado limitado, orden institucional y ruptura estructural.",
+  "icono": "fa-solid fa-compass",
+  "ruta": "secciones/principios-doctrinales.html",
+  "planCompleto": "docs/Principios-doctrinales.pdf",
+  "tags": ["Doctrina", "Principios", "Coherencia", "Organización"]
+}
 ]
