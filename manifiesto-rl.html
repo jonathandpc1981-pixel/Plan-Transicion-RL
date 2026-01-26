@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Manifiesto | Rumbo Libertad</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    .hero { background: radial-gradient(1200px circle at 10% 10%, rgba(15,23,42,.08), transparent 55%),
+                         radial-gradient(900px circle at 90% 20%, rgba(2,132,199,.08), transparent 55%); }
+    .chip { border: 1px solid rgba(148,163,184,.6); }
+    .shadow-soft { box-shadow: 0 10px 30px rgba(2,6,23,.08); }
+    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    summary::-webkit-details-marker { display: none; }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900">
+
+  <!-- Barra automática (Inicio + Descargar/Ver PDF desde secciones.json) -->
+  <script src="../assets/section-nav.js"></script>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="max-w-6xl mx-auto px-6 pt-10 pb-8">
+      <div class="flex flex-col gap-6">
+
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="chip text-xs px-3 py-1 rounded-full bg-white">Manifiesto</span>
+          <span class="chip text-xs px-3 py-1 rounded-full bg-white">Reconstrucción de la República</span>
+          <span class="chip text-xs px-3 py-1 rounded-full bg-white">Ruptura</span>
+          <span class="chip text-xs px-3 py-1 rounded-full bg-white">Responsabilidad histórica</span>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <h1 class="text-3xl md:text-5xl font-extrabold leading-tight">
+            Manifiesto de Rumbo Libertad
+          </h1>
+          <p class="text-slate-700 text-base md:text-lg max-w-3xl">
+            Lectura ejecutiva para entender en minutos: diagnóstico, razón de ser, visión de país,
+            principios rectores, identidad política, disciplina organizativa, método y compromiso histórico. :contentReference[oaicite:1]{index=1}
+          </p>
+        </div>
+
+        <!-- Acciones (fallback, por si aún no está secciones.json) -->
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a href="../docs/manifiesto-RL.pdf" download
+             class="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-900 text-white font-semibold shadow-soft">
+            ⬇️ Descargar manifiesto (PDF)
+          </a>
+          <a href="../docs/manifiesto-RL.pdf" target="_blank" rel="noopener"
+             class="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white border border-slate-200 text-slate-900 font-semibold shadow-soft">
+            👁️ Ver PDF en el navegador
+          </a>
+          <a href="#lectura"
+             class="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-sky-50 border border-sky-200 text-sky-900 font-semibold">
+            Lectura en 3 minutos ↓
+          </a>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft">
+          <div class="text-xs uppercase tracking-widest text-slate-500">Mensaje clave</div>
+          <div class="mt-2 text-lg md:text-xl font-bold">
+            Rumbo Libertad no nace para administrar la decadencia: nace para recuperar la República.
+          </div>
+          <p class="mt-2 text-slate-700">
+            El manifiesto define una ruptura doble: con el modelo socialista que demolió el orden republicano y con
+            las estructuras que, bajo apariencia de oposición, legitimaron su permanencia. :contentReference[oaicite:2]{index=2}
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <main id="lectura" class="max-w-6xl mx-auto px-6 pb-14">
+
+    <!-- Navegación rápida -->
+    <section class="mt-8 bg-white border border-slate-200 rounded-2xl p-5 shadow-soft">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-extrabold">Lectura en 3 minutos</h2>
+          <p class="text-slate-600 text-sm mt-1">
+            Para entenderlo rápido: 1) Preámbulo 2) Naturaleza y visión 3) Principios e identidad 4) Método y cláusula transitoria 5) Compromiso.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <a class="px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-sm font-semibold" href="#mapa">Mapa</a>
+          <a class="px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-sm font-semibold" href="#secciones">Secciones</a>
+          <a class="px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-sm font-semibold" href="#anclas">Frases ancla</a>
+          <a class="px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-sm font-semibold" href="#uso">Cómo usarlo</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mapa estratégico -->
+    <section id="mapa" class="mt-10">
+      <h2 class="text-2xl font-extrabold">Mapa estratégico del manifiesto</h2>
+      <p class="text-slate-700 mt-2 max-w-4xl">
+        El documento está construido como una secuencia lógica: diagnóstico → razón de ser → visión → reglas de conducta →
+        identidad → organización → método → excepcionalidad transitoria → compromiso. :contentReference[oaicite:3]{index=3}
+      </p>
+
+      <div class="mt-5 bg-white border border-slate-200 rounded-2xl p-5 shadow-soft">
+        <div class="grid lg:grid-cols-5 gap-4">
+          <div class="lg:col-span-3">
+            <div class="text-sm text-slate-500 font-semibold">Cadena lógica (qué habilita qué)</div>
+
+            <div class="mt-3 space-y-3">
+              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                <div class="font-bold">1) Diagnóstico (Preámbulo)</div>
+                <div class="text-slate-700 text-sm mt-1">No es crisis coyuntural: es demolición deliberada del orden republicano por décadas.</div>
+              </div>
+
+              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                <div class="font-bold">2) Razón de ser</div>
+                <div class="text-slate-700 text-sm mt-1">Restituir República: ley, responsabilidad y libertad; ruptura con régimen y “opoficción”.</div>
+              </div>
+
+              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                <div class="font-bold">3) Visión de país</div>
+                <div class="text-slate-700 text-sm mt-1">República de ciudadanos libres: trabajo sobre favor político, propiedad respetada, Estado funcional.</div>
+              </div>
+
+              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                <div class="font-bold">4) Principios + Identidad</div>
+                <div class="text-slate-700 text-sm mt-1">Principios como norma de conducta; derecha republicana; rechazo al socialismo y al caudillismo.</div>
+              </div>
+
+              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                <div class="font-bold">5) Organización + Método + Transición</div>
+                <div class="text-slate-700 text-sm mt-1">Disciplina y función; formación; expansión controlada; transición real y jurídicamente fundada.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-2">
+            <div class="text-sm text-slate-500 font-semibold">Condición de victoria (criterio)</div>
+
+            <div class="mt-3 p-4 rounded-xl bg-sky-50 border border-sky-200">
+              <div class="font-bold">Recuperar la República (no administrar decadencia)</div>
+              <ul class="mt-2 text-sm text-slate-700 space-y-1">
+                <li>• Ruptura estructural</li>
+                <li>• Coherencia doctrinal</li>
+                <li>• Disciplina organizativa</li>
+                <li>• Transición irreversible</li>
+                <li>• Responsabilidad histórica</li>
+              </ul>
+            </div>
+
+            <div class="mt-4 p-4 rounded-xl bg-white border border-slate-200">
+              <div class="text-xs uppercase tracking-widest text-slate-500">Regla de oro</div>
+              <div class="mt-2 font-bold">
+                Sin orden no hay libertad; sin responsabilidad no hay República.
+              </div>
+              <p class="mt-2 text-sm text-slate-700">
+                El manifiesto fija identidad y límites: no se negocia la República ni se pacta sin consecuencias.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Secciones (acordeones) -->
+    <section id="secciones" class="mt-10">
+      <h2 class="text-2xl font-extrabold">Secciones del documento (resumen didáctico)</h2>
+      <p class="text-slate-700 mt-2 max-w-4xl">
+        Qué contiene cada parte del manifiesto y qué decisión política busca fijar. :contentReference[oaicite:4]{index=4}
+      </p>
+
+      <div class="mt-5 grid lg:grid-cols-2 gap-5">
+
+        <details class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft" open>
+          <summary class="cursor-pointer flex items-center justify-between">
+            <div>
+              <div class="text-xs uppercase tracking-widest text-slate-500">Preámbulo</div>
+              <div class="text-lg font-bold">Diagnóstico de la Nación</div>
+            </div>
+            <span class="kbd text-xs px-2 py-1 rounded bg-slate-100 border border-slate-200">Abrir/Cerrar</span>
+          </summary>
+          <div class="mt-4 text-slate-700 space-y-2">
+            <p>• Define que la crisis no es un ciclo: es demolición del orden republicano por décadas.</p>
+            <p>• Declara el fracaso total del modelo socialista y denuncia la administración de la decadencia.</p>
+            <p>• Fija la razón moral del movimiento: reconstruir República, no “cohabitar”.</p>
+          </div>
+        </details>
+
+        <details class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft">
+          <summary class="cursor-pointer flex items-center justify-between">
+            <div>
+              <div class="text-xs uppercase tracking-widest text-slate-500">I</div>
+              <div class="text-lg font-bold">Naturaleza y razón de ser</div>
+            </div>
+            <span class="kbd text-xs px-2 py-1 rounded bg-slate-100 border border-slate-200">Abrir/Cerrar</span>
+          </summary>
+          <div class="mt-4 text-slate-700 space-y-2">
+            <p>• Movimiento de reconstrucción nacional con vocación de poder y responsabilidad histórica.</p>
+            <p>• Ruptura con el régimen usurpador y con estructuras que legitimaron su permanencia.</p>
+            <p>• No es plataforma electoral: es transformación estructural del poder.</p>
+          </div>
+        </details>
+
+        <details class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft">
+          <summary class="cursor-pointer flex items-center justify-between">
+            <div>
+              <div class="text-xs uppercase tracking-widest text-slate-500">II</div>
+              <div class="text-lg font-bold">Visión de país</div>
+            </div>
+            <span class="kbd text-xs px-2 py-1 rounded bg-slate-100 border border-slate-200">Abrir/Cerrar</span>
+          </summary>
+          <div class="mt-4 text-slate-700 space-y-2">
+            <p>• República de ciudadanos libres: ley sobre caudillo, trabajo sobre favor político.</p>
+            <p>• Estado en funciones esenciales sin invadir la esfera del ciudadano.</p>
+            <p>• Libertad como derecho ejercido dentro de ley y orden.</p>
+          </div>
+        </details>
+
+        <details class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft">
+          <summary class="cursor-pointer flex items-center justify-between">
+            <div>
+              <div class="text-xs uppercase tracking-widest text-slate-500">III–V</div>
+              <div class="text-lg font-bold">Principios, identidad, disciplina</div>
+            </div>
+            <span class="kbd text-xs px-2 py-1 rounded bg-slate-100 border border-slate-200">Abrir/Cerrar</span>
+          </summary>
+          <div class="mt-4 text-slate-700 space-y-2">
+            <p>• Principios no negociables como normas de conducta y límites al poder.</p>
+            <p>• Identidad: derecha republicana; rechazo al socialismo, estatismo y caudillismo.</p>
+            <p>• Autoridad por función cumplida; disciplina como coherencia responsable, no obediencia ciega.</p>
+          </div>
+        </details>
+
+        <details class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft">
+          <summary class="cursor-pointer flex items-center justify-between">
+            <div>
+              <div class="text-xs uppercase tracking-widest text-slate-500">VI</div>
+              <div class="text-lg font-bold">Método y camino político</div>
+            </div>
+            <span class="kbd text-xs px-2 py-1 rounded bg-slate-100 border border-slate-200">Abrir/Cerrar</span>
+          </summary>
+          <div class="mt-4 text-slate-700 space-y-2">
+            <p>• Construcción doctrinal, formación rigurosa, expansión controlada, transición a partido.</p>
+            <p>• Sin atajos: paciencia estratégica y determinación política.</p>
+          </div>
+        </details>
+
+        <details class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft">
+          <summary class="cursor-pointer flex items-center justify-between">
+            <div>
+              <div class="text-xs uppercase tracking-widest text-slate-500">VII</div>
+              <div class="text-lg font-bold">Cláusula transitoria (excepcionalidad)</div>
+            </div>
+            <span class="kbd text-xs px-2 py-1 rounded bg-slate-100 border border-slate-200">Abrir/Cerrar</span>
+          </summary>
+          <div class="mt-4 text-slate-700 space-y-2">
+            <p>• Reconoce ausencia de normalidad constitucional bajo régimen criminal.</p>
+            <p>• Excepcionalidad orientada a restaurar orden jurídico legítimo (no arbitrariedad).</p>
+            <p>• Decisiones firmes y, cuando sea necesario, radicales como “virtud republicana”.</p>
+          </div>
+        </details>
+
+        <details class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft lg:col-span-2">
+          <summary class="cursor-pointer flex items-center justify-between">
+            <div>
+              <div class="text-xs uppercase tracking-widest text-slate-500">VIII + Clausura</div>
+              <div class="text-lg font-bold">Compromiso histórico</div>
+            </div>
+            <span class="kbd text-xs px-2 py-1 rounded bg-slate-100 border border-slate-200">Abrir/Cerrar</span>
+          </summary>
+          <div class="mt-4 text-slate-700 space-y-2">
+            <p>• No promete soluciones fáciles: promete claridad doctrinal y firmeza política.</p>
+            <p>• No negocia la República ni administra decadencia.</p>
+            <p>• Cierra con fórmula de legitimidad: orden → libertad → República → Nación.</p>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- Frases ancla (copiar) -->
+    <section id="anclas" class="mt-10">
+      <h2 class="text-2xl font-extrabold">Frases ancla (para vocería)</h2>
+      <p class="text-slate-700 mt-2 max-w-4xl">
+        Frases cortas para redes, entrevistas y cierres: resumen fiel del manifiesto.
+      </p>
+
+      <div class="mt-5 grid lg:grid-cols-2 gap-5" id="anclasGrid"></div>
+    </section>
+
+    <!-- Cómo usarlo -->
+    <section id="uso" class="mt-10">
+      <h2 class="text-2xl font-extrabold">Cómo usar este manifiesto (operacional)</h2>
+      <p class="text-slate-700 mt-2 max-w-4xl">
+        Úsalo como filtro de coherencia: si una alianza, vocería o acción contradice el manifiesto, se descarta.
+        Si lo refuerza, se ejecuta con disciplina. :contentReference[oaicite:5]{index=5}
+      </p>
+
+      <div class="mt-5 grid lg:grid-cols-3 gap-5">
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft">
+          <div class="text-xs uppercase tracking-widest text-slate-500">Narrativa</div>
+          <div class="mt-2 font-bold">Mensajes consistentes</div>
+          <p class="mt-2 text-sm text-slate-700">Cada declaración debe colgarse del diagnóstico y la razón de ser.</p>
+        </div>
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft">
+          <div class="text-xs uppercase tracking-widest text-slate-500">Alianzas</div>
+          <div class="mt-2 font-bold">Ruptura doble</div>
+          <p class="mt-2 text-sm text-slate-700">No se legitiman estructuras que sostuvieron la decadencia.</p>
+        </div>
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft">
+          <div class="text-xs uppercase tracking-widest text-slate-500">Organización</div>
+          <div class="mt-2 font-bold">Disciplina</div>
+          <p class="mt-2 text-sm text-slate-700">Autoridad por función cumplida; responsabilidades evaluables y revocables.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="mt-12">
+      <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft">
+        <div class="text-sm text-slate-600">
+          Documento fuente:
+          <a class="font-semibold text-slate-900 underline" href="../docs/manifiesto-RL.pdf" download>
+            manifiesto-RL.pdf
+          </a>
+        </div>
+        <div class="text-xs text-slate-400 mt-2">
+          Resumen ejecutivo para lectura rápida; detalle completo en el PDF.
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    // Frases ancla (resumen político directo del manifiesto)
+    const ANCLAS = [
+      { t: "Diagnóstico", a: "Venezuela no vive una crisis: vive la demolición deliberada de la República." },
+      { t: "Ruptura", a: "No se negocia la República ni se administra la decadencia." },
+      { t: "Razón de ser", a: "Rumbo Libertad nace para recuperar la República, no para ganar una elección." },
+      { t: "Libertad", a: "La libertad es un derecho: se ejerce con ley, orden y responsabilidad." },
+      { t: "Identidad", a: "Derecha republicana: libertad individual, Estado limitado y orden institucional." },
+      { t: "Disciplina", a: "La autoridad nace de la función cumplida, no del título ni del protagonismo." },
+      { t: "Método", a: "Sin atajos: doctrina, formación, expansión controlada y ejercicio responsable del poder." },
+      { t: "Excepcionalidad", a: "La excepcionalidad no es arbitrariedad: es restauración del orden jurídico legítimo." },
+      { t: "Virtud republicana", a: "La radicalidad es virtud cuando va a la raíz para restablecer legalidad y soberanía ciudadana." },
+      { t: "Compromiso", a: "No claudicamos: claridad doctrinal, firmeza política y coherencia en la acción." }
+    ];
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    }
+
+    function renderAnclas() {
+      const grid = document.getElementById("anclasGrid");
+      grid.innerHTML = ANCLAS.map((x, i) => `
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft">
+          <div class="text-xs uppercase tracking-widest text-slate-500">${escapeHtml(x.t)}</div>
+          <div class="mt-2 font-bold text-slate-900">${escapeHtml(x.a)}</div>
+          <button
+            class="copyBtn mt-4 px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-sm font-semibold"
+            data-copy="${escapeHtml(x.a)}">
+            Copiar
+          </button>
+        </div>
+      `).join("");
+
+      document.querySelectorAll(".copyBtn").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const txt = btn.getAttribute("data-copy") || "";
+          try {
+            await navigator.clipboard.writeText(txt);
+          } catch {
+            const ta = document.createElement("textarea");
+            ta.value = txt;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            ta.remove();
+          }
+          const old = btn.textContent;
+          btn.textContent = "✅ Copiado";
+          setTimeout(() => (btn.textContent = old), 900);
+        });
+      });
+    }
+
+    renderAnclas();
+  </script>
+
+</body>
+</html>
