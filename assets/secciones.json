@@ -25,5 +25,15 @@
   "ruta": "secciones/principios-rl.html",
   "planCompleto": "docs/principios-RL.pdf",
   "tags": ["Doctrina", "Principios", "Coherencia", "Organización"]
+},
+ {
+  "id": "manifiesto-rl",
+  "titulo": "Manifiesto Rumbo Libertad",
+  "descripcion": "Diagnóstico, razón de ser, visión de país, principios, identidad, disciplina, método, excepcionalidad y compromiso histórico.",
+  "icono": "fa-solid fa-scroll",
+  "ruta": "secciones/manifiesto-rl.html",
+  "planCompleto": "docs/manifiesto-RL.pdf",
+  "tags": ["Doctrina", "Manifiesto", "Identidad", "Ruptura"]
 }
+
 ]
