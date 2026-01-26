@@ -18,12 +18,12 @@
     "tags": ["Estrategia", "Transición"]
   },
  {
-  "id": "principios-doctrinales",
-  "titulo": "Principios Doctrinales",
-  "descripcion": "Marco ideológico no negociable: republicanismo, libertad, Estado limitado, orden institucional y ruptura estructural.",
+  "id": "principios-rl",
+  "titulo": "Principios Doctrinales (11)",
+  "descripcion": "Doctrina Rumbo Libertad: límites al poder, libertad individual, orden institucional, economía libre y soberanía.",
   "icono": "fa-solid fa-compass",
-  "ruta": "secciones/principios-doctrinales.html",
-  "planCompleto": "docs/Principios-doctrinales.pdf",
+  "ruta": "secciones/principios-rl.html",
+  "planCompleto": "docs/principios-RL.pdf",
   "tags": ["Doctrina", "Principios", "Coherencia", "Organización"]
 }
 ]
