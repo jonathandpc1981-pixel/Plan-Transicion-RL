@@ -3,19 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Rumbo Libertad — Estrategia de Propaganda Institucional</title>
-  <meta name="description" content="Estrategia de Propaganda Institucional y Lineamientos de Estabilidad Nacional (lectura ejecutiva + contenido completo).">
+  <title>Propuestas RL — Propaganda Institucional | Rumbo Libertad</title>
+  <meta name="description" content="Informe estratégico de propaganda institucional: lectura ejecutiva, ejes de mensaje y mapa doctrinal (sin Fuentes citadas)." />
 
-  <!-- Estándar (Base): Tailwind + FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
   <style>
-    /* ====== ESTILO BASE (look & feel estándar) ====== */
     body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
     summary::-webkit-details-marker { display: none; }
-
     .hero {
       background:
         radial-gradient(1200px circle at 10% 10%, rgba(15,23,42,.08), transparent 55%),
@@ -23,536 +20,600 @@
     }
     .chip { border: 1px solid rgba(148,163,184,.6); }
     .shadow-soft { box-shadow: 0 10px 30px rgba(2,6,23,.08); }
-
-    /* ====== Mapeo de tus clases existentes (SIN cambiar contenido/orden) ====== */
-    a{ color: inherit; text-decoration: none; }
-    a:hover{ text-decoration: underline; }
-
-    .topbar{
-      position: sticky; top:0; z-index: 50;
-      border-bottom: 1px solid rgb(226 232 240); /* slate-200 */
-      background: rgba(255,255,255,.75);
-      backdrop-filter: blur(10px);
-    }
-    .topbar-inner{
-      max-width: 72rem; /* max-w-6xl */
-      margin: 0 auto;
-      padding: 14px 24px;
-      display:flex; align-items:center; justify-content:space-between; gap: 12px;
-    }
-    .brand{
-      display:flex; align-items:center; gap: 10px;
-      font-weight: 800; letter-spacing: .2px;
-      color: rgb(15 23 42); /* slate-900 */
-    }
-    .brand .mark{
-      width: 36px; height: 36px; border-radius: 14px;
-      background: linear-gradient(135deg, rgba(2,132,199,.95), rgba(15,23,42,.12));
-      box-shadow: 0 10px 30px rgba(2,132,199,.10);
-      display:grid; place-items:center;
-      border: 1px solid rgb(226 232 240);
-    }
-    .brand .mark i{ color: rgb(15 23 42); }
-    .brand small{
-      display:block;
-      color: rgb(71 85 105); /* slate-600 */
-      font-weight: 700;
-      letter-spacing: .2px;
-      margin-top: 2px;
-    }
-
-    .actions{ display:flex; align-items:center; gap: 10px; flex-wrap: wrap; }
-
-    /* Botones estilo estándar */
-    .btn{
-      display:inline-flex; align-items:center; gap: 10px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      border: 1px solid rgb(226 232 240); /* slate-200 */
-      background: #fff;
-      color: rgb(15 23 42);
-      font-weight: 800;
-      box-shadow: 0 10px 30px rgba(2,6,23,.08);
-      cursor: pointer;
-      text-decoration:none;
-    }
-    .btn:hover{ background: rgb(248 250 252); text-decoration:none; } /* slate-50 */
-    .btn.primary{
-      background: rgb(15 23 42); /* slate-900 */
-      color: #fff;
-      border-color: rgb(15 23 42);
-    }
-    .btn.primary:hover{ background: rgb(2 6 23); } /* slate-950 */
-    .btn.warn{
-      background: #fff;
-      color: rgb(15 23 42);
-      border-color: rgb(226 232 240);
-    }
-
-    /* Layout estándar */
-    .wrap{ max-width: 72rem; margin: 0 auto; padding: 18px 24px 60px; } /* max-w-6xl */
-    .hero{
-      margin-top: 18px;
-      padding: 18px;
-      border: 1px solid rgb(226 232 240);
-      border-radius: 24px;
-      background-color: #fff;
-      box-shadow: 0 10px 30px rgba(2,6,23,.08);
-    }
-
-    .kicker{ display:flex; gap: 10px; flex-wrap: wrap; align-items:center; color: rgb(71 85 105); font-weight: 800; }
-    .pill{
-      display:inline-flex; align-items:center; gap: 8px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgb(226 232 240);
-      background: #fff;
-      font-size: 12px;
-      color: rgb(71 85 105);
-      box-shadow: 0 10px 30px rgba(2,6,23,.06);
-    }
-
-    h1{
-      margin: 12px 0 6px;
-      font-size: 28px;
-      line-height: 1.15;
-      letter-spacing: .2px;
-      color: rgb(15 23 42);
-      font-weight: 900;
-    }
-    .subtitle{
-      color: rgb(71 85 105);
-      margin: 0;
-      line-height: 1.55;
-      max-width: 980px;
-    }
-
-    .grid{
-      margin-top: 16px;
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 16px;
-    }
-    @media (max-width: 980px){ .grid{ grid-template-columns: 1fr; } }
-
-    .panel{
-      border: 1px solid rgb(226 232 240);
-      border-radius: 24px;
-      background: #fff;
-      box-shadow: 0 10px 30px rgba(2,6,23,.08);
-      overflow: hidden;
-    }
-    .panel .hd{
-      padding: 14px 16px;
-      border-bottom: 1px solid rgb(226 232 240);
-      display:flex; align-items:center; justify-content:space-between; gap: 10px;
-      background: rgb(248 250 252);
-    }
-    .panel .hd h2{
-      margin:0; font-size: 13px; letter-spacing: .35px;
-      text-transform: uppercase;
-      color: rgb(51 65 85);
-      font-weight: 900;
-    }
-    .panel .bd{ padding: 14px 16px; }
-
-    .toc a{
-      display:flex; align-items:center; gap: 10px;
-      padding: 10px 10px;
-      border-radius: 14px;
-      border: 1px solid transparent;
-      color: rgb(71 85 105);
-      font-weight: 800;
-      text-decoration:none;
-    }
-    .toc a:hover{
-      border-color: rgb(226 232 240);
-      background: rgb(248 250 252);
-      color: rgb(15 23 42);
-    }
-    .toc a i{ width: 18px; text-align:center; color: rgb(2 132 199); }
-
-    .note{
-      padding: 12px;
-      border-radius: 16px;
-      border: 1px solid rgb(186 230 253); /* sky-200 */
-      background: rgb(240 249 255); /* sky-50 */
-      color: rgb(15 23 42);
-      line-height: 1.55;
-    }
-
-    .block{ padding: 14px 16px; border-top: 1px solid rgb(226 232 240); }
-    .block:first-child{ border-top: 0; }
-    .block h3{
-      margin: 0 0 8px;
-      font-size: 18px;
-      letter-spacing: .2px;
-      color: rgb(15 23 42);
-      font-weight: 900;
-    }
-    .block p{ margin: 0 0 10px; color: rgb(71 85 105); line-height: 1.65; }
-
-    details{
-      border: 1px solid rgb(226 232 240);
-      border-radius: 18px;
-      background: #fff;
-      margin: 10px 0;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(2,6,23,.06);
-    }
-    summary{
-      list-style: none;
-      cursor: pointer;
-      padding: 12px 14px;
-      display:flex; align-items:flex-start; justify-content:space-between; gap: 10px;
-      font-weight: 900;
-      color: rgb(15 23 42);
-      background: rgb(248 250 252);
-    }
-    .sum-left{ display:flex; gap: 10px; align-items:flex-start; }
-    .sum-left i{ margin-top: 2px; color: rgb(2 132 199); }
-    .sum-right{ color: rgb(100 116 139); font-weight: 900; }
-    details[open] summary{ border-bottom: 1px solid rgb(226 232 240); }
-
-    .inside{
-      padding: 12px 14px 14px;
-      color: rgb(71 85 105);
-      line-height: 1.7;
-      background: #fff;
-    }
-    .inside p{ margin: 0 0 10px; }
-    .inside ul{ margin: 8px 0 0 18px; }
-    .inside li{ margin: 6px 0; }
-
-    .table{
-      width:100%;
-      border-collapse: collapse;
-      border: 1px solid rgb(226 232 240);
-      border-radius: 16px;
-      overflow: hidden;
-      background: #fff;
-      box-shadow: 0 10px 30px rgba(2,6,23,.06);
-    }
-    .table th, .table td{
-      padding: 10px 10px;
-      border-bottom: 1px solid rgb(226 232 240);
-      vertical-align: top;
-      text-align: left;
-      color: rgb(51 65 85);
-      font-size: 13px;
-      line-height: 1.5;
-    }
-    .table th{
-      background: rgb(248 250 252);
-      text-transform: uppercase;
-      letter-spacing: .25px;
-      font-size: 12px;
-      color: rgb(71 85 105);
-      font-weight: 900;
-    }
-    .table tr:last-child td{ border-bottom: 0; }
-
-    .footer{
-      margin-top: 18px;
-      color: rgb(100 116 139);
-      font-size: 12px;
-      text-align: center;
-    }
+    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    .table { width:100%; border-collapse: collapse; }
+    .table th, .table td { border-bottom: 1px solid rgb(226 232 240); padding: 10px 10px; vertical-align: top; text-align:left; }
+    .table th { background: rgb(248 250 252); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: rgb(71 85 105); }
+    .table td { color: rgb(51 65 85); font-size: 14px; line-height: 1.55; }
   </style>
 </head>
 
 <body class="bg-slate-50 text-slate-900">
 
-  <!-- Barra superior -->
-  <div class="topbar">
-    <div class="topbar-inner">
-      <div class="brand">
-        <div class="mark"><i class="fa-solid fa-compass"></i></div>
-        <div>
-          Rumbo Libertad
-          <small>Documento estratégico • Propaganda institucional</small>
+  <!-- Botón Inicio / nav estándar (inyecta barra superior compartida) -->
+  <script src="../assets/section-nav.js"></script>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="max-w-6xl mx-auto px-6 pt-10 pb-8">
+      <div class="flex flex-col gap-6">
+
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="chip text-xs px-3 py-1 rounded-full bg-white">Propaganda institucional</span>
+          <span class="chip text-xs px-3 py-1 rounded-full bg-white">Autoridad moral</span>
+          <span class="chip text-xs px-3 py-1 rounded-full bg-white">Ruptura con sentido</span>
+          <span class="chip text-xs px-3 py-1 rounded-full bg-white">Nuevo orden hemisférico (2026)</span>
         </div>
-      </div>
 
-      <div class="actions">
-        <!-- Tu menú/nav dinámico (botón Inicio + consistencia entre secciones) -->
-        <!-- IMPORTANTE: seccion-nav.js debe inyectar aquí el botón "Inicio" -->
-        <div id="seccion-nav"></div>
+        <div class="flex flex-col gap-3">
+          <h1 class="text-3xl md:text-5xl font-extrabold leading-tight">
+            Informe Estratégico de Propaganda Institucional
+          </h1>
+          <p class="text-slate-700 text-base md:text-lg max-w-4xl">
+            Marco de mensajes para consolidar autoridad política en excepcionalidad institucional:
+            diagnóstico, ruptura, seguridad, economía libre, servicios esenciales, geopolítica y disciplina organizativa.
+            <span class="font-semibold">Esta página excluye deliberadamente “Fuentes citadas”.</span>
+          </p>
+        </div>
 
-        <!-- Descarga / ver PDF (cambia el nombre cuando lo tengas listo en /docs) -->
-        <a class="btn primary" href="./docs/Propuestas-RL-(Propaganda).pdf" download>
-          <i class="fa-solid fa-download"></i> Descargar PDF
-        </a>
-        <a class="btn warn" href="./docs/Propuestas-RL-(Propaganda).pdf" target="_blank" rel="noopener">
-          <i class="fa-solid fa-eye"></i> Ver PDF
-        </a>
+        <!-- Acciones -->
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a href="../docs/Propuestas-RL-(Propaganda).pdf" download
+             class="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-900 text-white font-semibold shadow-soft">
+            ⬇️ Descargar documento completo (PDF)
+          </a>
+          <a href="../docs/Propuestas-RL-(Propaganda).pdf" target="_blank" rel="noopener"
+             class="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white border border-slate-200 text-slate-900 font-semibold shadow-soft">
+            👁️ Ver PDF en el navegador
+          </a>
+          <a href="#lectura"
+             class="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-sky-50 border border-sky-200 text-sky-900 font-semibold">
+            Lectura en 4 minutos ↓
+          </a>
+        </div>
+
+        <!-- Mensaje doctrinal -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft">
+          <div class="text-xs uppercase tracking-widest text-slate-500">Mensaje rector</div>
+          <div class="mt-2 text-lg md:text-xl font-bold">
+            La propaganda no es para agradar: es para ordenar el sentido político, fijar límites y preparar la transición.
+          </div>
+          <p class="mt-2 text-slate-700">
+            Objetivo: atraer seguidores con vocación de poder, energía disruptiva y rechazo al estatus político; construir
+            mando legítimo bajo principios republicanos y una narrativa de ruptura.
+          </p>
+        </div>
+
       </div>
     </div>
-  </div>
+  </header>
 
-  <main class="wrap">
-    <!-- Hero -->
-    <section class="hero">
-      <div class="kicker">
-        <span class="pill"><i class="fa-solid fa-shield-halved"></i> Estabilidad nacional</span>
-        <span class="pill"><i class="fa-solid fa-bullseye"></i> Comunicación estructurante</span>
-        <span class="pill"><i class="fa-solid fa-scale-balanced"></i> Autoridad moral</span>
-        <span class="pill"><i class="fa-solid fa-circle-check"></i> Uso interno / estratégico</span>
+  <main id="lectura" class="max-w-6xl mx-auto px-6 pb-14">
+
+    <!-- Navegación rápida -->
+    <section class="mt-8 bg-white border border-slate-200 rounded-2xl p-5 shadow-soft">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-extrabold">Lectura en 4 minutos</h2>
+          <p class="text-slate-600 text-sm mt-1">
+            1) Tesis del escenario 2026 2) Enemigo (continuidad) 3) Ejes temáticos 4) Perfil del militante 5) Agenda-resumen.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <a class="px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-sm font-semibold" href="#toc">Mapa</a>
+          <a class="px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-sm font-semibold" href="#sintesis">Síntesis</a>
+          <a class="px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-sm font-semibold" href="#ejes">Ejes</a>
+          <a class="px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-sm font-semibold" href="#agenda">Agenda</a>
+        </div>
       </div>
-
-      <h1>Estrategia de Propaganda Institucional y Lineamientos de Estabilidad Nacional</h1>
-      <p class="subtitle">
-        Hacia la restauración de la República bajo un marco de excepcionalidad institucional.
-        Esta página presenta el documento en formato ejecutable: lectura rápida, navegación por capítulos y
-        contenido íntegro (sin “Fuentes citadas”).
-      </p>
     </section>
 
-    <section class="grid">
-      <!-- TOC / navegación -->
-      <aside class="panel">
-        <div class="hd">
-          <h2>Mapa del documento</h2>
-          <span class="pill"><i class="fa-solid fa-list"></i> Navegación</span>
-        </div>
-        <div class="bd toc">
-          <a href="#paradigma"><i class="fa-solid fa-globe"></i> Cambio de paradigma</a>
-          <a href="#continuidad"><i class="fa-solid fa-mask"></i> Trampa de la continuidad</a>
-          <a href="#energia"><i class="fa-solid fa-oil-well"></i> Energía y petro-protectorado</a>
-          <a href="#seguridad"><i class="fa-solid fa-gavel"></i> Seguridad y justicia</a>
-          <a href="#afi"><i class="fa-solid fa-eye"></i> AFI (inteligencia)</a>
-          <a href="#economia"><i class="fa-solid fa-chart-line"></i> Revolución de la libertad</a>
-          <a href="#capitalizacion"><i class="fa-solid fa-hand-holding-dollar"></i> Capitalización e infraestructura</a>
-          <a href="#agua"><i class="fa-solid fa-droplet"></i> Soberanía hídrica y alimentaria</a>
-          <a href="#moral"><i class="fa-solid fa-cross"></i> Reconstrucción moral</a>
-          <a href="#aequitas"><i class="fa-solid fa-microchip"></i> Aequitas Digital</a>
-          <a href="#agro"><i class="fa-solid fa-wheat-awn"></i> Manifiesto agroindustrial</a>
-          <a href="#militante"><i class="fa-solid fa-people-group"></i> Militante RL</a>
-          <a href="#propaganda"><i class="fa-solid fa-bullhorn"></i> Manual de propaganda</a>
-          <a href="#fmroe"><i class="fa-solid fa-scale-balanced"></i> FM 3-07 + ROE</a>
-          <a href="#conclusion"><i class="fa-solid fa-flag"></i> Conclusión</a>
-        </div>
-      </aside>
+    <!-- TOC -->
+    <section id="toc" class="mt-10">
+      <h2 class="text-2xl font-extrabold">Mapa del documento</h2>
+      <p class="text-slate-700 mt-2 max-w-4xl">
+        Estructura ejecutable: tesis de escenario → desenmascaramiento del sistema → ejes temáticos de reconstrucción →
+        perfil del militante → geopolítica → acción política → agenda-resumen.
+      </p>
 
-      <!-- Resumen ejecutivo / reglas -->
-      <section class="panel">
-        <div class="hd">
-          <h2>Lectura ejecutiva</h2>
-          <span class="pill"><i class="fa-solid fa-stopwatch"></i> 5–7 min</span>
+      <div class="mt-5 grid md:grid-cols-3 gap-5">
+        <a href="#escenario" class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft hover:bg-slate-50">
+          <div class="text-xs uppercase tracking-widest text-slate-500">Escenario</div>
+          <div class="mt-2 font-bold"><i class="fa-solid fa-globe text-sky-600"></i> Nuevo orden hemisférico (2026)</div>
+          <p class="mt-2 text-sm text-slate-700">La realidad política cambia: excepcionalidad institucional y autoridad.</p>
+        </a>
+
+        <a href="#continuidad" class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft hover:bg-slate-50">
+          <div class="text-xs uppercase tracking-widest text-slate-500">Enemigo</div>
+          <div class="mt-2 font-bold"><i class="fa-solid fa-mask text-sky-600"></i> Continuidad administrativa</div>
+          <p class="mt-2 text-sm text-slate-700">“Madurismo sin Maduro” y la trampa de la normalización.</p>
+        </a>
+
+        <a href="#ejes" class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft hover:bg-slate-50">
+          <div class="text-xs uppercase tracking-widest text-slate-500">Ejecución</div>
+          <div class="mt-2 font-bold"><i class="fa-solid fa-bullhorn text-sky-600"></i> Temas de propaganda</div>
+          <p class="mt-2 text-sm text-slate-700">Seguridad, economía libre, servicios, geopolítica, disciplina.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Síntesis -->
+    <section id="sintesis" class="mt-10">
+      <h2 class="text-2xl font-extrabold">Síntesis de alto nivel</h2>
+      <div class="mt-4 grid lg:grid-cols-3 gap-5">
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft">
+          <div class="text-xs uppercase tracking-widest text-slate-500">Tesis</div>
+          <div class="mt-2 font-bold">Excepcionalidad institucional</div>
+          <p class="mt-2 text-sm text-slate-700">
+            La propaganda no busca validación electoral inmediata; busca consolidar autoridad moral y capacidad de mando
+            para ejecutar reconstrucción republicana.
+          </p>
         </div>
-        <div class="bd">
-          <div class="note">
-            <strong>Regla de uso:</strong> este documento no es electoralista; es un marco de autoridad y estabilización.
-            La comunicación se diseña para <strong>ordenar el sentido político</strong>, <strong>construir legitimidad</strong>
-            y <strong>preparar la ruptura</strong>. (Se excluye “Fuentes citadas” por diseño.)
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft">
+          <div class="text-xs uppercase tracking-widest text-slate-500">Método</div>
+          <div class="mt-2 font-bold">Ruptura con sentido</div>
+          <p class="mt-2 text-sm text-slate-700">
+            Señalar que la determinación y la ruptura produjeron resultados; la negociación estéril solo administró decadencia.
+          </p>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft">
+          <div class="text-xs uppercase tracking-widest text-slate-500">Oferta</div>
+          <div class="mt-2 font-bold">Orden + libertad</div>
+          <p class="mt-2 text-sm text-slate-700">
+            Ley y orden contra el narco-Estado, economía libre y propiedad, y soluciones técnicas concretas para servicios esenciales.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Contenido por acordeones -->
+    <section class="mt-10">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+        <div>
+          <h2 class="text-2xl font-extrabold">Contenido ejecutivo por secciones</h2>
+          <p class="text-slate-700 mt-2 max-w-4xl">
+            Lectura resumida y accionable. Abre solo lo que necesites. (Se excluye “Fuentes citadas”.)
+          </p>
+        </div>
+
+        <div class="flex gap-2">
+          <button id="expandAll"
+            class="px-3 py-2 rounded-lg bg-white border border-slate-200 text-sm font-semibold">
+            Expandir todo
+          </button>
+          <button id="collapseAll"
+            class="px-3 py-2 rounded-lg bg-white border border-slate-200 text-sm font-semibold">
+            Colapsar todo
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-5" id="chapters">
+
+        <!-- Escenario 2026 -->
+        <details id="escenario" class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft" open>
+          <summary class="cursor-pointer flex items-start justify-between gap-4">
+            <div>
+              <div class="text-xs uppercase tracking-widest text-slate-500">Escenario 2026</div>
+              <div class="text-lg font-extrabold mt-1">
+                Colapso del Estado criminal y doctrina hemisférica de seguridad
+              </div>
+              <div class="mt-2 text-sm text-slate-700">
+                <span class="font-semibold">Clave:</span> fin del marco “gobierno vs oposición”; nace un campo de mando y supervisión.
+              </div>
+            </div>
+            <span class="kbd text-xs px-2 py-1 rounded bg-slate-100 border border-slate-200">Abrir/Cerrar</span>
+          </summary>
+          <div class="mt-4 text-slate-700 leading-relaxed space-y-3">
+            <p>
+              El documento plantea que el quiebre político exige una propaganda institucional orientada a consolidar autoridad moral y política,
+              no a competir por simpatía. Se construye una narrativa de ruptura: resultados por determinación, no por diálogos estériles.
+            </p>
+            <p>
+              Se enfatiza una convergencia operativa: principios de derecha republicana + pragmatismo de seguridad nacional,
+              con foco en narcoterrorismo, estabilidad energética y soluciones tecnológicas para crisis humanitaria.
+            </p>
+
+            <div class="mt-4 bg-slate-50 border border-slate-200 rounded-xl p-4">
+              <div class="font-bold mb-2">Impacto y percepción pública (resumen operacional)</div>
+              <div class="overflow-x-auto">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Indicador (EE. UU. - Ene 2026)</th>
+                      <th>Aprobación / confianza</th>
+                      <th>Implicación para RL</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Aprobación del uso de fuerza contra Maduro</td>
+                      <td>39%–40% nacional / 69% republicanos</td>
+                      <td>Valida narrativa: fuerza necesaria sobre diálogo</td>
+                    </tr>
+                    <tr>
+                      <td>Confianza en Trump para manejar política hacia Venezuela</td>
+                      <td>81% republicanos</td>
+                      <td>La base de derecha confía en liderazgo fuerte</td>
+                    </tr>
+                    <tr>
+                      <td>Apoyo a control del petróleo por empresas de EE. UU.</td>
+                      <td>62% republicanos</td>
+                      <td>Privatización/control externo se asocia a estabilidad</td>
+                    </tr>
+                    <tr>
+                      <td>Percepción de la operación como éxito militar</td>
+                      <td>Mayoría relativa</td>
+                      <td>Rompe narrativa de invencibilidad del régimen</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="text-xs text-slate-500 mt-2">Tabla sintetizada del documento (sección “Impacto de la intervención…”).</div>
+            </div>
           </div>
+        </details>
 
-          <div style="height:12px"></div>
+        <!-- Continuidad -->
+        <details id="continuidad" class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft">
+          <summary class="cursor-pointer flex items-start justify-between gap-4">
+            <div>
+              <div class="text-xs uppercase tracking-widest text-slate-500">Enemigo</div>
+              <div class="text-lg font-extrabold mt-1">Trampa de la continuidad y “gobierno zombie”</div>
+              <div class="mt-2 text-sm text-slate-700">
+                <span class="font-semibold">Mensaje:</span> “Madurismo sin Maduro” = misma estructura, otro rostro.
+              </div>
+            </div>
+            <span class="kbd text-xs px-2 py-1 rounded bg-slate-100 border border-slate-200">Abrir/Cerrar</span>
+          </summary>
+          <div class="mt-4 text-slate-700 leading-relaxed space-y-3">
+            <p>
+              El documento define una administración transicional sin legitimidad electoral pero tolerada por pragmatismo externo para evitar vacío.
+              La propaganda debe centrarse en desenmascarar: cooperación táctica no es convicción democrática.
+            </p>
 
-          <table class="table" aria-label="Síntesis de ejes">
+            <div class="mt-4 bg-slate-50 border border-slate-200 rounded-xl p-4">
+              <div class="font-bold mb-2">Diferencias estructurales (síntesis)</div>
+              <div class="overflow-x-auto">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Característica</th>
+                      <th>Régimen interino</th>
+                      <th>Rumbo Libertad</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Origen del poder</td>
+                      <td>Sucesión burocrática del sistema</td>
+                      <td>Autoridad moral por principios republicanos</td>
+                    </tr>
+                    <tr>
+                      <td>Relación con EE. UU.</td>
+                      <td>Cooperación por coacción/necesidad</td>
+                      <td>Alianza estratégica por valores de derecha</td>
+                    </tr>
+                    <tr>
+                      <td>Modelo económico</td>
+                      <td>Estatismo pragmático</td>
+                      <td>Economía libre y propiedad privada</td>
+                    </tr>
+                    <tr>
+                      <td>Fuerzas armadas</td>
+                      <td>Mantiene cúpula heredada</td>
+                      <td>Depuración total + mando civil</td>
+                    </tr>
+                    <tr>
+                      <td>Plazo político</td>
+                      <td>Normalización sin cambios de raíz</td>
+                      <td>Excepcionalidad para ruptura total</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <p>
+              Línea operativa: evitar que el país quede como protectorado permanente o Estado fallido administrado por los mismos criminales.
+              La salida: ruptura irreversible del andamiaje.
+            </p>
+          </div>
+        </details>
+
+        <!-- Energía -->
+        <details id="energia" class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft">
+          <summary class="cursor-pointer flex items-start justify-between gap-4">
+            <div>
+              <div class="text-xs uppercase tracking-widest text-slate-500">Eje económico-estratégico</div>
+              <div class="text-lg font-extrabold mt-1">Reconstrucción energética: petróleo como activo de seguridad</div>
+              <div class="mt-2 text-sm text-slate-700">
+                <span class="font-semibold">Narrativa:</span> riqueza como base de prosperidad bajo ley y orden, no botín del Estado.
+              </div>
+            </div>
+            <span class="kbd text-xs px-2 py-1 rounded bg-slate-100 border border-slate-200">Abrir/Cerrar</span>
+          </summary>
+          <div class="mt-4 text-slate-700 leading-relaxed space-y-3">
+            <p>
+              Se plantea abrazar economía libre y propiedad privada: seguridad jurídica real para inversión y reconstrucción de infraestructura.
+              Promesa política: empleo masivo y retorno de excelencia técnica/meritocracia, no populismo distributivo.
+            </p>
+
+            <div class="mt-4 bg-slate-50 border border-slate-200 rounded-xl p-4">
+              <div class="font-bold mb-2">Horizonte de recuperación (lectura rápida)</div>
+              <div class="overflow-x-auto">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Fase</th>
+                      <th>Objetivo</th>
+                      <th>Requisito previo (RL)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Estabilización (1–2 años)</td>
+                      <td>Reordenar operación / seguridad</td>
+                      <td>Auditorías técnicas + seguridad física de campos</td>
+                    </tr>
+                    <tr>
+                      <td>Expansión (3–5 años)</td>
+                      <td>Escalar producción e inversión</td>
+                      <td>Reforma legal profunda + protección de propiedad</td>
+                    </tr>
+                    <tr>
+                      <td>Potencia (10+ años)</td>
+                      <td>Integración plena a mercados de capitales</td>
+                      <td>Integración occidental total</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Seguridad -->
+        <details id="seguridad" class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft">
+          <summary class="cursor-pointer flex items-start justify-between gap-4">
+            <div>
+              <div class="text-xs uppercase tracking-widest text-slate-500">Eje de seguridad</div>
+              <div class="text-lg font-extrabold mt-1">Desmantelar el Estado narco-criminal</div>
+              <div class="mt-2 text-sm text-slate-700">
+                <span class="font-semibold">Promesa:</span> “quien la hace, la paga” + depuración total.
+              </div>
+            </div>
+            <span class="kbd text-xs px-2 py-1 rounded bg-slate-100 border border-slate-200">Abrir/Cerrar</span>
+          </summary>
+          <div class="mt-4 text-slate-700 leading-relaxed space-y-3">
+            <p>
+              El documento propone una línea intransigente: orden institucional y legítima defensa. Sin depuración, no hay República.
+            </p>
+            <ul class="list-disc pl-6 space-y-1">
+              <li><strong>Neutralización de irregulares:</strong> desmantelar colectivos paramilitares y expulsar células armadas extranjeras.</li>
+              <li><strong>Tecnología de seguridad:</strong> vigilancia y control fronterizo de vanguardia con cooperación técnica internacional.</li>
+              <li><strong>Reforma judicial:</strong> jueces independientes que terminen impunidad estructural.</li>
+            </ul>
+            <p>
+              Mensaje para clase media y sectores populares: limpiar el país para que el ciudadano honesto pueda ejercer su libertad.
+            </p>
+          </div>
+        </details>
+
+        <!-- Agua/Alimentos -->
+        <details id="agua" class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft">
+          <summary class="cursor-pointer flex items-start justify-between gap-4">
+            <div>
+              <div class="text-xs uppercase tracking-widest text-slate-500">Servicios esenciales</div>
+              <div class="text-lg font-extrabold mt-1">Soberanía hídrica y alimentaria: tecnología sobre subsidio</div>
+              <div class="mt-2 text-sm text-slate-700">
+                <span class="font-semibold">Clave:</span> soluciones técnicas alcanzables mediante libertad de mercado + alianzas.
+              </div>
+            </div>
+            <span class="kbd text-xs px-2 py-1 rounded bg-slate-100 border border-slate-200">Abrir/Cerrar</span>
+          </summary>
+          <div class="mt-4 text-slate-700 leading-relaxed space-y-3">
+            <p>
+              Se propone abandonar el modelo de subsidios fallidos y adoptar revolución tecnológica para agua y producción agroindustrial.
+              El “derecho al agua” se traduce en objetivo técnico medible, no consigna.
+            </p>
+
+            <div class="mt-4 bg-slate-50 border border-slate-200 rounded-xl p-4">
+              <div class="font-bold mb-2">Soluciones tecnológicas para la emergencia (síntesis)</div>
+              <div class="overflow-x-auto">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Tecnología / Empresa</th>
+                      <th>Aplicación propuesta</th>
+                      <th>Beneficio ciudadano</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Generadores de agua atmosférica</td>
+                      <td>Hospitales y zonas áridas</td>
+                      <td>Agua potable sin depender de tuberías colapsadas</td>
+                    </tr>
+                    <tr>
+                      <td>Riego por goteo</td>
+                      <td>Eje agroindustrial centro-occidente</td>
+                      <td>Más productividad con fuerte ahorro de agua</td>
+                    </tr>
+                    <tr>
+                      <td>Unidades móviles de purificación</td>
+                      <td>Comunidades aisladas / desastres</td>
+                      <td>Agua limpia en tiempos cortos de despliegue</td>
+                    </tr>
+                    <tr>
+                      <td>Desalinización modular</td>
+                      <td>Costa caribeña / ciudades dormitorio</td>
+                      <td>Independencia ante sequía o fallas eléctricas</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Militante -->
+        <details id="militante" class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft">
+          <summary class="cursor-pointer flex items-start justify-between gap-4">
+            <div>
+              <div class="text-xs uppercase tracking-widest text-slate-500">Organización</div>
+              <div class="text-lg font-extrabold mt-1">El militante RL: energía, disciplina y doctrina</div>
+              <div class="mt-2 text-sm text-slate-700">
+                <span class="font-semibold">Regla:</span> no es club social ni maquinaria electoral; es formación para mando.
+              </div>
+            </div>
+            <span class="kbd text-xs px-2 py-1 rounded bg-slate-100 border border-slate-200">Abrir/Cerrar</span>
+          </summary>
+          <div class="mt-4 text-slate-700 leading-relaxed space-y-3">
+            <p>
+              Se define al seguidor ideal como exhausto y desconfiado, pero con rabia utilizable si recibe dirección clara.
+              Rumbo Libertad se diferencia por sobriedad: autoridad nace de función y cumplimiento, no de show.
+            </p>
+            <ul class="list-disc pl-6 space-y-1">
+              <li><strong>Claridad política:</strong> el problema es un sistema de demolición de la República; cura = ruptura.</li>
+              <li><strong>Identidad y autoridad:</strong> sobriedad institucional (sin estridencia ni vulgaridad).</li>
+              <li><strong>Formación permanente:</strong> cuadros conscientes para ejercer mando en transición real.</li>
+            </ul>
+          </div>
+        </details>
+
+        <!-- Geopolítica -->
+        <details id="geopolitica" class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft">
+          <summary class="cursor-pointer flex items-start justify-between gap-4">
+            <div>
+              <div class="text-xs uppercase tracking-widest text-slate-500">Geopolítica</div>
+              <div class="text-lg font-extrabold mt-1">Integración occidental: ruptura con ejes autoritarios</div>
+              <div class="mt-2 text-sm text-slate-700">
+                <span class="font-semibold">Objetivo:</span> soberanía por elección de aliados, no por subordinación.
+              </div>
+            </div>
+            <span class="kbd text-xs px-2 py-1 rounded bg-slate-100 border border-slate-200">Abrir/Cerrar</span>
+          </summary>
+          <div class="mt-4 text-slate-700 leading-relaxed space-y-3">
+            <p>
+              Se propone una ruptura con influencias autoritarias y sistemas de control social; posicionar a Venezuela como bastión occidental
+              basado en libertad individual y Estado de Derecho.
+            </p>
+            <ul class="list-disc pl-6 space-y-1">
+              <li>Desmantelar aparatos de inteligencia extranjeros incrustados.</li>
+              <li>Asegurar armamento estratégico que amenace estabilidad regional.</li>
+              <li>Abolir mecanismos de control social y dependencia tecnológica autoritaria.</li>
+            </ul>
+          </div>
+        </details>
+
+        <!-- Acción política -->
+        <details id="accion" class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft">
+          <summary class="cursor-pointer flex items-start justify-between gap-4">
+            <div>
+              <div class="text-xs uppercase tracking-widest text-slate-500">Acción política</div>
+              <div class="text-lg font-extrabold mt-1">Camino: transición real, no fraude electoral</div>
+              <div class="mt-2 text-sm text-slate-700">
+                <span class="font-semibold">Postura:</span> “No elecciones bajo sistema criminal; transición que reinstaure la República.”
+              </div>
+            </div>
+            <span class="kbd text-xs px-2 py-1 rounded bg-slate-100 border border-slate-200">Abrir/Cerrar</span>
+          </summary>
+          <div class="mt-4 text-slate-700 leading-relaxed space-y-3">
+            <p>
+              El documento canaliza energía hacia organización territorial, formación y preparación de cuadros. Mensaje: la República no se reconstruye
+              con improvisación; cada acto formativo es construcción.
+            </p>
+            <p class="font-semibold">
+              Cierre doctrinal: mientras otros administran decadencia, nosotros preparamos la República. No somos reacción: somos alternativa.
+            </p>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- Agenda resumen -->
+    <section id="agenda" class="mt-10">
+      <h2 class="text-2xl font-extrabold">Agenda de propaganda (resumen operativo)</h2>
+      <p class="text-slate-700 mt-2 max-w-4xl">
+        Temas clave ya empaquetados para captación y posicionamiento.
+      </p>
+
+      <div class="mt-5 bg-white border border-slate-200 rounded-2xl p-5 shadow-soft">
+        <div class="overflow-x-auto">
+          <table class="table">
             <thead>
               <tr>
-                <th>Eje</th>
-                <th>Qué busca</th>
-                <th>Qué evita</th>
+                <th>Ámbito</th>
+                <th>Tema</th>
+                <th>Objetivo de captación</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><strong>Autoridad</strong></td>
-                <td>Legitimidad moral y mando funcional</td>
-                <td>Personalismo, improvisación, estridencia</td>
+                <td><strong>Político</strong></td>
+                <td>Ruptura con el “madurismo sin Maduro”</td>
+                <td>Atraer a quienes desconfían de la transición cosmetizada</td>
               </tr>
               <tr>
-                <td><strong>Ruptura con sentido</strong></td>
-                <td>Transición irreversible, justicia y depuración</td>
-                <td>Continuidad maquillada, pactos sin consecuencias</td>
+                <td><strong>Seguridad</strong></td>
+                <td>Mano dura contra narcoterrorismo</td>
+                <td>Captar a quienes exigen orden y justicia inmediata</td>
               </tr>
               <tr>
-                <td><strong>Orden y seguridad</strong></td>
-                <td>Control del territorio y monopolio legítimo de la fuerza</td>
-                <td>Caos, bandas, lógicas de “coexistencia” criminal</td>
+                <td><strong>Económico</strong></td>
+                <td>Propiedad privada como escudo contra el Estado</td>
+                <td>Atraer emprendedores, técnicos y profesionales productivos</td>
               </tr>
               <tr>
-                <td><strong>Economía libre</strong></td>
-                <td>Propiedad, inversión, desburocratización</td>
-                <td>Estatismo pragmático, inflación como robo</td>
+                <td><strong>Servicios</strong></td>
+                <td>Tecnología para agua y luz: fin de la miseria</td>
+                <td>Ofrecer esperanza tangible con soluciones medibles</td>
+              </tr>
+              <tr>
+                <td><strong>Geopolítico</strong></td>
+                <td>Venezuela: bastión occidental</td>
+                <td>Nacionalismo republicano + alianza por valores</td>
               </tr>
             </tbody>
           </table>
-
-          <div style="height:12px"></div>
-
-          <p style="margin:0;color:rgb(71 85 105);line-height:1.65">
-            Abajo tienes el <strong>contenido íntegro por secciones</strong>. Cada bloque puede leerse rápido (colapsado)
-            o en profundidad (expandido).
-          </p>
         </div>
-      </section>
+        <div class="text-xs text-slate-500 mt-2">
+          Nota: esta sección resume el cuadro “Temas Clave para la Agenda de Propaganda”.
+        </div>
+      </div>
     </section>
 
-    <!-- CONTENIDO (íntegro) -->
-    <section class="panel" style="margin-top:16px">
-      <div class="hd">
-        <h2>Contenido completo (sin “Fuentes citadas”)</h2>
-        <span class="pill"><i class="fa-solid fa-file-lines"></i> Íntegro</span>
+    <!-- Footer / Nota de exclusión -->
+    <footer class="mt-12">
+      <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-soft">
+        <div class="text-sm text-slate-600">
+          Documento fuente:
+          <a class="font-semibold text-slate-900 underline" href="../docs/Propuestas-RL-(Propaganda).pdf" download>
+            Propuestas-RL-(Propaganda).pdf
+          </a>
+        </div>
+        <div class="text-xs text-slate-400 mt-2">
+          Esta página excluye deliberadamente la sección “Fuentes citadas”.
+        </div>
       </div>
+    </footer>
 
-      <!-- 1 -->
-      <div class="block" id="paradigma">
-        <h3><i class="fa-solid fa-globe" style="color:rgb(2 132 199)"></i> El Cambio de Paradigma Geopolítico: Doctrina Donroe y Operación Absolute Resolve</h3>
-
-        <details open>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-angle-right"></i> Núcleo estratégico</span>
-            <span class="sum-right">Expandir/contraer</span>
-          </summary>
-          <div class="inside">
-            <p>
-              El escenario político de Venezuela se redefine tras los eventos del <strong>3 de enero de 2026</strong>.
-              La ejecución de la Operación <strong>Absolute Resolve</strong> —incursión militar de precisión con captura y extracción
-              del círculo de mando— invalida los paradigmas tradicionales basados en moderación y diálogo.
-              El evento debe leerse como instauración de un <strong>protectorado de facto</strong> supervisado por la administración Trump,
-              bajo una modernización de la Doctrina Monroe (referida como <strong>Doctrina Donroe</strong>).
-            </p>
-            <p>
-              En esta lógica, Venezuela deja de ser un Estado soberano fallido y pasa a ser <strong>activo estratégico</strong> para
-              seguridad nacional de Washington: cadena de suministro energética y erradicación de redes narcoterroristas.
-              Rumbo Libertad debe posicionarse como <strong>aliado natural</strong> del nuevo orden hemisférico: país libre, republicano
-              y con Estado limitado bajo amparo occidental.
-            </p>
-            <p>
-              La propaganda institucional debe capitalizar el cambio: mientras la “opoficción” sostuvo negociaciones estériles,
-              la determinación y la ruptura produjeron resultados tangibles.
-            </p>
-          </div>
-        </details>
-
-        <details>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-chart-simple"></i> Indicador de opinión pública (EE. UU. - Enero 2026)</span>
-            <span class="sum-right">Ver</span>
-          </summary>
-          <div class="inside">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Indicador</th>
-                  <th>Resultado</th>
-                  <th>Implicación para RL</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Aprobación del uso de fuerza contra Maduro</td>
-                  <td>Mayoría nacional / 85% republicanos</td>
-                  <td>Valida narrativa de fuerza sobre diálogo</td>
-                </tr>
-                <tr>
-                  <td>Confianza en Trump para manejar Venezuela</td>
-                  <td>78% (base republicana)</td>
-                  <td>La derecha confía en liderazgo fuerte</td>
-                </tr>
-                <tr>
-                  <td>Apoyo al control petrolero por empresas de EE. UU.</td>
-                  <td>72% (base republicana)</td>
-                  <td>Privatización vista como garantía de estabilidad</td>
-                </tr>
-                <tr>
-                  <td>Percepción de la operación como éxito militar</td>
-                  <td>Mayoría relativa ciudadana</td>
-                  <td>Desarticula narrativa de invencibilidad del régimen</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </details>
-      </div>
-
-      <!-- 2 -->
-      <div class="block" id="continuidad">
-        <h3><i class="fa-solid fa-mask" style="color:rgb(2 132 199)"></i> La Trampa de la Continuidad: Gobierno “zombie” y madurismo sin Maduro</h3>
-
-        <details open>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-angle-right"></i> Diagnóstico</span>
-            <span class="sum-right">Expandir/contraer</span>
-          </summary>
-          <div class="inside">
-            <p>
-              La remoción de figuras visibles no implica desmantelamiento del sistema: el aparato intenta mutar bajo una figura interina.
-              Rumbo Libertad define esta fase como un <strong>gobierno zombie</strong>: sin legitimidad de origen, sostenido por pragmatismo
-              externo para evitar vacío caótico mientras se aseguran activos estratégicos.
-            </p>
-            <p>
-              La propaganda debe desenmascarar: cooperación táctica no equivale a convicción democrática; cualquier pacto sin justicia es
-              <strong>continuidad</strong> y posterga depuración real.
-            </p>
-          </div>
-        </details>
-
-        <details>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-table"></i> Comparativo: Continuidad vs Reconstrucción</span>
-            <span class="sum-right">Ver</span>
-          </summary>
-          <div class="inside">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Característica</th>
-                  <th>Gobierno interino</th>
-                  <th>Rumbo Libertad</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Origen del poder</td>
-                  <td>Sucesión burocrática del sistema</td>
-                  <td>Autoridad moral por principios republicanos</td>
-                </tr>
-                <tr>
-                  <td>Relación con EE. UU.</td>
-                  <td>Cooperación por coacción y fondos</td>
-                  <td>Alianza estratégica por valores compartidos</td>
-                </tr>
-                <tr>
-                  <td>Modelo económico</td>
-                  <td>Estatismo pragmático con apertura controlada</td>
-                  <td>Economía libre y propiedad privada absoluta</td>
-                </tr>
-                <tr>
-                  <td>Fuerzas armadas</td>
-                  <td>Mantiene cúpula heredada</td>
-                  <td>Depuración total + mando civil</td>
-                </tr>
-                <tr>
-                  <td>Plazo político</td>
-                  <td>Normalización sin cambio de raíz</td>
-                  <td>Excepcionalidad para ruptura total</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </details>
-      </div>
-
-      <!-- (RESTO DEL CONTENIDO: se mantiene EXACTO como estaba en tu “Pagina para arreglar.txt”) -->
-      <!-- NOTA: No he cambiado ni texto ni orden: solo estilos. Mantén el resto tal cual lo tenías. -->
-
-      <!-- Pega aquí, SIN CAMBIOS, desde tu archivo original:
-           <!-- 3 --> ... hasta el final, exactamente como lo tienes. -->
-
-    </section>
-
-    <div class="footer">
-      Rumbo Libertad • Sección web ejecutiva • “Estrategia de Propaganda Institucional” (sin “Fuentes citadas”).
-    </div>
   </main>
 
-  <!-- Nav dinámico compartido entre secciones (estándar) -->
-  <!-- OJO: en tu repo tú vienes usando /assets/section-nav.js (inglés) en la base.
-       Si tu archivo se llama seccion-nav.js (español), cámbialo aquí al nombre real. -->
-  <script src="./assets/section-nav.js"></script>
+  <script>
+    // Expand / Collapse
+    document.getElementById("expandAll").addEventListener("click", () => {
+      document.querySelectorAll("#chapters details").forEach(d => d.open = true);
+    });
+    document.getElementById("collapseAll").addEventListener("click", () => {
+      document.querySelectorAll("#chapters details").forEach(d => d.open = false);
+    });
+  </script>
 </body>
 </html>
