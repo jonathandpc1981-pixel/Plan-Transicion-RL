@@ -43,6 +43,16 @@
   "ruta": "secciones/estrategia-propaganda-institucional.html",
   "planCompleto": "docs/Propuestas-RL-(Propaganda).pdf",
   "tags": ["Propaganda", "Doctrina", "Estabilización", "Estrategia", "Comunicación"]
+},
+ {
+  "id": "reconstruccion-moral-desideologizacion",
+  "titulo": "Reconstrucción Moral y Desideologización",
+  "descripcion": "Manifiesto para la reconstrucción moral, cívica y nacional: desideologización y formación de ciudadanos bajo cuatro pilares (Dios, Patria, Familia y Propiedad).",
+  "icono": "fa-solid fa-cross",
+  "ruta": "secciones/reconstruccion-moral-desideologizacion.html",
+  "planCompleto": "docs/Manifiesto-Reconstruccion-Moral.pdf",
+  "tags": ["Manifiesto", "Doctrina", "Moral", "Desideologización", "Ciudadanía"]
 }
+
 
 ]
