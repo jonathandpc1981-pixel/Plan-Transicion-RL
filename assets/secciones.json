@@ -34,6 +34,15 @@
   "ruta": "secciones/manifiesto-rl.html",
   "planCompleto": "docs/manifiesto-RL.pdf",
   "tags": ["Doctrina", "Manifiesto", "Identidad", "Ruptura"]
+},
+ {
+  "id": "estrategia-propaganda-institucional",
+  "titulo": "Estrategia de Propaganda Institucional",
+  "descripcion": "Manual institucional: cambio de paradigma, ruptura vs continuidad, ejes de seguridad/justicia, economía libre y lineamientos operativos de propaganda.",
+  "icono": "fa-solid fa-bullhorn",
+  "ruta": "secciones/estrategia-propaganda-institucional.html",
+  "planCompleto": "docs/Estrategia-de-Propaganda-Institucional.pdf",
+  "tags": ["Propaganda", "Doctrina", "Estabilización", "Estrategia", "Comunicación"]
 }
 
 ]
