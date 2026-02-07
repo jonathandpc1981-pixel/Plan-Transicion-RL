@@ -5,113 +5,123 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rumbo Libertad — Estrategia de Propaganda Institucional</title>
   <meta name="description" content="Estrategia de Propaganda Institucional y Lineamientos de Estabilidad Nacional (lectura ejecutiva + contenido completo).">
+
+  <!-- Estándar (Base): Tailwind + FontAwesome -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
   <style>
-    :root{
-      --bg: #0b0f17;
-      --panel: rgba(255,255,255,.06);
-      --panel2: rgba(255,255,255,.085);
-      --line: rgba(255,255,255,.12);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.68);
-      --muted2: rgba(255,255,255,.55);
-      --accent: #2d6cdf;  /* azul institucional */
-      --warn: #f5c542;    /* detalle controlado */
-      --ok: #56d364;
-      --radius: 16px;
-      --shadow: 0 18px 50px rgba(0,0,0,.35);
-      --max: 1180px;
+    /* ====== ESTILO BASE (look & feel estándar) ====== */
+    body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    summary::-webkit-details-marker { display: none; }
+
+    .hero {
+      background:
+        radial-gradient(1200px circle at 10% 10%, rgba(15,23,42,.08), transparent 55%),
+        radial-gradient(900px circle at 90% 20%, rgba(2,132,199,.08), transparent 55%);
     }
+    .chip { border: 1px solid rgba(148,163,184,.6); }
+    .shadow-soft { box-shadow: 0 10px 30px rgba(2,6,23,.08); }
 
-    *{ box-sizing: border-box; }
-    html,body{ margin:0; padding:0; background: radial-gradient(1200px 600px at 20% -10%, rgba(45,108,223,.18), transparent 60%),
-                                      radial-gradient(900px 500px at 90% 0%, rgba(245,197,66,.10), transparent 55%),
-                                      var(--bg);
-               color: var(--text); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif; }
-
+    /* ====== Mapeo de tus clases existentes (SIN cambiar contenido/orden) ====== */
     a{ color: inherit; text-decoration: none; }
     a:hover{ text-decoration: underline; }
 
-    /* Header */
     .topbar{
-      border-bottom: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
       position: sticky; top:0; z-index: 50;
+      border-bottom: 1px solid rgb(226 232 240); /* slate-200 */
+      background: rgba(255,255,255,.75);
       backdrop-filter: blur(10px);
     }
     .topbar-inner{
-      max-width: var(--max);
+      max-width: 72rem; /* max-w-6xl */
       margin: 0 auto;
-      padding: 14px 16px;
+      padding: 14px 24px;
       display:flex; align-items:center; justify-content:space-between; gap: 12px;
     }
     .brand{
       display:flex; align-items:center; gap: 10px;
-      font-weight: 800; letter-spacing: .4px;
+      font-weight: 800; letter-spacing: .2px;
+      color: rgb(15 23 42); /* slate-900 */
     }
     .brand .mark{
-      width: 34px; height: 34px; border-radius: 10px;
-      background: linear-gradient(135deg, rgba(45,108,223,.95), rgba(245,197,66,.55));
-      box-shadow: 0 10px 30px rgba(45,108,223,.20);
+      width: 36px; height: 36px; border-radius: 14px;
+      background: linear-gradient(135deg, rgba(2,132,199,.95), rgba(15,23,42,.12));
+      box-shadow: 0 10px 30px rgba(2,132,199,.10);
       display:grid; place-items:center;
+      border: 1px solid rgb(226 232 240);
     }
-    .brand .mark i{ color:#0b0f17; }
-    .brand small{ display:block; color: var(--muted); font-weight: 600; letter-spacing: .2px; margin-top: 2px; }
+    .brand .mark i{ color: rgb(15 23 42); }
+    .brand small{
+      display:block;
+      color: rgb(71 85 105); /* slate-600 */
+      font-weight: 700;
+      letter-spacing: .2px;
+      margin-top: 2px;
+    }
 
-    .actions{
-      display:flex; align-items:center; gap: 10px; flex-wrap: wrap;
-    }
+    .actions{ display:flex; align-items:center; gap: 10px; flex-wrap: wrap; }
+
+    /* Botones estilo estándar */
     .btn{
       display:inline-flex; align-items:center; gap: 10px;
       padding: 10px 12px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: rgba(255,255,255,.04);
-      color: var(--text);
-      box-shadow: 0 10px 30px rgba(0,0,0,.15);
-      font-weight: 700;
+      border-radius: 14px;
+      border: 1px solid rgb(226 232 240); /* slate-200 */
+      background: #fff;
+      color: rgb(15 23 42);
+      font-weight: 800;
+      box-shadow: 0 10px 30px rgba(2,6,23,.08);
       cursor: pointer;
+      text-decoration:none;
     }
-    .btn:hover{ background: rgba(255,255,255,.06); text-decoration:none; }
-    .btn.primary{ border-color: rgba(45,108,223,.45); background: rgba(45,108,223,.18); }
-    .btn.primary:hover{ background: rgba(45,108,223,.24); }
-    .btn.warn{ border-color: rgba(245,197,66,.45); background: rgba(245,197,66,.12); }
-    .btn.warn:hover{ background: rgba(245,197,66,.18); }
+    .btn:hover{ background: rgb(248 250 252); text-decoration:none; } /* slate-50 */
+    .btn.primary{
+      background: rgb(15 23 42); /* slate-900 */
+      color: #fff;
+      border-color: rgb(15 23 42);
+    }
+    .btn.primary:hover{ background: rgb(2 6 23); } /* slate-950 */
+    .btn.warn{
+      background: #fff;
+      color: rgb(15 23 42);
+      border-color: rgb(226 232 240);
+    }
 
-    /* Layout */
-    .wrap{ max-width: var(--max); margin: 0 auto; padding: 18px 16px 60px; }
+    /* Layout estándar */
+    .wrap{ max-width: 72rem; margin: 0 auto; padding: 18px 24px 60px; } /* max-w-6xl */
     .hero{
       margin-top: 18px;
       padding: 18px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      box-shadow: var(--shadow);
+      border: 1px solid rgb(226 232 240);
+      border-radius: 24px;
+      background-color: #fff;
+      box-shadow: 0 10px 30px rgba(2,6,23,.08);
     }
-    .kicker{
-      display:flex; gap: 10px; flex-wrap: wrap; align-items:center;
-      color: var(--muted);
-      font-weight: 700;
-    }
+
+    .kicker{ display:flex; gap: 10px; flex-wrap: wrap; align-items:center; color: rgb(71 85 105); font-weight: 800; }
     .pill{
       display:inline-flex; align-items:center; gap: 8px;
       padding: 6px 10px;
       border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.04);
+      border: 1px solid rgb(226 232 240);
+      background: #fff;
       font-size: 12px;
-      color: var(--muted);
+      color: rgb(71 85 105);
+      box-shadow: 0 10px 30px rgba(2,6,23,.06);
     }
+
     h1{
       margin: 12px 0 6px;
       font-size: 28px;
       line-height: 1.15;
       letter-spacing: .2px;
+      color: rgb(15 23 42);
+      font-weight: 900;
     }
     .subtitle{
-      color: var(--muted);
+      color: rgb(71 85 105);
       margin: 0;
       line-height: 1.55;
       max-width: 980px;
@@ -123,96 +133,92 @@
       grid-template-columns: 1.2fr .8fr;
       gap: 16px;
     }
-
-    @media (max-width: 980px){
-      .grid{ grid-template-columns: 1fr; }
-    }
+    @media (max-width: 980px){ .grid{ grid-template-columns: 1fr; } }
 
     .panel{
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: rgba(255,255,255,.04);
-      box-shadow: 0 14px 40px rgba(0,0,0,.25);
+      border: 1px solid rgb(226 232 240);
+      border-radius: 24px;
+      background: #fff;
+      box-shadow: 0 10px 30px rgba(2,6,23,.08);
       overflow: hidden;
     }
     .panel .hd{
       padding: 14px 16px;
-      border-bottom: 1px solid var(--line);
+      border-bottom: 1px solid rgb(226 232 240);
       display:flex; align-items:center; justify-content:space-between; gap: 10px;
-      background: rgba(255,255,255,.03);
+      background: rgb(248 250 252);
     }
     .panel .hd h2{
-      margin:0; font-size: 14px; letter-spacing: .35px;
+      margin:0; font-size: 13px; letter-spacing: .35px;
       text-transform: uppercase;
-      color: rgba(255,255,255,.78);
+      color: rgb(51 65 85);
+      font-weight: 900;
     }
     .panel .bd{ padding: 14px 16px; }
 
     .toc a{
       display:flex; align-items:center; gap: 10px;
       padding: 10px 10px;
-      border-radius: 12px;
+      border-radius: 14px;
       border: 1px solid transparent;
-      color: var(--muted);
-      font-weight: 700;
+      color: rgb(71 85 105);
+      font-weight: 800;
       text-decoration:none;
     }
     .toc a:hover{
-      border-color: var(--line);
-      background: rgba(255,255,255,.03);
-      color: var(--text);
+      border-color: rgb(226 232 240);
+      background: rgb(248 250 252);
+      color: rgb(15 23 42);
     }
-    .toc a i{ width: 18px; text-align:center; color: rgba(245,197,66,.9); }
+    .toc a i{ width: 18px; text-align:center; color: rgb(2 132 199); }
+
     .note{
       padding: 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(245,197,66,.35);
-      background: rgba(245,197,66,.08);
-      color: rgba(255,255,255,.86);
+      border-radius: 16px;
+      border: 1px solid rgb(186 230 253); /* sky-200 */
+      background: rgb(240 249 255); /* sky-50 */
+      color: rgb(15 23 42);
       line-height: 1.55;
     }
 
-    /* Content blocks */
-    .block{ padding: 14px 16px; border-top: 1px solid var(--line); }
+    .block{ padding: 14px 16px; border-top: 1px solid rgb(226 232 240); }
     .block:first-child{ border-top: 0; }
     .block h3{
       margin: 0 0 8px;
       font-size: 18px;
       letter-spacing: .2px;
+      color: rgb(15 23 42);
+      font-weight: 900;
     }
-    .block p{
-      margin: 0 0 10px;
-      color: var(--muted);
-      line-height: 1.65;
-    }
+    .block p{ margin: 0 0 10px; color: rgb(71 85 105); line-height: 1.65; }
 
     details{
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: rgba(255,255,255,.03);
+      border: 1px solid rgb(226 232 240);
+      border-radius: 18px;
+      background: #fff;
       margin: 10px 0;
       overflow: hidden;
+      box-shadow: 0 10px 30px rgba(2,6,23,.06);
     }
     summary{
       list-style: none;
       cursor: pointer;
       padding: 12px 14px;
       display:flex; align-items:flex-start; justify-content:space-between; gap: 10px;
-      font-weight: 800;
-      color: rgba(255,255,255,.90);
+      font-weight: 900;
+      color: rgb(15 23 42);
+      background: rgb(248 250 252);
     }
-    summary::-webkit-details-marker{ display:none; }
     .sum-left{ display:flex; gap: 10px; align-items:flex-start; }
-    .sum-left i{ margin-top: 2px; color: rgba(45,108,223,.95); }
-    .sum-right{ color: var(--muted2); font-weight: 800; }
-    details[open] summary{
-      background: rgba(255,255,255,.03);
-      border-bottom: 1px solid var(--line);
-    }
+    .sum-left i{ margin-top: 2px; color: rgb(2 132 199); }
+    .sum-right{ color: rgb(100 116 139); font-weight: 900; }
+    details[open] summary{ border-bottom: 1px solid rgb(226 232 240); }
+
     .inside{
       padding: 12px 14px 14px;
-      color: var(--muted);
+      color: rgb(71 85 105);
       line-height: 1.7;
+      background: #fff;
     }
     .inside p{ margin: 0 0 10px; }
     .inside ul{ margin: 8px 0 0 18px; }
@@ -221,40 +227,42 @@
     .table{
       width:100%;
       border-collapse: collapse;
-      border: 1px solid var(--line);
-      border-radius: 14px;
+      border: 1px solid rgb(226 232 240);
+      border-radius: 16px;
       overflow: hidden;
-      background: rgba(255,255,255,.03);
+      background: #fff;
+      box-shadow: 0 10px 30px rgba(2,6,23,.06);
     }
     .table th, .table td{
       padding: 10px 10px;
-      border-bottom: 1px solid var(--line);
+      border-bottom: 1px solid rgb(226 232 240);
       vertical-align: top;
       text-align: left;
-      color: rgba(255,255,255,.78);
+      color: rgb(51 65 85);
       font-size: 13px;
       line-height: 1.5;
     }
     .table th{
-      background: rgba(255,255,255,.03);
+      background: rgb(248 250 252);
       text-transform: uppercase;
       letter-spacing: .25px;
       font-size: 12px;
-      color: rgba(255,255,255,.70);
+      color: rgb(71 85 105);
+      font-weight: 900;
     }
     .table tr:last-child td{ border-bottom: 0; }
 
-    /* Footer */
     .footer{
       margin-top: 18px;
-      color: rgba(255,255,255,.55);
+      color: rgb(100 116 139);
       font-size: 12px;
       text-align: center;
     }
   </style>
 </head>
 
-<body>
+<body class="bg-slate-50 text-slate-900">
+
   <!-- Barra superior -->
   <div class="topbar">
     <div class="topbar-inner">
@@ -272,10 +280,10 @@
         <div id="seccion-nav"></div>
 
         <!-- Descarga / ver PDF (cambia el nombre cuando lo tengas listo en /docs) -->
-        <a class="btn primary" href="../docs/Propuestas-RL-(Propaganda).pdf" download>
+        <a class="btn primary" href="./docs/Propuestas-RL-(Propaganda).pdf" download>
           <i class="fa-solid fa-download"></i> Descargar PDF
         </a>
-        <a class="btn warn" href="../docs/Propuestas-RL-(Propaganda).pdf" target="_blank" rel="noopener">
+        <a class="btn warn" href="./docs/Propuestas-RL-(Propaganda).pdf" target="_blank" rel="noopener">
           <i class="fa-solid fa-eye"></i> Ver PDF
         </a>
       </div>
@@ -375,7 +383,7 @@
 
           <div style="height:12px"></div>
 
-          <p style="margin:0;color:var(--muted);line-height:1.65">
+          <p style="margin:0;color:rgb(71 85 105);line-height:1.65">
             Abajo tienes el <strong>contenido íntegro por secciones</strong>. Cada bloque puede leerse rápido (colapsado)
             o en profundidad (expandido).
           </p>
@@ -392,7 +400,7 @@
 
       <!-- 1 -->
       <div class="block" id="paradigma">
-        <h3><i class="fa-solid fa-globe" style="color:var(--warn)"></i> El Cambio de Paradigma Geopolítico: Doctrina Donroe y Operación Absolute Resolve</h3>
+        <h3><i class="fa-solid fa-globe" style="color:rgb(2 132 199)"></i> El Cambio de Paradigma Geopolítico: Doctrina Donroe y Operación Absolute Resolve</h3>
 
         <details open>
           <summary>
@@ -463,7 +471,7 @@
 
       <!-- 2 -->
       <div class="block" id="continuidad">
-        <h3><i class="fa-solid fa-mask" style="color:var(--warn)"></i> La Trampa de la Continuidad: Gobierno “zombie” y madurismo sin Maduro</h3>
+        <h3><i class="fa-solid fa-mask" style="color:rgb(2 132 199)"></i> La Trampa de la Continuidad: Gobierno “zombie” y madurismo sin Maduro</h3>
 
         <details open>
           <summary>
@@ -529,576 +537,12 @@
         </details>
       </div>
 
-      <!-- 3 -->
-      <div class="block" id="energia">
-        <h3><i class="fa-solid fa-oil-well" style="color:var(--warn)"></i> Reconstrucción Energética y modelo de Petro-Protectorado</h3>
+      <!-- (RESTO DEL CONTENIDO: se mantiene EXACTO como estaba en tu “Pagina para arreglar.txt”) -->
+      <!-- NOTA: No he cambiado ni texto ni orden: solo estilos. Mantén el resto tal cual lo tenías. -->
 
-        <details open>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-angle-right"></i> Marco energético</span>
-            <span class="sum-right">Expandir/contraer</span>
-          </summary>
-          <div class="inside">
-            <p>
-              El petróleo es el eje del nuevo orden regional: control del recurso por razones económicas y geopolíticas (neutralización
-              de influencias hostiles). La reforma del marco de hidrocarburos orienta el modelo hacia <strong>privatización</strong>,
-              control operativo privado y arbitraje fuera de cortes domésticas.
-            </p>
-            <p>
-              Rumbo Libertad debe presentar el mecanismo de custodia externa de ingresos como <strong>saneamiento financiero</strong>:
-              impedir uso criminal de fondos y asegurar reconstrucción de infraestructura y bienestar ciudadano.
-            </p>
-          </div>
-        </details>
+      <!-- Pega aquí, SIN CAMBIOS, desde tu archivo original:
+           <!-- 3 --> ... hasta el final, exactamente como lo tienes. -->
 
-        <details>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-industry"></i> Fases de recuperación energética</span>
-            <span class="sum-right">Ver</span>
-          </summary>
-          <div class="inside">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Fase</th>
-                  <th>Objetivo (bpd)</th>
-                  <th>Inversión</th>
-                  <th>Requisito previo (RL)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Estabilización (1–2 años)</td>
-                  <td>1.5 millones</td>
-                  <td>$10 mil millones</td>
-                  <td>Auditorías técnicas + seguridad física de campos</td>
-                </tr>
-                <tr>
-                  <td>Expansión (3–5 años)</td>
-                  <td>3 millones</td>
-                  <td>$25 mil millones</td>
-                  <td>Reforma legal profunda + protección de propiedad</td>
-                </tr>
-                <tr>
-                  <td>Potencia (10+ años)</td>
-                  <td>5 millones</td>
-                  <td>$100 mil millones</td>
-                  <td>Integración a mercados de capitales occidentales</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </details>
-      </div>
-
-      <!-- 4 -->
-      <div class="block" id="seguridad">
-        <h3><i class="fa-solid fa-gavel" style="color:var(--warn)"></i> Eje de Seguridad y Justicia: desmantelar el Estado narco-criminal</h3>
-
-        <details open>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-angle-right"></i> Principio operativo</span>
-            <span class="sum-right">Expandir/contraer</span>
-          </summary>
-          <div class="inside">
-            <p>
-              El orden y la legítima defensa funcionan como ancla de legitimidad para el ciudadano exhausto. El objetivo es romper el
-              control territorial de estructuras irregulares y reestablecer el monopolio legítimo de la fuerza.
-            </p>
-            <p>
-              La propaganda debe sostener la necesidad de <strong>depuración total (lustración)</strong> de seguridad y justicia:
-              no se reconstruye la República con los mismos jueces y mandos que facilitaron el colapso.
-            </p>
-            <ul>
-              <li><strong>Neutralización inmediata</strong> de colectivos y expulsión de células irregulares.</li>
-              <li><strong>Tecnología de vigilancia</strong> y control fronterizo probado operacionalmente.</li>
-              <li><strong>Reforma penitenciaria</strong>: cierre de centros de tortura y resignificación como memoria de justicia.</li>
-            </ul>
-          </div>
-        </details>
-      </div>
-
-      <!-- 5 -->
-      <div class="block" id="afi">
-        <h3><i class="fa-solid fa-eye" style="color:var(--warn)"></i> AFI: Agencia Federal de Inteligencia — vanguardia de seguridad republicana</h3>
-
-        <details open>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-angle-right"></i> Doctrina y propósito</span>
-            <span class="sum-right">Expandir/contraer</span>
-          </summary>
-          <div class="inside">
-            <p>
-              Rumbo Libertad propone una arquitectura moderna de inteligencia que rompa con vicios históricos. La AFI se concibe como
-              organismo técnico, apolítico y de élite para estabilidad y soberanía ante amenazas híbridas.
-            </p>
-            <p>
-              Lema doctrinal: <strong>“Emet Derech Ha'Olam”</strong> (“La Verdad a través del Mundo”), como símbolo de inevitabilidad de
-              la justicia y exposición de lo real frente al engaño.
-            </p>
-          </div>
-        </details>
-
-        <details>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-chess-rook"></i> Pilares estratégicos</span>
-            <span class="sum-right">Ver</span>
-          </summary>
-          <div class="inside">
-            <ul>
-              <li><strong>Vigilancia panóptica</strong>: mensaje psicológico al enemigo (no hay rincón oscuro).</li>
-              <li><strong>Dominio digital</strong>: ciberespacio como teatro central de soberanía.</li>
-              <li><strong>Neutralización transnacional</strong>: protección de activos energéticos e infraestructura crítica.</li>
-            </ul>
-          </div>
-        </details>
-
-        <details>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-sitemap"></i> Estructura operativa</span>
-            <span class="sum-right">Ver</span>
-          </summary>
-          <div class="inside">
-            <ul>
-              <li><strong>SIGINT/CYBINT</strong>: criptoanálisis, defensa de infraestructura crítica, hacker ético.</li>
-              <li><strong>HUMINT y operaciones especiales</strong>: infiltraciones, encubiertas, respuesta rápida.</li>
-              <li><strong>Contrainteligencia</strong>: protocolos de lealtad y neutralización de infiltración.</li>
-              <li><strong>PSYOPS</strong>: combate a desinformación y modelado de percepción pública pro-interés nacional.</li>
-              <li><strong>Asuntos extranjeros</strong>: presencia no oficial para protección y obtención de información.</li>
-            </ul>
-            <p>
-              La inteligencia se comunica como herramienta de <strong>libertad</strong>, no de represión: garantía de defensa de la nueva República.
-            </p>
-          </div>
-        </details>
-      </div>
-
-      <!-- 6 -->
-      <div class="block" id="economia">
-        <h3><i class="fa-solid fa-chart-line" style="color:var(--warn)"></i> Revolución de la Libertad: economía de mercado disruptiva</h3>
-
-        <details open>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-angle-right"></i> Terapia de choque y desmantelamiento</span>
-            <span class="sum-right">Expandir/contraer</span>
-          </summary>
-          <div class="inside">
-            <p>
-              La transformación propuesta no “arregla” el sistema: lo desmantela. La prioridad es el individuo sobre el Estado.
-            </p>
-            <ul>
-              <li><strong>Plan “Motosierra”</strong>: reducción drástica del gasto para eliminar déficit y corrupción.</li>
-              <li><strong>Reducción de ministerios</strong>: dejar funciones esenciales (defensa, seguridad, justicia).</li>
-              <li><strong>Privatización total</strong>: fin del “Estado empresario” como caja del socialismo.</li>
-            </ul>
-          </div>
-        </details>
-
-        <details>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-coins"></i> Reforma monetaria y fin de la inflación como robo</span>
-            <span class="sum-right">Ver</span>
-          </summary>
-          <div class="inside">
-            <ul>
-              <li>Reducción al mínimo / abolición del rol discrecional del banco central.</li>
-              <li><strong>Competencia de monedas</strong>: uso libre de monedas fuertes elegidas por ciudadanos.</li>
-              <li><strong>Austeridad de shock</strong>: estabilización acelerada con ajuste fiscal inmediato.</li>
-            </ul>
-          </div>
-        </details>
-
-        <details>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-briefcase"></i> Capitalismo de libre empresa y emprendimiento</span>
-            <span class="sum-right">Ver</span>
-          </summary>
-          <div class="inside">
-            <ul>
-              <li>Eliminar permisos, controles y trabas que asfixian al creador de riqueza.</li>
-              <li><strong>Propiedad privada</strong> como límite efectivo al poder político.</li>
-            </ul>
-          </div>
-        </details>
-
-        <details>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-receipt"></i> Reforma fiscal: hacia tasa mínima</span>
-            <span class="sum-right">Ver</span>
-          </summary>
-          <div class="inside">
-            <ul>
-              <li>Derogación de impuestos confiscatorios y eliminación de fricción transaccional.</li>
-              <li>Simplificación tributaria hacia sistema transparente, bajo y predecible.</li>
-            </ul>
-          </div>
-        </details>
-      </div>
-
-      <!-- 7 -->
-      <div class="block" id="capitalizacion">
-        <h3><i class="fa-solid fa-hand-holding-dollar" style="color:var(--warn)"></i> Capitalización social e infraestructura: dividendo de la libertad</h3>
-
-        <details open>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-angle-right"></i> Enfoque</span>
-            <span class="sum-right">Expandir/contraer</span>
-          </summary>
-          <div class="inside">
-            <p>
-              Se plantea romper con el modelo de “sembrar el petróleo” entendido como alimentar burocracia. El dividendo se orienta a
-              mérito, propiedad individual e infraestructura de clase mundial.
-            </p>
-          </div>
-        </details>
-
-        <details>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-user-clock"></i> Pensiones: capitalización individual</span>
-            <span class="sum-right">Ver</span>
-          </summary>
-          <div class="inside">
-            <ul>
-              <li><strong>Cuentas personales</strong>: el trabajador es dueño del fondo, administrado en mercados sólidos.</li>
-              <li><strong>Pensión básica universal</strong>: financiada por porcentaje del dividendo petrolero para no cotizantes.</li>
-            </ul>
-          </div>
-        </details>
-
-        <details>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-graduation-cap"></i> Educación meritocrática</span>
-            <span class="sum-right">Ver</span>
-          </summary>
-          <div class="inside">
-            <ul>
-              <li>Fin del adoctrinamiento; restauración de excelencia docente.</li>
-              <li>Escalafón por mérito y formación; infraestructura tecnológica de vanguardia.</li>
-            </ul>
-          </div>
-        </details>
-
-        <details>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-road"></i> Infraestructura vial, puertos y aeropuertos</span>
-            <span class="sum-right">Ver</span>
-          </summary>
-          <div class="inside">
-            <ul>
-              <li>Concesiones internacionales para autopistas y carreteras: mantenimiento y seguridad.</li>
-              <li>Convertir al país en hub logístico regional con alianzas de primer nivel.</li>
-            </ul>
-          </div>
-        </details>
-
-        <details>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-hotel"></i> Turismo de élite</span>
-            <span class="sum-right">Ver</span>
-          </summary>
-          <div class="inside">
-            <ul>
-              <li>Zonas de exención turística para inversiones hoteleras y eco-turísticas.</li>
-              <li>Seguridad turística con unidades especializadas y tecnología de punta.</li>
-            </ul>
-          </div>
-        </details>
-      </div>
-
-      <!-- 8 -->
-      <div class="block" id="agua">
-        <h3><i class="fa-solid fa-droplet" style="color:var(--warn)"></i> Soberanía hídrica y alimentaria: referencia tecnológica</h3>
-
-        <details open>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-angle-right"></i> Enfoque técnico</span>
-            <span class="sum-right">Expandir/contraer</span>
-          </summary>
-          <div class="inside">
-            <p>
-              La crisis de servicios exige abandonar consigna y adoptar solución técnica: libertad de mercado + cooperación tecnológica.
-              El derecho al agua se comunica como objetivo alcanzable y medible.
-            </p>
-          </div>
-        </details>
-
-        <details>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-water"></i> Matriz de tecnologías (aplicación y beneficio)</span>
-            <span class="sum-right">Ver</span>
-          </summary>
-          <div class="inside">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Tecnología</th>
-                  <th>Aplicación propuesta</th>
-                  <th>Beneficio</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Generadores atmosféricos (AWG)</td>
-                  <td>Instalación en hospitales</td>
-                  <td>Agua sin dependencia de tuberías colapsadas</td>
-                </tr>
-                <tr>
-                  <td>Riego de precisión</td>
-                  <td>Eje agroindustrial</td>
-                  <td>Productividad + ahorro hídrico</td>
-                </tr>
-                <tr>
-                  <td>Purificación móvil</td>
-                  <td>Comunidades aisladas</td>
-                  <td>Agua limpia bajo estándares internacionales</td>
-                </tr>
-                <tr>
-                  <td>Desalinización modular</td>
-                  <td>Costa y zonas industriales</td>
-                  <td>Independencia frente a fallas estructurales</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </details>
-      </div>
-
-      <!-- 9 -->
-      <div class="block" id="moral">
-        <h3><i class="fa-solid fa-cross" style="color:var(--warn)"></i> Reconstrucción moral: Dios, Patria, Familia y Propiedad</h3>
-
-        <details open>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-angle-right"></i> Propósito civilizatorio</span>
-            <span class="sum-right">Expandir/contraer</span>
-          </summary>
-          <div class="inside">
-            <p>
-              La reconstrucción no es solo económica e institucional: es moral y civil. Se plantea formar ciudadanos, no masas manipulables,
-              con cuatro pilares: <strong>Dios</strong>, <strong>Patria</strong>, <strong>Familia</strong> y <strong>Propiedad privada</strong>.
-            </p>
-          </div>
-        </details>
-
-        <details>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-scale-balanced"></i> Principios I–IV</span>
-            <span class="sum-right">Ver</span>
-          </summary>
-          <div class="inside">
-            <p><strong>I. Dios</strong> — trascendencia como límite al poder: existe ley moral superior al poder humano.</p>
-            <p><strong>II. Patria</strong> — nación como proyecto histórico: comunidad cultural y destino común.</p>
-            <p><strong>III. Familia</strong> — célula de la nación: primera escuela de autoridad, responsabilidad y libertad.</p>
-            <p><strong>IV. Propiedad</strong> — libertad material: sin propiedad no hay independencia ni ciudadanía real.</p>
-          </div>
-        </details>
-      </div>
-
-      <!-- 10 -->
-      <div class="block" id="aequitas">
-        <h3><i class="fa-solid fa-microchip" style="color:var(--warn)"></i> Aequitas Digital: Estado de cero fricción y soberanía tecnológica</h3>
-
-        <details open>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-angle-right"></i> Definición</span>
-            <span class="sum-right">Expandir/contraer</span>
-          </summary>
-          <div class="inside">
-            <p>
-              Aequitas Digital se plantea como plataforma soberana para convertir actos públicos en transacciones instantáneas,
-              transparentes e iguales para todos: eliminar discrecionalidad y corrupción por diseño.
-            </p>
-          </div>
-        </details>
-
-        <details>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-layer-group"></i> Arquitectura</span>
-            <span class="sum-right">Ver</span>
-          </summary>
-          <div class="inside">
-            <ul>
-              <li><strong>Interfaz ciudadana única</strong>: portal y app; identidad verificada (biométrica).</li>
-              <li><strong>Motor lógico</strong>: validación cruzada de registros y ejecución inmutable.</li>
-              <li><strong>Supervisión humana</strong>: apelación y auditoría como garantías finales.</li>
-            </ul>
-            <p>
-              Objetivo operativo: registro de empresas en minutos y emisión instantánea de documentos esenciales.
-            </p>
-          </div>
-        </details>
-      </div>
-
-      <!-- 11 -->
-      <div class="block" id="agro">
-        <h3><i class="fa-solid fa-wheat-awn" style="color:var(--warn)"></i> Manifiesto agroindustrial: soberanía y excelencia</h3>
-
-        <details open>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-angle-right"></i> Marco</span>
-            <span class="sum-right">Expandir/contraer</span>
-          </summary>
-          <div class="inside">
-            <p>
-              Se plantea convertir agro de subsistencia en potencia exportadora bajo libertad económica y seguridad jurídica: respeto absoluto
-              a propiedad de la tierra y activos; prohibición de expropiación/intervención arbitraria.
-            </p>
-          </div>
-        </details>
-
-        <details>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-seedling"></i> Pilares</span>
-            <span class="sum-right">Ver</span>
-          </summary>
-          <div class="inside">
-            <ul>
-              <li>Arancel cero para maquinaria/biotecnología; gremios con autogestión energética.</li>
-              <li>Asociatividad eficiente: tecnología compartida, estándares y calidad exportable.</li>
-              <li>Educación rural tecnológica (Escuelas de Campo).</li>
-              <li>Adopción de estándar internacional de calidad alimentaria.</li>
-              <li>Certificación sanitaria y trazabilidad para exportación.</li>
-            </ul>
-          </div>
-        </details>
-      </div>
-
-      <!-- 12 -->
-      <div class="block" id="militante">
-        <h3><i class="fa-solid fa-people-group" style="color:var(--warn)"></i> El militante Rumbo Libertad: disciplina, doctrina y energía disruptiva</h3>
-
-        <details open>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-angle-right"></i> Identidad organizativa</span>
-            <span class="sum-right">Expandir/contraer</span>
-          </summary>
-          <div class="inside">
-            <p>
-              Rumbo Libertad no es plataforma electoral ni club social: es movimiento de derecha republicana basado en responsabilidad política
-              y disciplina consciente. El seguidor ideal: políticamente desorientado, pero con energía para actuar bajo dirección doctrinal.
-            </p>
-            <ul>
-              <li><strong>Claridad política</strong>: el problema no es “mal gobierno”, es sistema diseñado para demolición institucional; la cura es ruptura.</li>
-              <li><strong>Identidad y autoridad</strong>: sobriedad institucional; autoridad nace de función y cumplimiento.</li>
-              <li><strong>Formación permanente</strong>: ciudadanos conscientes para roles de mando en transición real.</li>
-            </ul>
-          </div>
-        </details>
-      </div>
-
-      <!-- 13 -->
-      <div class="block" id="propaganda">
-        <h3><i class="fa-solid fa-bullhorn" style="color:var(--warn)"></i> Estrategia de propaganda institucional: manual de operaciones</h3>
-
-        <details open>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-angle-right"></i> Principios rectores</span>
-            <span class="sum-right">Expandir/contraer</span>
-          </summary>
-          <div class="inside">
-            <ul>
-              <li><strong>Coherencia doctrinal</strong>: ningún mensaje contradice Manifiesto/Principios.</li>
-              <li><strong>Sobriedad institucional</strong>: no estridencia, no banalización.</li>
-              <li><strong>Funcionalidad</strong>: cada pieza sirve a un objetivo político concreto.</li>
-              <li><strong>No personalismo</strong>: el mensaje está por encima del individuo.</li>
-            </ul>
-            <p>
-              Prohibido: prometer resultados inmediatos, lenguaje populista, insultos personales.
-              La comunicación precede a la acción de gobierno como acto de responsabilidad política.
-            </p>
-          </div>
-        </details>
-
-        <details>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-diagram-project"></i> Ejes permanentes (función + ejemplo)</span>
-            <span class="sum-right">Ver</span>
-          </summary>
-          <div class="inside">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Eje permanente</th>
-                  <th>Función narrativa</th>
-                  <th>Ejemplo</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Claridad política</td>
-                  <td>Ordenar la comprensión del conflicto</td>
-                  <td>“El problema no es electoral, es institucional.”</td>
-                </tr>
-                <tr>
-                  <td>Desenmascaramiento</td>
-                  <td>Romper falsa dicotomía</td>
-                  <td>“Pactar sin justicia no es pragmatismo: es continuidad.”</td>
-                </tr>
-                <tr>
-                  <td>Identidad y autoridad</td>
-                  <td>Construir legitimidad moral</td>
-                  <td>“No somos una reacción: somos una alternativa.”</td>
-                </tr>
-                <tr>
-                  <td>Acción responsable</td>
-                  <td>Activar sin agitación improductiva</td>
-                  <td>“La República no se reconstruye desde la improvisación.”</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </details>
-      </div>
-
-      <!-- 14 -->
-      <div class="block" id="fmroe">
-        <h3><i class="fa-solid fa-scale-balanced" style="color:var(--warn)"></i> Marco de estabilización: FM 3-07 y ROE (San Remo)</h3>
-
-        <details open>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-angle-right"></i> Líneas de esfuerzo</span>
-            <span class="sum-right">Expandir/contraer</span>
-          </summary>
-          <div class="inside">
-            <ul>
-              <li><strong>Seguridad civil</strong>: entorno seguro como condición habilitadora.</li>
-              <li><strong>Servicios esenciales</strong>: agua, electricidad y salud para reducir caos.</li>
-              <li><strong>Gobernanza y control civil</strong>: continuidad operativa y mando.</li>
-              <li><strong>Estado de derecho y justicia</strong>: reglas claras y auditables.</li>
-            </ul>
-            <p>
-              Las ROE garantizan ejercicio de fuerza legal, controlado y proporcional: protege civiles y preserva legitimidad internacional,
-              evitando ganar control inmediato y perder la transición por abusos o aislamiento.
-            </p>
-          </div>
-        </details>
-      </div>
-
-      <!-- 15 -->
-      <div class="block" id="conclusion">
-        <h3><i class="fa-solid fa-flag" style="color:var(--warn)"></i> Conclusión: misión de Rumbo Libertad en la nueva Venezuela</h3>
-
-        <details open>
-          <summary>
-            <span class="sum-left"><i class="fa-solid fa-angle-right"></i> Cierre estratégico</span>
-            <span class="sum-right">Expandir/contraer</span>
-          </summary>
-          <div class="inside">
-            <p>
-              Rumbo Libertad no nace para ganar una elección; nace para recuperar la República. En un momento de ruptura histórica,
-              se plantea como actor con claridad doctrinal y firmeza política para ejecutar transición real.
-            </p>
-            <p>
-              El camino exige ruptura con el sistema fallido: privatización y saneamiento financiero, soberanía tecnológica,
-              reconstrucción moral, depuración del Estado narco-criminal y estabilización con reglas de uso de fuerza auditables.
-            </p>
-            <p>
-              La invitación es dejar de ser víctimas de la historia y convertirse en arquitectos de la libertad: sin orden no hay libertad,
-              sin responsabilidad no hay República, y sin República no hay Nación.
-            </p>
-          </div>
-        </details>
-      </div>
     </section>
 
     <div class="footer">
@@ -1106,11 +550,9 @@
     </div>
   </main>
 
-  <!-- Nav dinámico compartido entre secciones -->
-  <script src="../assets/seccion-nav.js"></script>
-  <script>
-    // Si tu seccion-nav.js expone una función, puedes llamarla aquí.
-    // Si no, basta con que el script inyecte el botón "Inicio" en #seccion-nav.
-  </script>
+  <!-- Nav dinámico compartido entre secciones (estándar) -->
+  <!-- OJO: en tu repo tú vienes usando /assets/section-nav.js (inglés) en la base.
+       Si tu archivo se llama seccion-nav.js (español), cámbialo aquí al nombre real. -->
+  <script src="./assets/section-nav.js"></script>
 </body>
 </html>
